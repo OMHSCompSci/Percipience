@@ -23,6 +23,7 @@ import omhscsc.world.World;
 
 public class Game {
 
+	//My first edit
 	private boolean running;
 	private Canvas c;
 	private JFrame frame;
