@@ -41,15 +41,15 @@ public class World {
 		
 		World world1 = new World(0);
 		world1.addWorldObject(new WorldObject(world1, 0,20,400,80, Color.RED));
-		world1.addWorldObject(new WorldObject(world1, 400,-20,200,120,Color.RED));
-		world1.addWorldObject(new WorldObject(world1, -900,-900,900,1000, Color.RED));
-		world1.addWorldObject(new WorldObject(world1, 600,20,100,80, Color.RED));
-		world1.addWorldObject(new WorldObject(world1, 700,90, 800, 10, Color.RED));
-		world1.addWorldObject(new WorldObject(world1, 900, -20, 400, 10, Color.RED));
-		world1.addWorldObject(new WorldObject(world1, 1500,20,600,80, Color.RED));
-		world1.addWorldObject(new WorldObject(world1, 2300, -20, 400, 10, Color.RED));
-		world1.addWorldObject(new WorldObject(world1, 2900,20,600,80, Color.RED));
-		world1.addWorldObject(new WorldObject(world1, 3500,-900,900,1000, Color.RED));
+		world1.addWorldObject(new WorldObject(world1, 400,-20,200,120,Color.BLUE));
+		world1.addWorldObject(new WorldObject(world1, -900,-900,900,1000, Color.YELLOW));
+		world1.addWorldObject(new WorldObject(world1, 600,20,100,80, Color.PINK));
+		world1.addWorldObject(new WorldObject(world1, 700,90, 800, 10, Color.GREEN));
+		world1.addWorldObject(new WorldObject(world1, 900, -20, 400, 10, Color.WHITE));
+		world1.addWorldObject(new WorldObject(world1, 1500,20,600,80, new Color(255,115,025)));
+		world1.addWorldObject(new WorldObject(world1, 2300, -20, 400, 10, new Color(78,225,180)));
+		world1.addWorldObject(new WorldObject(world1, 2900,20,600,80, new Color(99,187,111)));
+		world1.addWorldObject(new WorldObject(world1, 3500,-900,900,1000, new Color(69,69,69)));
 		
 		
 		World world2 = new World(1);
