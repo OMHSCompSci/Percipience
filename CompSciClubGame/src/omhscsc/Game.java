@@ -24,6 +24,7 @@ import omhscsc.world.World;
 public class Game {
 
 	//My first edit
+	//I can comment too
 	private boolean running;
 	private Canvas c;
 	private JFrame frame;
