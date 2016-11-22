@@ -18,7 +18,8 @@ import omhscsc.util.Location;
 import omhscsc.util.Velocity;
 import omhscsc.world.WorldObject;
 
-public class Player extends GameObject implements Anchor, Renderable {
+public class Player extends Entity implements Anchor, Renderable {
+	
 	private double hp, maxHp, jumpHeight, speed, dmgMod;
 	private String name;
 	private boolean rightHeld, leftHeld, attacking;
