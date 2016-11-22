@@ -14,6 +14,7 @@ import omhscsc.Camera;
 import omhscsc.Game;
 import omhscsc.GameObject;
 import omhscsc.entities.Enemy;
+import omhscsc.entities.NormalEnemy;
 import omhscsc.entities.Player;
 import omhscsc.graphic.Renderable;
 import omhscsc.util.Anchor;
@@ -40,12 +41,12 @@ public class GameStateState extends GameState {
 		camera = new Camera(new Location(0,0,currentWorld), Game.WIDTH, Game.HEIGHT);
 		player = new Player("Freddy",new Location(0,-50,currentWorld));
 		enemies = new ArrayList<Enemy>();
-		enemies.add(new Enemy(100, false, new Hitbox(100, 100, 500, -20, currentWorld)));
-		enemies.add(new Enemy(100, false, new Hitbox(100, 100, 1000, -20, currentWorld)));
-		enemies.add(new Enemy(100, false, new Hitbox(100, 100, 1500, -20, currentWorld)));
-		enemies.add(new Enemy(100, false, new Hitbox(100, 100, 2000, -20, currentWorld)));
-		enemies.add(new Enemy(100, false, new Hitbox(100, 100, 2500, -20, currentWorld)));
-		enemies.add(new Enemy(1000, true, new Hitbox(100, 100, 3000, -20, currentWorld)));
+		enemies.add(new NormalEnemy(100, false, new Hitbox(100, 100, 500, -20, currentWorld)));
+		enemies.add(new NormalEnemy(100, false, new Hitbox(100, 100, 1000, -20, currentWorld)));
+		enemies.add(new NormalEnemy(100, false, new Hitbox(100, 100, 1500, -20, currentWorld)));
+		enemies.add(new NormalEnemy(100, false, new Hitbox(100, 100, 2000, -20, currentWorld)));
+		enemies.add(new NormalEnemy(100, false, new Hitbox(100, 100, 2500, -20, currentWorld)));
+		enemies.add(new NormalEnemy(1000, true, new Hitbox(100, 100, 3000, -20, currentWorld)));
 		for(Enemy e : enemies)
 		{
 			this.addObject(e);
