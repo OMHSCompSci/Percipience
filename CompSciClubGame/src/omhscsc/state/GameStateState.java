@@ -30,7 +30,6 @@ public class GameStateState extends GameState {
 	private Camera camera;
 	private World currentWorld;
 	private Player player;
-	private ArrayList<Enemy> enemies;
 	
 	public GameStateState(Game g)
 	{
@@ -39,18 +38,7 @@ public class GameStateState extends GameState {
 		re = new LinkedList<Renderable>();
 		currentWorld = World.getWorld(0);
 		camera = new Camera(new Location(0,0,currentWorld), Game.WIDTH, Game.HEIGHT);
-		player = new Player("Freddy",new Location(0,-50,currentWorld));
-		enemies = new ArrayList<Enemy>();
-		enemies.add(new NormalEnemy(100, false, new Hitbox(100, 100, 500, -20, currentWorld)));
-		enemies.add(new NormalEnemy(100, false, new Hitbox(100, 100, 1000, -20, currentWorld)));
-		enemies.add(new NormalEnemy(100, false, new Hitbox(100, 100, 1500, -20, currentWorld)));
-		enemies.add(new NormalEnemy(100, false, new Hitbox(100, 100, 2000, -20, currentWorld)));
-		enemies.add(new NormalEnemy(100, false, new Hitbox(100, 100, 2500, -20, currentWorld)));
-		enemies.add(new NormalEnemy(1000, true, new Hitbox(100, 100, 3000, -20, currentWorld)));
-		for(Enemy e : enemies)
-		{
-			this.addObject(e);
-		}
+		player = new Player("Freddy",new Hitbox(70, 70,new Location(0,-50,currentWorld)));
 		addObject(player);
 		camera.setAnchor((Anchor)player);
 	}

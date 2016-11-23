@@ -17,7 +17,7 @@ import omhscsc.util.ImageLoader;
 public class MainMenuState extends GameState {
 
 	private UIButton[] buttons;
-	private BufferedImage bg;
+	private BufferedImage bg,button,button_invert;
 	private int hovered;
 	
 	public MainMenuState(final UIButton[] buttons, Game g)
@@ -26,6 +26,8 @@ public class MainMenuState extends GameState {
 		this.buttons = buttons;
 		hovered = -1;
 		bg = ImageLoader.loadImage("gamebg.png");
+		button = ImageLoader.loadImage("button.png");
+		button_invert = ImageLoader.loadImage("button_invert.png");
 	}
 	
 	@Override
@@ -41,18 +43,22 @@ public class MainMenuState extends GameState {
 		for(int i = 0; i<buttons.length;i++)
 		{
 			yoff = ybase + (i * ydiv) + (10*i);
-
+			if(hovered != i)
+				g.drawImage(button, xoff, yoff, xdiv, ydiv, null);
+			else
+				g.drawImage(button_invert, xoff, yoff, xdiv, ydiv, null);
+/*
 			if(hovered != i)
 				g.setColor(Color.gray);
 			else
 				g.setColor(Color.WHITE);
 			g.fillRect(xoff, yoff, xdiv, ydiv);
-
-			g.setColor(Color.black);
-			g.drawRect(xoff, yoff, xdiv, ydiv);
-			
-			TextLayout tl = new TextLayout(buttons[i].getTitle(), new Font("Times new Roman", Font.PLAIN, 32), ((Graphics2D)g).getFontRenderContext());
-			tl.draw(((Graphics2D)g), xoff+(int)(xdiv/2)-(int)(tl.getBounds().getWidth()/2), yoff+(int)(ydiv/2)-(int)(tl.getBounds().getHeight())/2);
+*/
+			g.setColor(Color.gray);
+		//	g.drawRect(xoff, yoff, xdiv, ydiv);
+			//System.out.println(ydiv);
+			TextLayout tl = new TextLayout(buttons[i].getTitle(), new Font("Monaco", Font.PLAIN, (int)(64 * (ydiv/283.0))), ((Graphics2D)g).getFontRenderContext());
+			tl.draw(((Graphics2D)g), xoff+(int)(xdiv/2)-(int)(tl.getBounds().getWidth()/2), 8+yoff+(int)(ydiv/2)-(int)(tl.getBounds().getHeight())/2);
 		}
 		g.setColor(last);
 	}

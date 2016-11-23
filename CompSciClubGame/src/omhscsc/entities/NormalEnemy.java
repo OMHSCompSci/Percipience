@@ -6,8 +6,9 @@ import omhscsc.state.GameStateState;
 import omhscsc.util.Hitbox;
 
 public class NormalEnemy extends Enemy{
-	public NormalEnemy(double mH, boolean b, Hitbox h) {
-		super(mH,b,h);
+	//Tbh we need a name for this
+	public NormalEnemy(double mH, Hitbox h) {
+		super(mH,h);
 	}
 	public void tick(GameStateState g) {
 	}

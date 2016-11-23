@@ -136,6 +136,7 @@ public class Game {
 					@Override
 					public void run()
 					{
+						//This has to change; using saves / loads
 						a.getGame().setGameState(new GameStateState(a.getGame()));
 					}
 				});
@@ -151,7 +152,7 @@ public class Game {
 					public void run()
 					{
 						//Display help
-						JOptionPane.showMessageDialog(null, "Use ASDW to move\nUse Space to attack (melee)");
+						JOptionPane.showMessageDialog(null, "Currently Unavailable");
 					}
 				});
 			}

@@ -18,48 +18,36 @@ import omhscsc.util.Location;
 import omhscsc.util.Velocity;
 import omhscsc.world.WorldObject;
 
-public class Player extends Entity implements Anchor, Renderable {
-	
-	private double hp, maxHp, jumpHeight, speed, dmgMod;
+public class Player extends LivingEntity implements Anchor, Renderable {
+
 	private String name;
 	private boolean rightHeld, leftHeld, attacking;
-	private Hitbox hitbox;
-	private Velocity velocity;
-	private int hpUpgrades, speedUpgrades, jumpUpgrades;
+	private int healthUpgrades, speedUpgrades, jumpUpgrades;
 	private Useable use;
-	private boolean canJump;
 
-	public Player(String n, Location l) {
+	public Player(String n, Hitbox h) {
+		super(h);
 		name = n;
-		canJump = true;
-		hpUpgrades = 0;
+		healthUpgrades = 0;
 		speedUpgrades = 0;
 		jumpUpgrades = 0;
-		hp = 100.0;
-		maxHp = 100.0;
+		health = 100.0;
+		maxHealth = 100.0;
 		speed = 220;
-		dmgMod = 20;
+		damage = 20;
 		jumpHeight = 1;
 		rightHeld = false;
 		leftHeld = false;
 		velocity = new Velocity(0,0);
-		hitbox = new Hitbox(70, 70, l);
 		use = null;
 		attacking = false;
 	}
 	
-	public boolean canJump()
-	{
-		return canJump;
-	}
+	
 	public void attack(){
 		attacking = true;
 	}
 	
-	public void setCanJump(boolean jump) {
-		this.canJump=jump;
-	}
-
 	public void setRightHeld(boolean r)
 	{
 		this.rightHeld = r;
@@ -81,76 +69,45 @@ public class Player extends Entity implements Anchor, Renderable {
 	}
 	
 	public void takeDmg(double dmg) {
-		hp -= dmg;
+		health -= dmg;
 	}
 
 	public double getCurrentHp() {
-		return hp;
+		return health;
 	}
 
 	public double getMaxHp() {
-		return maxHp;
+		return maxHealth;
 	}
-
+	
+	
+	
 	@Override
 	public void tick(GameStateState gs) {
-		if(this.getHitbox().getLocation().getX() >= 3300){
-			gs.win();
-		}
-		if (hp <= 0.0) {
+		super.tick(gs);
+		if (health <= 0.0) {
 			gs.gameOver();
 		}
-		velocity.addY((double)Game.GRAVITY/(double)Game.TPS);
-		hitbox.addY(velocity.getY()/(double)Game.TPS);
-		hitbox.addX(velocity.getX()/(double)Game.TPS);
-		velocity.addX((velocity.getX()*-.9)/(double)Game.TPS);
-		if(velocity.getX() < 50)
-			velocity.setX(0);
 		double xchange = 0;
 		if(getLeftHeld())
 			xchange=-speed;
 		if(getRightHeld())
 			xchange=speed;
 		hitbox.addX(xchange/(double)Game.TPS);
-		for(WorldObject wo: gs.getCurrentWorld().getWorldObjects()){
-			if(wo.getHitbox().getBounds().intersects(getLeftBound())){
-				velocity.setX(0);
-				hitbox.setX(wo.getHitbox().getLocation().getX()+wo.getHitbox().getBounds().getWidth());
-			}
-			if(wo.getHitbox().getBounds().intersects(getRightBound())){
-				velocity.setX(0);
-				hitbox.setX(wo.getHitbox().getLocation().getX()-hitbox.getBounds().getWidth());
-			}
-			if(wo.getHitbox().getBounds().intersects(getTopBound())){
-				velocity.setY(0);
-				hitbox.setY(wo.getHitbox().getLocation().getY()+wo.getHitbox().getBounds().getHeight());
-			}
-			if(wo.getHitbox().getBounds().intersects(getBottomBound())){
-				velocity.setY(0);
-				hitbox.setY(wo.getHitbox().getLocation().getY()-hitbox.getBounds().getHeight());
-				setCanJump(true);
-			}
-		}
+		//Fix again because player movement
+		fixCollisions(gs);
+		//Might remove this later
 		if(hitbox.getLocation().getY() > 5000)
-			this.takeDmg(this.maxHp);
-		if(attacking){
-			Hitbox newHit = new Hitbox(300, 300, new Location(this.getHitbox().getLocation().getX()-75, this.getHitbox().getLocation().getY()-75,this.getHitbox().getLocation().getWorld()));
-			for(GameObject go: gs.getGameObjects()){
-				if(go instanceof Enemy && newHit.getBounds().intersects(((Enemy) go).getHitbox().getBounds())){
-					((Enemy) go).takeDmg(dmgMod);
-				}
-				
-			}
-			attacking = false;
-		}
+			this.takeDmg(this.maxHealth);
+		//Changing attack style later
 	}
 
 	public void getHpUp() {
-		if (hpUpgrades < 3) {
-			hpUpgrades++;
-			double temp = maxHp;
-			maxHp = maxHp * 1.25;
-			hp = hp + (maxHp - temp);
+		if (healthUpgrades < 3) {
+			healthUpgrades++;
+			double temp = maxHealth;
+			maxHealth = maxHealth * 1.25;
+			health = health + (maxHealth - temp);
 		}
 	}
 
@@ -169,15 +126,7 @@ public class Player extends Entity implements Anchor, Renderable {
 	}
 	
 	public void getDmgUp() {
-			dmgMod = (int)(dmgMod * 1.25);
-	}
-	public void jump()
-	{
-		if(!canJump)
-			return;
-		velocity.setY(-jumpHeight*400);
-		hitbox.addY(-5);
-		canJump = false;
+			damage = (int)(damage * 1.25);
 	}
 
 	public void handleUpgrade(Upgrade touched){
@@ -214,46 +163,7 @@ public class Player extends Entity implements Anchor, Renderable {
 	//	drawHitBoxes(g,xoff,yoff);
 	}
 
-	@Override
-	public Hitbox getHitbox() {
-		
-		return hitbox;
-	}
 
-	@Override
-	public Location getLocation() {
-		return hitbox.getLocation();
-	}
-	
-	public Rectangle getLeftBound() {
-		return new Rectangle((int)hitbox.getLocation().getX(), (int)hitbox.getLocation().getY()+5, 10, (int)this.hitbox.getBounds().getHeight()-10);
-	}
-	
-	public Rectangle getRightBound() {
-		return new Rectangle((int)hitbox.getLocation().getX() + (int)(hitbox.getBounds().getWidth()-10), (int)hitbox.getLocation().getY()+5, 10, (int)this.hitbox.getBounds().getHeight()-10);
-	}
-	
-	public Rectangle getTopBound() {
-		return new Rectangle((int)hitbox.getLocation().getX()+5, (int)hitbox.getLocation().getY(), (int)(this.hitbox.getBounds().getWidth()-10), 10);
-	}
-	
-	public Rectangle getBottomBound() {
-		return new Rectangle((int)hitbox.getLocation().getX()+5, (int)hitbox.getLocation().getY()+(int)(hitbox.getBounds().getHeight()-10), (int)(this.hitbox.getBounds().getWidth()-10), 10);
-	}
-	
-	public void drawHitBoxes(Graphics g, int x, int y)
-	{
-		g.setColor(Color.ORANGE);
-		Graphics2D g2 = (Graphics2D)g;
-		g2.draw(getLeftBound());
-		g2.setColor(Color.RED);
-		g2.draw(getRightBound());
-		g2.setColor(Color.PINK);
-		g2.draw(getTopBound());
-		g2.setColor(Color.BLUE);
-		g2.draw(getBottomBound());
-	}
-	
 	
 
 }

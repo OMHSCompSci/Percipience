@@ -12,18 +12,17 @@ import omhscsc.util.Hitbox;
 import omhscsc.util.ImageLoader;
 
 public abstract class Enemy extends Entity implements Renderable {
+	
 	private double hp, maxHp;
-	private boolean isBoss;
+	//private boolean isBoss;
 	private double tickCounter;
-	private Hitbox hit;
 	private boolean dead;
 	
-	public Enemy(double mH, boolean b, Hitbox h){
+	public Enemy(double mH, Hitbox h){
+		super(h);
 		maxHp = mH;
 		hp = maxHp;
 		dead = false;
-		isBoss = b;
-		hit = h;
 	}
 	public void takeDmg(double dmg) {
 		hp-=dmg;
@@ -34,9 +33,6 @@ public abstract class Enemy extends Entity implements Renderable {
 	}
 	public double getMaxHp(){
 		return maxHp;
-	}
-	public Hitbox getHitbox(){
-		return hit;
 	}
 
 }
