@@ -100,6 +100,7 @@ public class Player extends LivingEntity implements Anchor, Renderable {
 		if(hitbox.getLocation().getY() > 5000)
 			this.takeDmg(this.maxHealth);
 		//Changing attack style later
+		//Test
 	}
 
 	public void getHpUp() {
