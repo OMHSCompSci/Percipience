@@ -136,6 +136,18 @@ public class MainMenuState extends GameState {
 		
 	}
 
+	@Override
+	public void lostFocus() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void gainedFocus() {
+		// TODO Auto-generated method stub
+		
+	}
+
 	
 	
 }

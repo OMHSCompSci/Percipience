@@ -114,11 +114,13 @@ public class GameStateState extends GameState {
 			for (GameObject g : go)
 			{
 				g.tick(this);
+				
 			}
 			camera.tick(this);
 		} catch (ConcurrentModificationException e)
 		{
 			//When you don't want to deal
+			//Hopefully Tasks should make this unneeded. Input should ==NEVER== directly add a game object 
 			//e.printStackTrace();
 			
 			//Continue
@@ -199,5 +201,16 @@ public class GameStateState extends GameState {
 	public void win(){
 		JOptionPane.showMessageDialog(null, "You Win!");
 		this.getGame().setGameState(0);
+	}
+
+	@Override
+	public void lostFocus() {
+		//Player quit
+	}
+
+	@Override
+	public void gainedFocus() {
+		//Player started
+		//Use this to renitialize the world and other things
 	}
 }
