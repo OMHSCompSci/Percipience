@@ -29,5 +29,12 @@ public abstract class GameState {
 	public abstract void keyPressed(KeyEvent e);
 	public abstract void keyReleased(KeyEvent e);
 	public abstract void mouseReleased(MouseEvent e);
+	/*
+	 * Lost focus and gained focus mean it is no longer the current state, or is the current state now.
+	 * This is especially helpful with the game state, representing when the "game" is quit and when it is resumed.
+	 */
+	public abstract void lostFocus();
+	public abstract void gainedFocus();
+	
 	
 }
