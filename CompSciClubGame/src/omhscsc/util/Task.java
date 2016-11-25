@@ -39,7 +39,7 @@ public class Task extends GameObject {
 	}
 	
 	
-	public boolean taskIsComplete() {
+	public boolean isTaskComplete() {
 		return ticksToWait - currentTicksWaited <= 0;
 	}
 

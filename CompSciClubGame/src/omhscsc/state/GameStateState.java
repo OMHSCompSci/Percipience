@@ -5,28 +5,29 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import javax.swing.JOptionPane;
 
 import omhscsc.Camera;
 import omhscsc.Game;
 import omhscsc.GameObject;
-import omhscsc.entities.Enemy;
-import omhscsc.entities.NormalEnemy;
 import omhscsc.entities.Player;
 import omhscsc.graphic.Renderable;
 import omhscsc.util.Anchor;
 import omhscsc.util.Hitbox;
 import omhscsc.util.Location;
+import omhscsc.util.Task;
 import omhscsc.world.World;
 import omhscsc.world.WorldObject;
 
 public class GameStateState extends GameState {
 
-	private List<GameObject>go;
-	private List<Renderable>re;
+	private Set<GameObject>go;
+	private Set<Renderable>re;
 	private Camera camera;
 	private World currentWorld;
 	private Player player;
@@ -34,8 +35,8 @@ public class GameStateState extends GameState {
 	public GameStateState(Game g)
 	{
 		super(g);
-		go = new LinkedList<GameObject>();
-		re = new LinkedList<Renderable>();
+		go = new HashSet<GameObject>();
+		re = new HashSet<Renderable>();
 		currentWorld = World.getWorld(0);
 		camera = new Camera(new Location(0,0,currentWorld), Game.WIDTH, Game.HEIGHT);
 		player = new Player("Freddy",new Hitbox(70, 70,new Location(0,-50,currentWorld)));
@@ -59,8 +60,7 @@ public class GameStateState extends GameState {
 	
 	public void removeRenderable(Renderable r)
 	{
-		if(re.contains(r))
-			re.remove(re.indexOf(r));
+		re.remove(r);
 	}
 	
 	public void removeRenederable(int index)
@@ -70,16 +70,9 @@ public class GameStateState extends GameState {
 	
 	public void removeGameObject(GameObject g)
 	{
-		if(go.contains(g))
-			go.remove(go.indexOf(g));
+		go.remove(g);
 	}
 	
-	public void removeGameObject(int index)
-	{
-		GameObject a = go.remove(index);
-		if (a instanceof Renderable)
-			removeRenderable((Renderable)a);
-	}
 	
 	@Override
 	public void render(Graphics g) {
@@ -111,11 +104,24 @@ public class GameStateState extends GameState {
 	@Override
 	public void tick() {
 		try {
+			HashSet<Task> completedTasks = new HashSet<Task>();
 			for (GameObject g : go)
 			{
 				g.tick(this);
-				
+				if(g instanceof Task)
+				{
+					if(((Task) g).isTaskComplete())
+					{
+						completedTasks.add((Task)g);
+					}
+				}
 			}
+			for(Task t : completedTasks)
+				go.remove(t);
+			
+			completedTasks.clear();
+			completedTasks = null;
+			//This shouldn't be needed because every time this method ends all local variables are garbage collected I think?
 			camera.tick(this);
 		} catch (ConcurrentModificationException e)
 		{
@@ -195,7 +201,7 @@ public class GameStateState extends GameState {
 		return player;
 	}
 
-	public List<GameObject> getGameObjects() {
+	public Set<GameObject> getGameObjects() {
 		return go;
 	}
 	public void win(){
