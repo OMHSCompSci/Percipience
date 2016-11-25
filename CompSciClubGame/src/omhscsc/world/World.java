@@ -4,7 +4,10 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
-public class World {
+import omhscsc.GameObject;
+import omhscsc.state.GameStateState;
+
+public class World extends GameObject {
 
 	private final int id;
 	private List<WorldObject> wo;
@@ -67,6 +70,11 @@ public class World {
 		if(!initialized)
 			return null;
 		return worlds.get(index);
+	}
+
+	@Override
+	public void tick(GameStateState s) {
+		//This will be useful for when the worlds have projectiles and become more complex in general.
 	}
 	
 	

@@ -63,11 +63,6 @@ public class GameStateState extends GameState {
 		re.remove(r);
 	}
 	
-	public void removeRenederable(int index)
-	{
-		re.remove(index);
-	}
-	
 	public void removeGameObject(GameObject g)
 	{
 		go.remove(g);
@@ -86,6 +81,7 @@ public class GameStateState extends GameState {
 					wo.render(g, xoff, yoff);
 				}
 			}
+			
 			for (Renderable r : re)
 			{
 				if(camera.intersects(r.getHitbox()))
@@ -123,6 +119,7 @@ public class GameStateState extends GameState {
 			completedTasks = null;
 			//This shouldn't be needed because every time this method ends all local variables are garbage collected I think?
 			camera.tick(this);
+			currentWorld.tick(this);
 		} catch (ConcurrentModificationException e)
 		{
 			//When you don't want to deal
