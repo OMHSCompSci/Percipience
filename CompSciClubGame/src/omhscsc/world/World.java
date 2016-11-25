@@ -74,7 +74,7 @@ public class World extends GameObject {
 
 	@Override
 	public void tick(GameStateState s) {
-		//This will be useful for when the worlds have projectiles and become more complex in general.
+		//This will be useful for when the worlds have projectiles and become more complex in general. 
 	}
 	
 	
