@@ -14,6 +14,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
+import omhscsc.sound.SoundMaster;
 import omhscsc.state.GameState;
 import omhscsc.state.GameStateState;
 import omhscsc.state.MainMenuState;
@@ -127,6 +128,7 @@ public class Game {
 	
 	private void init()
 	{
+		SoundMaster.init();
 		World.init();
 		UIButton b = new UIButton("START",new UIAction() {
 			@Override

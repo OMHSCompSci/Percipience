@@ -11,6 +11,8 @@ import java.awt.font.TextLayout;
 import java.awt.image.BufferedImage;
 
 import omhscsc.Game;
+import omhscsc.sound.Sound;
+import omhscsc.sound.SoundMaster;
 import omhscsc.ui.UIButton;
 import omhscsc.util.ImageLoader;
 
@@ -78,7 +80,9 @@ public class MainMenuState extends GameState {
 	
 	@Override
 	public void tick() {
-		
+		if(!SoundMaster.isSoundPlaying(Sound.TITLE))
+			SoundMaster.playSound(Sound.TITLE);
+			
 	}
 
 	@Override

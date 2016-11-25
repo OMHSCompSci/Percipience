@@ -76,6 +76,14 @@ public class SoundMaster {
 		init = true;
 	}
 	
+	public static boolean isSoundPlaying(Sound s)
+	{
+		Clip c = default_sounds.get(s);
+		if(c == null)
+			return true;
+		return c.isActive();
+	}
+	
 	/**
 	 * Clears all sound resources, SoundMaster must be reinitialized to be used using {@link SoundMaster#init()};
 	 */
@@ -103,7 +111,7 @@ public class SoundMaster {
 	 * If there is no Clip to be found, an error will be printed using {@link Debug#warn(String)}.
 	 * @param s The default {@link Sound}.
 	 */
-	public void playSound(Sound s)
+	public static void playSound(Sound s)
 	{
 		if(!init)
 			init();
@@ -122,7 +130,7 @@ public class SoundMaster {
 	 * If there is no Clip to be found, an error will be printed using {@link Debug#warn(String)}.
 	 * @param s The {@link Sound}.
 	 */
-	public void stopSound(Sound s)
+	public static void stopSound(Sound s)
 	{
 		Clip c = default_sounds.get(s);
 		if (c == null)
