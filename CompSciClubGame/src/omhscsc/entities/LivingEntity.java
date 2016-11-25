@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
 import omhscsc.Game;
+import omhscsc.graphic.Renderable;
 import omhscsc.state.GameStateState;
 import omhscsc.util.Hitbox;
 import omhscsc.util.Location;
@@ -53,7 +54,11 @@ public abstract class LivingEntity extends Entity {
 		fixCollisions(s);
 	}
 	
-
+	public void render(Graphics g, int x, int y)
+	{
+		super.render(g,x,y);
+		//place holder
+	}
 
 	protected void fixCollisions(GameStateState gs)
 	{

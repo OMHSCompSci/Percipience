@@ -6,6 +6,9 @@ import omhscsc.items.Useable;
 import omhscsc.state.GameStateState;
 import omhscsc.util.Hitbox;
 
+/*
+ * Might replace with item entity
+ */
 public class UpgradeEntity extends GameObject {
 	private Upgrade up;
 	private Hitbox hit;

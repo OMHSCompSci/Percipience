@@ -5,7 +5,7 @@ import java.awt.Graphics;
 import omhscsc.state.GameStateState;
 import omhscsc.util.Hitbox;
 
-public class NormalEnemy extends Enemy{
+public class NormalEnemy extends Enemy {
 	//Tbh we need a name for this
 	public NormalEnemy(double mH, Hitbox h) {
 		super(mH,h);
@@ -13,6 +13,6 @@ public class NormalEnemy extends Enemy{
 	public void tick(GameStateState g) {
 	}
 	public void render(Graphics g, int x, int y) {
-		
+		super.render(g, x, y);
 	}
 }

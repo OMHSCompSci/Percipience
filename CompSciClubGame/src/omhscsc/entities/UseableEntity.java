@@ -7,6 +7,7 @@ import omhscsc.state.GameStateState;
 import omhscsc.util.Hitbox;
 import omhscsc.util.Location;
 
+//Might replace with item entity
 public class UseableEntity extends GameObject {
 	private Useable use;
 	private Hitbox hit;

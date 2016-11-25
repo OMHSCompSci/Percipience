@@ -1,12 +1,15 @@
 package omhscsc.entities;
 
+import java.awt.Graphics;
+
 import omhscsc.GameObject;
+import omhscsc.graphic.Renderable;
 import omhscsc.state.GameStateState;
 import omhscsc.util.Hitbox;
 import omhscsc.util.Location;
 import omhscsc.world.World;
 
-public abstract class Entity extends GameObject {
+public abstract class Entity extends GameObject implements Renderable {
 
 	protected Hitbox hitbox;
 	
@@ -19,6 +22,12 @@ public abstract class Entity extends GameObject {
 	{
 		Location l = new Location(x,y,wr);
 		hitbox = new Hitbox(w,h,l);
+	}
+	
+	@Override
+	public void render(Graphics g, int x, int y)
+	{
+		//Place holder
 	}
 	
 	@Override

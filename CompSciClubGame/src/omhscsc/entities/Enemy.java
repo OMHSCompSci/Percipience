@@ -11,28 +11,34 @@ import omhscsc.state.GameStateState;
 import omhscsc.util.Hitbox;
 import omhscsc.util.ImageLoader;
 
-public abstract class Enemy extends Entity implements Renderable {
+public abstract class Enemy extends LivingEntity {
 	
-	private double hp, maxHp;
 	//private boolean isBoss;
-	private double tickCounter;
-	private boolean dead;
+	
+	//private double tickCounter;
+	//What is that for again^
 	
 	public Enemy(double mH, Hitbox h){
 		super(h);
-		maxHp = mH;
-		hp = maxHp;
-		dead = false;
+		maxHealth = mH;
+		health = maxHealth;
 	}
 	public void takeDmg(double dmg) {
-		hp-=dmg;
+		health-=dmg;
 	}
 	
 	public double getCurrentHp(){
-		return hp;
+		return health;
 	}
 	public double getMaxHp(){
-		return maxHp;
+		return maxHealth;
+	}
+	
+	@Override
+	public void render(Graphics g, int xoff, int yoff)
+	{
+		super.render(g, xoff, yoff);
+		//Placeholder
 	}
 
 }

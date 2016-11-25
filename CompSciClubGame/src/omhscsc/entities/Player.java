@@ -18,7 +18,7 @@ import omhscsc.util.Location;
 import omhscsc.util.Velocity;
 import omhscsc.world.WorldObject;
 
-public class Player extends LivingEntity implements Anchor, Renderable {
+public class Player extends LivingEntity implements Anchor {
 
 	private String name;
 	private boolean rightHeld, leftHeld, attacking;
@@ -151,6 +151,7 @@ public class Player extends LivingEntity implements Anchor, Renderable {
 
 	@Override
 	public void render(Graphics g, int xoff, int yoff) {
+		super.render(g, xoff, yoff);
 		Color last = g.getColor();
 		g.setColor(Color.WHITE);
 		g.drawImage(ImageLoader.getImage("char.png"), xoff, yoff, (int)hitbox.getBounds().getWidth(),(int) hitbox.getBounds().getHeight(), null);
