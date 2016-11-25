@@ -1,5 +1,11 @@
 package omhscsc.sound;
 
+
+/**
+ * 
+ * Sound is an enumerated type for default sounds which will be used in the game.
+ * Examples include <strong>TITLE_MUSIC, JUMP, HIT</strong> etc.
+ */
 public enum Sound {
 
 	/*
