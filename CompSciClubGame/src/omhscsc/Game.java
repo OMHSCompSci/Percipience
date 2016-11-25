@@ -24,12 +24,16 @@ import omhscsc.world.World;
 
 public class Game {
 
-	//My first edit
-	//I can comment too
+
+	//
+	
 	private boolean running;
 	private Canvas c;
 	private JFrame frame;
 	private List<GameState>states;
+	/*
+	 * 0 Should always be the main menu and 1 should always be the game.
+	 */
 	private int currentState;
 	public static final int GRAVITY = 970;
 	public static final int WIDTH = 16*80, HEIGHT = 9*80;
@@ -139,7 +143,7 @@ public class Game {
 					public void run()
 					{
 						//This has to change; using saves / loads
-						a.getGame().setGameState(new GameStateState(a.getGame()));
+						a.getGame().setGameState(1);
 					}
 				});
 				
@@ -170,6 +174,11 @@ public class Game {
 		MainMenuState mms = new MainMenuState(list, this);
 		this.addState(mms);
 		this.setGameState(mms);
+		GameStateState gss = new GameStateState(this);
+		this.addState(gss);
+		//
+			//After this, 0 is main menu and 1 is game
+		//
 		frame.setVisible(true);
 		MouseWatcher mw = new MouseWatcher(this);
 		KeyWatcher kw = new KeyWatcher(this);
