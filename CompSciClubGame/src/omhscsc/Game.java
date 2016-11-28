@@ -35,7 +35,7 @@ public class Game {
 	 * 0 Should always be the main menu and 1 should always be the game.
 	 */
 	private int currentState;
-	public static final int GRAVITY = 970;
+	public static final int GRAVITY = 1460;
 	public static final int WIDTH = 16*80, HEIGHT = 9*80;
 	
 	public Game()
@@ -219,7 +219,7 @@ public class Game {
 		states.get(currentState).mouseReleased(e);
 	}
 	
-	public static final int TPS = 100;
+	public static final int TPS = 60;
 	
 	public static void main(String[] args)
 	{

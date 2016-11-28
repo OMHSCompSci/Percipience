@@ -33,9 +33,9 @@ public class Player extends LivingEntity implements Anchor {
 		jumpUpgrades = 0;
 		health = 100.0;
 		maxHealth = 100.0;
-		speed = 220;
+		speed = 800;
 		damage = 20;
-		jumpHeight = 1;
+		jumpHeight = 1.25;
 		rightHeld = false;
 		leftHeld = false;
 		velocity = new Velocity(0,0);
@@ -162,7 +162,7 @@ public class Player extends LivingEntity implements Anchor {
 		
 		//	g.fillRect(xoff, yoff, (int)hitbox.getBounds().getWidth(),(int) hitbox.getBounds().getHeight());
 		
-	//	drawHitBoxes(g,xoff,yoff);
+		drawHitBoxes(g,xoff,yoff);
 	}
 
 

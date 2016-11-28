@@ -118,13 +118,14 @@ public abstract class LivingEntity extends Entity {
 	{
 		g.setColor(Color.ORANGE);
 		Graphics2D g2 = (Graphics2D)g;
-		g2.draw(getLeftBound());
+		g2.draw(new Rectangle((int)x, (int)y+5, 10, (int)this.hitbox.getBounds().getHeight()-10));
 		g2.setColor(Color.RED);
-		g2.draw(getRightBound());
+		g2.draw(new Rectangle((int)x + (int)(hitbox.getBounds().getWidth()-10), (int)y+5, 10, (int)this.hitbox.getBounds().getHeight()-10));
 		g2.setColor(Color.PINK);
-		g2.draw(getTopBound());
+		g2.draw(new Rectangle((int)x+5, (int)y, (int)(this.hitbox.getBounds().getWidth()-10), 10));
 		g2.setColor(Color.BLUE);
-		g2.draw(getBottomBound());
+		g2.draw(new Rectangle((int)x+5, (int)y+(int)(hitbox.getBounds().getHeight()-10), (int)(this.hitbox.getBounds().getWidth()-10), 10));
+		
 	}
 	
 

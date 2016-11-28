@@ -187,7 +187,7 @@ public class GameStateState extends GameState {
 	}
 	
 	public void gameOver() {
-		JOptionPane.showMessageDialog(null, "Sorry, you have died");
+		//JOptionPane.showMessageDialog(null, "Sorry, you have died");
 		this.getGame().setGameState(0);
 	}
 	public World getCurrentWorld(){
