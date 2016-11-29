@@ -8,7 +8,7 @@ import omhscsc.state.GameStateState;
 import omhscsc.util.Hitbox;
 import omhscsc.util.Location;
 
-public class WorldObject implements Renderable {
+public abstract class WorldObject implements Renderable {
 
 	private Hitbox bounds;
 	private Color c;
@@ -23,13 +23,15 @@ public class WorldObject implements Renderable {
 	{
 		return bounds;
 	}
+	
+	public Color getColor()
+	{
+		return c;
+	}
 
 	@Override
 	public void render(Graphics g, int xoff, int yoff) {
-		Color last = g.getColor();
-		g.setColor(c);
-		g.fillRect(xoff, yoff, (int)bounds.getBounds().getWidth(), (int)bounds.getBounds().getHeight());
-		g.setColor(last);
+		
 	}
 	public void tick(GameStateState s) {} //Defined by child classes
 	protected void changeHitbox(Hitbox h) {
