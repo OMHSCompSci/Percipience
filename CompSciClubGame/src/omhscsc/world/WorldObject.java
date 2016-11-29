@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 import omhscsc.graphic.Renderable;
+import omhscsc.state.GameStateState;
 import omhscsc.util.Hitbox;
 import omhscsc.util.Location;
 
@@ -29,5 +30,9 @@ public class WorldObject implements Renderable {
 		g.setColor(c);
 		g.fillRect(xoff, yoff, (int)bounds.getBounds().getWidth(), (int)bounds.getBounds().getHeight());
 		g.setColor(last);
+	}
+	public void tick(GameStateState s) {} //Defined by child classes
+	protected void changeHitbox(Hitbox h) {
+		bounds=h;
 	}
 }

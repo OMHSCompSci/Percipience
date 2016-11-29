@@ -53,6 +53,7 @@ public class World extends GameObject {
 		world1.addWorldObject(new WorldObject(world1, 2300, -20, 400, 10, new Color(78,225,180)));
 		world1.addWorldObject(new WorldObject(world1, 2900,20,600,80, new Color(99,187,111)));
 		world1.addWorldObject(new WorldObject(world1, 3500,-900,900,1000, new Color(69,69,69)));
+		world1.addWorldObject(new Projectile(world1,400,-50,100,50,Color.CYAN,-2,0));
 		
 		
 		World world2 = new World(1);
@@ -74,7 +75,10 @@ public class World extends GameObject {
 
 	@Override
 	public void tick(GameStateState s) {
-		//This will be useful for when the worlds have projectiles and become more complex in general. 
+		//This will be useful for when the worlds have projectiles and become more complex in general.
+		for ( WorldObject w : wo) {
+			w.tick(s);
+		}
 	}
 	
 	
