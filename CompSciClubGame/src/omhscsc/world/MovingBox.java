@@ -21,10 +21,10 @@ public class MovingBox extends WorldObject { //Moving block
 		h.addY(v.getY());
 		super.changeHitbox(h);
 		Hitbox t = new Hitbox(h.getBounds().width,h.getBounds().height,h.getLocation());
-		t.addY(-1);
+		t.addY(-1); //covers bottom pixel of player
 		if (s.getPlayer().getHitbox().getBounds().intersects(t.getBounds())) {//player is touching box
 			s.getPlayer().getHitbox().addX(v.getX());
-			s.getPlayer().getHitbox().addX(v.getY());
+			s.getPlayer().getHitbox().addY(v.getY());
 		}
 	}
 	
