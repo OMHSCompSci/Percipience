@@ -1,5 +1,6 @@
 package omhscsc.state;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -10,6 +11,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
+import omhscsc.world.Box;
 import javax.swing.JOptionPane;
 
 import omhscsc.Camera;
@@ -29,7 +31,7 @@ public class GameStateState extends GameState {
 	private Set<GameObject>go;
 	private Set<Renderable>re;
 	private Camera camera;
-	private World currentWorld;
+	private static World currentWorld;
 	private Player player;
 	
 	public GameStateState(Game g)
@@ -128,6 +130,14 @@ public class GameStateState extends GameState {
 			
 			//Continue
 		}
+		/*
+		int choice = (int)Math.random();
+		if (choice == 0) {
+			addStatic();
+		} else {
+			addMoving();
+		}
+		*/
 	}
 
 	@Override
@@ -190,7 +200,7 @@ public class GameStateState extends GameState {
 		//JOptionPane.showMessageDialog(null, "Sorry, you have died");
 		this.getGame().setGameState(0);
 	}
-	public World getCurrentWorld(){
+	public World getCurrentWorld() {
 		return currentWorld;
 	}
 
@@ -217,3 +227,33 @@ public class GameStateState extends GameState {
 		//Use this to renitialize the world and other things
 	}
 }
+	/*
+	public void addStatic() {
+		
+		ArrayList<Integer> randx = new ArrayList<Integer>();
+		ArrayList<Integer> randy = new ArrayList<Integer>();
+		randx.add((int)((5009)*Math.random()+10));
+	    randy.add((int)((500)*Math.random()));
+		int randh = (int)((200)*Math.random()+10);
+		int randw = (int)((200)*Math.random()+10);
+		int xa = (int)(randx.get(randx.size()-1)-(0.5*randw));
+		int xb = (int)(randx.get(randx.size()-1)+(0.5*randw));
+		int xc;
+		int xd;
+		int iShit = 0;
+		for (int i = 0; i <= World.wobjectx.size()-1; i++) {
+			xc = (int)(World.wobjectx.get(i)-(0.5*World.wobjectw.get(i)));
+			xd = (int)(World.wobjectx.get(i)+(0.5*World.wobjectw.get(i)));
+			if (
+					((xb < xd) && (xb > xc))
+					&& ((randx.get(randx.size()-1) < xd)  
+					&& (randx.get(randx.size()-1) >xc))
+					&& ((xa < xd) && (xa > xc))) {
+				iShit++;
+			}
+		}
+		if (!(iShit>0)) {
+			currentWorld.addWorldObject(new Box(currentWorld, randx.get(randx.size()-1), randy.get(randy.size()-1), randh, randw, Color.white));
+	    }
+
+	*/

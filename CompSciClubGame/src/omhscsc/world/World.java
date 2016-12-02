@@ -35,26 +35,73 @@ public class World extends GameObject {
 	
 	private static List<World> worlds;
 	private static boolean initialized = false;
-	
+	public static ArrayList<Integer> wobjectx = new ArrayList<Integer>();
+	public static ArrayList<Integer> wobjecty = new ArrayList<Integer>();
+	public static ArrayList<Integer> wobjectw = new ArrayList<Integer>();
+	public static ArrayList<Integer> wobjecth = new ArrayList<Integer>();
 	public static void init()
 	{
 		if(initialized)
 			return;
+		
+		wobjectx.add(0);
+		wobjectx.add(400);
+		wobjectx.add(-900);
+		wobjectx.add(600);
+		wobjectx.add(700);
+		wobjectx.add(900);
+		wobjectx.add(1500);
+		wobjectx.add(2300);
+		wobjectx.add(2900);
+		wobjectx.add(3500);
+		
+		wobjecty.add(20);
+		wobjecty.add(-20);
+		wobjecty.add(-900);
+		wobjecty.add(20);
+		wobjecty.add(90);
+		wobjecty.add(-20);
+		wobjecty.add(20);
+		wobjecty.add(-20);
+		wobjecty.add(20);
+		wobjecty.add(-900);
+		
+		wobjectw.add(400);
+		wobjectw.add(200);
+		wobjectw.add(900);
+		wobjectw.add(100);
+		wobjectw.add(800);
+		wobjectw.add(400);
+		wobjectw.add(600);
+		wobjectw.add(400);
+		wobjectw.add(600);
+		wobjectw.add(900);
+		
+		wobjecth.add(80);
+		wobjecth.add(120);
+		wobjecth.add(1000);
+		wobjecth.add(80);
+		wobjecth.add(10);
+		wobjecth.add(10);
+		wobjecth.add(80);
+		wobjecth.add(10);
+		wobjecth.add(80);
+		wobjecth.add(1000);
+		
 		worlds = new ArrayList<World>();
 		
 		World world1 = new World(0);
-		world1.addWorldObject(new Box(world1, 0,20,400,80, Color.RED));
-		world1.addWorldObject(new Box(world1, 400,-20,200,120,Color.BLUE));
-		world1.addWorldObject(new Box(world1, -900,-900,900,1000, Color.YELLOW));
-		world1.addWorldObject(new Box(world1, 600,20,100,80, Color.PINK));
-		world1.addWorldObject(new Box(world1, 700,90, 800, 10, Color.GREEN));
-		world1.addWorldObject(new Box(world1, 900, -20, 400, 10, Color.WHITE));
-		world1.addWorldObject(new Box(world1, 1500,20,600,80, new Color(255,115,025)));
-		world1.addWorldObject(new Box(world1, 2300, -20, 400, 10, new Color(78,225,180)));
-		world1.addWorldObject(new Box(world1, 2900,20,600,80, new Color(99,187,111)));
-		world1.addWorldObject(new Box(world1, 3500,-900,900,1000, new Color(69,69,69)));
-		world1.addWorldObject(new MovingBox(world1,400,-50,100,50,Color.CYAN,-2,0));
-		
+		world1.addWorldObject(new Box(world1, wobjectx.get(0),wobjecty.get(0),wobjectw.get(0),wobjecth.get(0), Color.RED));
+		world1.addWorldObject(new Box(world1, wobjectx.get(1),wobjecty.get(1),wobjectw.get(1),wobjecth.get(1),Color.BLUE));
+		world1.addWorldObject(new Box(world1, wobjectx.get(2),wobjecty.get(2),wobjectw.get(2),wobjecth.get(2), Color.YELLOW));
+		world1.addWorldObject(new Box(world1 ,wobjectx.get(3),wobjecty.get(3),wobjectw.get(3),wobjecth.get(3), Color.PINK));
+		world1.addWorldObject(new Box(world1, wobjectx.get(4),wobjecty.get(4),wobjectw.get(4),wobjecth.get(4), Color.GREEN));
+		world1.addWorldObject(new Box(world1, wobjectx.get(5),wobjecty.get(5),wobjectw.get(5),wobjecth.get(5), Color.WHITE));
+		world1.addWorldObject(new Box(world1, wobjectx.get(6),wobjecty.get(6),wobjectw.get(6),wobjecth.get(6), new Color(255,115,025)));
+		world1.addWorldObject(new Box(world1, wobjectx.get(7),wobjecty.get(7),wobjectw.get(7),wobjecth.get(7), new Color(78,225,180)));
+		world1.addWorldObject(new Box(world1, wobjectx.get(8),wobjecty.get(8),wobjectw.get(8),wobjecth.get(8), new Color(99,187,111)));
+		world1.addWorldObject(new Box(world1, wobjectx.get(9),wobjecty.get(9),wobjectw.get(9),wobjecth.get(9), new Color(69,69,69)));
+
 		
 		World world2 = new World(1);
 		
@@ -75,11 +122,10 @@ public class World extends GameObject {
 
 	@Override
 	public void tick(GameStateState s) {
-		//This will be useful for when the worlds have projectiles and become more complex in general.
-		for ( WorldObject w : wo) {
-			w.tick(s);
-		}
+		
+		//This will be useful for when the worlds have projectiles and become more complex in general. 
 	}
-	
-	
 }
+	
+	
+
