@@ -252,6 +252,7 @@ public class GameStateState extends GameState {
 				iShit++;
 			}
 		}
+		
 		if (!(iShit>0)) {
 			currentWorld.addWorldObject(new Box(currentWorld, randx.get(randx.size()-1), randy.get(randy.size()-1), randh, randw, Color.white));
 	    }
