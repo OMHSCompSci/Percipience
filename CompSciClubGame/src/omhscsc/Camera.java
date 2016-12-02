@@ -7,7 +7,9 @@ import omhscsc.util.Location;
 
 public class Camera extends GameObject {
 
+	//Hitbox / Area of camera (View box)
 	private Hitbox box;
+	//What the camera is hooked too
 	private Anchor a;
 	
 	public Camera(Location l, int w, int h)
@@ -35,6 +37,7 @@ public class Camera extends GameObject {
 		a = null;
 	}
 
+	//Sets anchor to center of screen
 	@Override
 	public void tick(GameStateState s) {
 		if(a==null)
