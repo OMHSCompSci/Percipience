@@ -33,7 +33,7 @@ public abstract class WorldObject implements Renderable {
 	public void render(Graphics g, int xoff, int yoff) {
 		
 	}
-	public void tick(GameStateState s) {} //Defined by child classes
+	public abstract void tick(GameStateState s); //Defined by child classes
 	protected void changeHitbox(Hitbox h) {
 		bounds=h;
 	}
