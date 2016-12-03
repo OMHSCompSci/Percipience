@@ -8,7 +8,7 @@ import omhscsc.util.Hitbox;
 import omhscsc.util.Velocity;
 
 public class MovingBox extends WorldObject { //Moving block
-	private Velocity v; //velocities in x and y direction
+	protected Velocity v; //velocities in x and y direction
 	
 	public MovingBox(World world, int x, int y, int w, int h, Color c, double vx, double vy) {
 		super(world,x,y,w,h,c);
