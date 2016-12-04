@@ -5,25 +5,31 @@ import java.util.ArrayList;
 import java.util.List;
 
 import omhscsc.GameObject;
+import omhscsc.RenderableGameObject;
+import omhscsc.entities.Enemy;
+import omhscsc.entities.LivingEntity;
+import omhscsc.entities.NormalEnemy;
 import omhscsc.state.GameStateState;
+import omhscsc.util.Hitbox;
+import omhscsc.util.Location;
 
 public class World extends GameObject {
 
 	private final int id;
-	private List<WorldObject> wo;
+	private List<RenderableGameObject> wo;
 	
 	public World(int id)
 	{
 		this.id = id;
-		wo = new ArrayList<WorldObject>();
+		wo = new ArrayList<RenderableGameObject>();
 	}
 	
-	public List<WorldObject> getWorldObjects()
+	public List<RenderableGameObject> getGameObjects()
 	{
 		return wo;
 	}
 	
-	public void addWorldObject(WorldObject w)
+	public void addGameObject(RenderableGameObject w)
 	{
 		this.wo.add(w);
 	}
@@ -91,17 +97,18 @@ public class World extends GameObject {
 		worlds = new ArrayList<World>();
 		
 		World world1 = new World(0);
-		world1.addWorldObject(new Box(world1, wobjectx.get(0),wobjecty.get(0),wobjectw.get(0),wobjecth.get(0), Color.RED));
-		world1.addWorldObject(new Box(world1, wobjectx.get(1),wobjecty.get(1),wobjectw.get(1),wobjecth.get(1),Color.BLUE));
-		world1.addWorldObject(new Box(world1, wobjectx.get(2),wobjecty.get(2),wobjectw.get(2),wobjecth.get(2), Color.YELLOW));
-		world1.addWorldObject(new Box(world1 ,wobjectx.get(3),wobjecty.get(3),wobjectw.get(3),wobjecth.get(3), Color.PINK));
-		world1.addWorldObject(new Box(world1, wobjectx.get(4),wobjecty.get(4),wobjectw.get(4),wobjecth.get(4), Color.GREEN));
-		world1.addWorldObject(new Box(world1, wobjectx.get(5),wobjecty.get(5),wobjectw.get(5),wobjecth.get(5), Color.WHITE));
-		world1.addWorldObject(new Box(world1, wobjectx.get(6),wobjecty.get(6),wobjectw.get(6),wobjecth.get(6), new Color(255,115,025)));
-		world1.addWorldObject(new Box(world1, wobjectx.get(7),wobjecty.get(7),wobjectw.get(7),wobjecth.get(7), new Color(78,225,180)));
-		world1.addWorldObject(new Box(world1, wobjectx.get(8),wobjecty.get(8),wobjectw.get(8),wobjecth.get(8), new Color(99,187,111)));
-		world1.addWorldObject(new Box(world1, wobjectx.get(9),wobjecty.get(9),wobjectw.get(9),wobjecth.get(9), new Color(69,69,69)));
-		world1.addWorldObject(new MovingBox(world1, 400, -10, 100,30, Color.RED, -1, 0));
+		world1.addGameObject(new Box(world1, wobjectx.get(0),wobjecty.get(0),wobjectw.get(0),wobjecth.get(0), Color.RED));
+		world1.addGameObject(new Box(world1, wobjectx.get(1),wobjecty.get(1),wobjectw.get(1),wobjecth.get(1),Color.BLUE));
+		world1.addGameObject(new Box(world1, wobjectx.get(2),wobjecty.get(2),wobjectw.get(2),wobjecth.get(2), Color.YELLOW));
+		world1.addGameObject(new Box(world1 ,wobjectx.get(3),wobjecty.get(3),wobjectw.get(3),wobjecth.get(3), Color.PINK));
+		world1.addGameObject(new Box(world1, wobjectx.get(4),wobjecty.get(4),wobjectw.get(4),wobjecth.get(4), Color.GREEN));
+		world1.addGameObject(new Box(world1, wobjectx.get(5),wobjecty.get(5),wobjectw.get(5),wobjecth.get(5), Color.WHITE));
+		world1.addGameObject(new Box(world1, wobjectx.get(6),wobjecty.get(6),wobjectw.get(6),wobjecth.get(6), new Color(255,115,025)));
+		world1.addGameObject(new Box(world1, wobjectx.get(7),wobjecty.get(7),wobjectw.get(7),wobjecth.get(7), new Color(78,225,180)));
+		world1.addGameObject(new Box(world1, wobjectx.get(8),wobjecty.get(8),wobjectw.get(8),wobjecth.get(8), new Color(99,187,111)));
+		world1.addGameObject(new Box(world1, wobjectx.get(9),wobjecty.get(9),wobjectw.get(9),wobjecth.get(9), new Color(69,69,69)));
+		world1.addGameObject(new MovingBox(world1, 400, -10, 100,30, Color.RED, -1, 0));
+		world1.addGameObject(new NormalEnemy(50,new Hitbox(30, 30, new Location(400,-100,world1))));
 		
 		World world2 = new World(1);
 		
@@ -122,7 +129,7 @@ public class World extends GameObject {
 
 	@Override
 	public void tick(GameStateState s) {
-		for (WorldObject w : wo)
+		for (RenderableGameObject w : wo)
 		{
 			w.tick(s);
 		}

@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
 import omhscsc.Game;
+import omhscsc.RenderableGameObject;
 import omhscsc.graphic.Renderable;
 import omhscsc.state.GameStateState;
 import omhscsc.util.Hitbox;
@@ -62,24 +63,30 @@ public abstract class LivingEntity extends Entity {
 
 	protected void fixCollisions(GameStateState gs)
 	{
-		for(WorldObject wo: gs.getCurrentWorld().getWorldObjects()){
-			if(wo.getHitbox().getBounds().intersects(getLeftBound())){
-				velocity.setX(0);
-				hitbox.setX(wo.getHitbox().getLocation().getX()+wo.getHitbox().getBounds().getWidth());
-			}
-			if(wo.getHitbox().getBounds().intersects(getRightBound())){
-				velocity.setX(0);
-				hitbox.setX(wo.getHitbox().getLocation().getX()-hitbox.getBounds().getWidth());
-			}
-			if(wo.getHitbox().getBounds().intersects(getTopBound())){
-				velocity.setY(0);
-				hitbox.setY(wo.getHitbox().getLocation().getY()+wo.getHitbox().getBounds().getHeight());
-			}
-			if(wo.getHitbox().getBounds().intersects(getBottomBound())){
-				velocity.setY(0);
-				hitbox.setY(wo.getHitbox().getLocation().getY()-hitbox.getBounds().getHeight());
-				setCanJump(true);
-			}
+		//Fixes collisions with entities and boxes
+		//If we want to change to collision to just boxes, change to "for(RenderableGameObject wo: gs.getCurrentWorld().getGameObjects()){"
+		for(RenderableGameObject w: gs.getCurrentWorld().getGameObjects()){
+			try {
+				WorldObject wo = (WorldObject)w;
+				if(wo.getHitbox().getBounds().intersects(getLeftBound())){
+					velocity.setX(0);
+					hitbox.setX(wo.getHitbox().getLocation().getX()+wo.getHitbox().getBounds().getWidth());
+				}
+				if(wo.getHitbox().getBounds().intersects(getRightBound())){
+					velocity.setX(0);
+					hitbox.setX(wo.getHitbox().getLocation().getX()-hitbox.getBounds().getWidth());
+				}
+				if(wo.getHitbox().getBounds().intersects(getTopBound())){
+					velocity.setY(0);
+					hitbox.setY(wo.getHitbox().getLocation().getY()+wo.getHitbox().getBounds().getHeight());
+				}
+				if(wo.getHitbox().getBounds().intersects(getBottomBound())){
+					velocity.setY(0);
+					hitbox.setY(wo.getHitbox().getLocation().getY()-hitbox.getBounds().getHeight());
+					setCanJump(true);
+				}
+			} catch (ClassCastException e) {}
+		
 		}
 	}
 	

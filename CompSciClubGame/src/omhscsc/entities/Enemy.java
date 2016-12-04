@@ -2,6 +2,10 @@ package omhscsc.entities;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 import omhscsc.GameObject;
 import omhscsc.graphic.Renderable;
@@ -37,8 +41,14 @@ public abstract class Enemy extends LivingEntity {
 	@Override
 	public void render(Graphics g, int xoff, int yoff)
 	{
-		super.render(g, xoff, yoff);
-		//Placeholder
+		//Placeholder rendering
+		try {
+			g.drawImage(ImageIO.read(new File("source/image/ghost.png")), xoff, yoff, 50, 50, null);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		//super.render(g, xoff, yoff);
 	}
 
 }

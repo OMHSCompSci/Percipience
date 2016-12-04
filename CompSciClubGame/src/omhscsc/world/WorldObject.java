@@ -3,25 +3,20 @@ package omhscsc.world;
 import java.awt.Color;
 import java.awt.Graphics;
 
+import omhscsc.RenderableGameObject;
 import omhscsc.graphic.Renderable;
 import omhscsc.state.GameStateState;
 import omhscsc.util.Hitbox;
 import omhscsc.util.Location;
 
-public abstract class WorldObject implements Renderable {
+public abstract class WorldObject extends RenderableGameObject {
 
-	private Hitbox bounds;
 	private Color c;
 	
 	public WorldObject(World world, int x, int y, int w, int h, Color c)
 	{
+		super(new Hitbox(w, h, new Location(x,y, world)));
 		this.c = c;
-		bounds = new Hitbox(w, h, new Location(x,y, world));
-	}
-	
-	public Hitbox getHitbox()
-	{
-		return bounds;
 	}
 	
 	public Color getColor()
@@ -34,7 +29,4 @@ public abstract class WorldObject implements Renderable {
 		
 	}
 	public abstract void tick(GameStateState s); //Defined by child classes
-	protected void changeHitbox(Hitbox h) {
-		bounds=h;
-	}
 }
