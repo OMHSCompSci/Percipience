@@ -25,7 +25,7 @@ public abstract class RenderableGameObject extends GameObject implements Rendera
 	{
 		return hitbox.getLocation();
 	}
-	protected void changeHitbox(Hitbox h) {
+	public void changeHitbox(Hitbox h) {
 		hitbox=h;
 	}
 

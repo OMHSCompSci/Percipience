@@ -63,8 +63,8 @@ public abstract class LivingEntity extends Entity {
 
 	protected void fixCollisions(GameStateState gs)
 	{
-		//Fixes collisions with entities and boxes
-		//If we want to change to collision to just boxes, change to "for(RenderableGameObject wo: gs.getCurrentWorld().getGameObjects()){"
+		//Fixes collisions with boxes
+		//If we want to change to collision to entities and boxes, change w to wo, remove the try/catch and wo declaration
 		for(RenderableGameObject w: gs.getCurrentWorld().getGameObjects()){
 			try {
 				WorldObject wo = (WorldObject)w;
@@ -86,6 +86,7 @@ public abstract class LivingEntity extends Entity {
 					setCanJump(true);
 				}
 			} catch (ClassCastException e) {}
+			catch (Exception e) {e.printStackTrace();}
 		
 		}
 	}
