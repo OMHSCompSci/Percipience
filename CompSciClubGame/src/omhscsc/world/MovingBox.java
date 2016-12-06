@@ -28,12 +28,4 @@ public class MovingBox extends WorldObject { //Moving block
 		}
 	}
 	
-	@Override
-	public void render(Graphics g, int xo, int yo)
-	{
-		Color last = g.getColor();
-		g.setColor(getColor());
-		g.fillRect(xo, yo, (int)getHitbox().getBounds().getWidth(), (int)getHitbox().getBounds().getHeight());
-		g.setColor(last);
-	}
 }

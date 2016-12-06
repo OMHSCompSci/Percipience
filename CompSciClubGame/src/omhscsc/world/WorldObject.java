@@ -26,6 +26,10 @@ public abstract class WorldObject extends RenderableGameObject {
 
 	@Override
 	public void render(Graphics g, int xoff, int yoff) {
+		Color last = g.getColor();
+		g.setColor(getColor());
+		g.fillRect(xoff, yoff, (int)getHitbox().getBounds().getWidth(), (int)getHitbox().getBounds().getHeight());
+		g.setColor(last);
 		
 	}
 	public abstract void tick(GameStateState s); //Defined by child classes
