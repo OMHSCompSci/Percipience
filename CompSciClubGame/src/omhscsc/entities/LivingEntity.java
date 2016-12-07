@@ -68,6 +68,11 @@ public abstract class LivingEntity extends Entity {
 		for(RenderableGameObject w: gs.getCurrentWorld().getGameObjects()){
 			try {
 				WorldObject wo = (WorldObject)w;
+				if(wo.getHitbox().getBounds().intersects(getBottomBound())){
+					velocity.setY(0);
+					hitbox.setY(wo.getHitbox().getLocation().getY()-hitbox.getBounds().getHeight());
+					setCanJump(true);
+				}
 				if(wo.getHitbox().getBounds().intersects(getLeftBound())){
 					velocity.setX(0);
 					hitbox.setX(wo.getHitbox().getLocation().getX()+wo.getHitbox().getBounds().getWidth());
@@ -79,11 +84,6 @@ public abstract class LivingEntity extends Entity {
 				if(wo.getHitbox().getBounds().intersects(getTopBound())){
 					velocity.setY(0);
 					hitbox.setY(wo.getHitbox().getLocation().getY()+wo.getHitbox().getBounds().getHeight());
-				}
-				if(wo.getHitbox().getBounds().intersects(getBottomBound())){
-					velocity.setY(0);
-					hitbox.setY(wo.getHitbox().getLocation().getY()-hitbox.getBounds().getHeight());
-					setCanJump(true);
 				}
 			} catch (ClassCastException e) {}
 			catch (Exception e) {e.printStackTrace();}
