@@ -106,21 +106,6 @@ public abstract class LivingEntity extends Entity {
 		return hitbox.getLocation();
 	}
 	
-	public Rectangle getLeftBound() {
-		return new Rectangle((int)hitbox.getLocation().getX(), (int)hitbox.getLocation().getY()+5, 10, (int)this.hitbox.getBounds().getHeight()-10);
-	}
-	
-	public Rectangle getRightBound() {
-		return new Rectangle((int)hitbox.getLocation().getX() + (int)(hitbox.getBounds().getWidth()-10), (int)hitbox.getLocation().getY()+5, 10, (int)this.hitbox.getBounds().getHeight()-10);
-	}
-	
-	public Rectangle getTopBound() {
-		return new Rectangle((int)hitbox.getLocation().getX()+5, (int)hitbox.getLocation().getY(), (int)(this.hitbox.getBounds().getWidth()-10), 10);
-	}
-	
-	public Rectangle getBottomBound() {
-		return new Rectangle((int)hitbox.getLocation().getX()+5, (int)hitbox.getLocation().getY()+(int)(hitbox.getBounds().getHeight()-10), (int)(this.hitbox.getBounds().getWidth()-10), 10);
-	}
 	
 	public void drawHitBoxes(Graphics g, int x, int y)
 	{
