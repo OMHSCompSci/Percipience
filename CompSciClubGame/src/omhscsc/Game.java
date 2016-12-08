@@ -25,7 +25,7 @@ import omhscsc.world.World;
 public class Game {
 
 
-	//
+	//Test
 	
 	private boolean running;
 	private Canvas c;
