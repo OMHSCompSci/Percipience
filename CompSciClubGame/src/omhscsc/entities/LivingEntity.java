@@ -23,7 +23,7 @@ public abstract class LivingEntity extends Entity {
 	protected Velocity velocity;
 	protected boolean bot=false;
 	/*
-	 * Haven't finished, feel free to work on it
+	 * Haven't finished, feel free to work on it. --Test comment--
 	 */
 	
 	public LivingEntity(Hitbox h) {
