@@ -70,7 +70,7 @@ public abstract class LivingEntity extends Entity {
 		for(RenderableGameObject w: gs.getCurrentWorld().getGameObjects()){
 			try {
 				WorldObject wo = (WorldObject)w;
-				if(wo.getHitbox().getBounds().intersects(getBottomBound())){
+				if(wo.getTopBound().intersects(getBottomBound())){
 					if(!bot) {
 						System.out.println("Colliding bottom");
 						bot=!bot;
@@ -147,7 +147,7 @@ public abstract class LivingEntity extends Entity {
 		double h = (int)(newLoc.getY() - lastLoc.getY());
 		if(Math.abs(h) < 1 || h == 0)
 			h=1 * (h < 0 ? -1:1);
-		int y = (int)((h < 0) ? newLoc.getY():lastLoc.getY());
+		int y = (int)((h < 0) ? lastLoc.getY():newLoc.getY());
 		Hitbox changeBox = new Hitbox((int)w,(int)h,x,y,newLoc.getWorld());
 		//System.out.println(x + " " + y + " " + w + " " + h);
 		for (GameObject rgo : gs.getCurrentWorld().getGameObjects()) {
