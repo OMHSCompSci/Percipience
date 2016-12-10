@@ -26,7 +26,8 @@ public class Game {
 
 
 	//Test
-	
+	//This is for faster loading...set to true if you want sound. I don't think it makes much of a difference however
+	public static final boolean sound = true;
 	private boolean running;
 	private Canvas c;
 	private JFrame frame;
@@ -132,7 +133,8 @@ public class Game {
 	
 	private void init()
 	{
-		SoundMaster.init();
+		if(sound)
+			SoundMaster.init();
 		World.init();
 		UIButton b = new UIButton("START",new UIAction() {
 			@Override
