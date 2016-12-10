@@ -6,8 +6,8 @@ import java.awt.Graphics;
 import omhscsc.RenderableGameObject;
 import omhscsc.graphic.Renderable;
 import omhscsc.state.GameStateState;
-import omhscsc.util.Hitbox;
 import omhscsc.util.Location;
+import omhscsc.util.geometry.Hitbox;
 
 public abstract class WorldObject extends RenderableGameObject {
 

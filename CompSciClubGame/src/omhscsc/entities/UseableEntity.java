@@ -4,8 +4,8 @@ import omhscsc.GameObject;
 import omhscsc.items.Upgrade;
 import omhscsc.items.Useable;
 import omhscsc.state.GameStateState;
-import omhscsc.util.Hitbox;
 import omhscsc.util.Location;
+import omhscsc.util.geometry.Hitbox;
 
 //Might replace with item entity
 public class UseableEntity extends GameObject {

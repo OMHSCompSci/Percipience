@@ -1,7 +1,8 @@
-package omhscsc.util;
+package omhscsc.util.geometry;
 
 import java.awt.Rectangle;
 
+import omhscsc.util.Location;
 import omhscsc.world.World;
 
 public class Hitbox {

@@ -10,8 +10,8 @@ import omhscsc.entities.Enemy;
 import omhscsc.entities.LivingEntity;
 import omhscsc.entities.NormalEnemy;
 import omhscsc.state.GameStateState;
-import omhscsc.util.Hitbox;
 import omhscsc.util.Location;
+import omhscsc.util.geometry.Hitbox;
 
 public class World extends GameObject {
 

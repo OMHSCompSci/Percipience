@@ -2,8 +2,8 @@ package omhscsc;
 
 import omhscsc.state.GameStateState;
 import omhscsc.util.Anchor;
-import omhscsc.util.Hitbox;
 import omhscsc.util.Location;
+import omhscsc.util.geometry.Hitbox;
 
 public class Camera extends GameObject {
 

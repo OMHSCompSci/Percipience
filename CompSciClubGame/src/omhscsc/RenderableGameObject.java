@@ -5,8 +5,8 @@ import java.awt.Rectangle;
 
 import omhscsc.GameObject;
 import omhscsc.graphic.Renderable;
-import omhscsc.util.Hitbox;
 import omhscsc.util.Location;
+import omhscsc.util.geometry.Hitbox;
 /**
  * Superclass for Boxes and Entities, is basically objects that need to render
  * @author Morgan

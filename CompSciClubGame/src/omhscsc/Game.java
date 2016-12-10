@@ -27,7 +27,7 @@ public class Game {
 
 	//Test
 	//This is for faster loading...set to true if you want sound. I don't think it makes much of a difference however
-	public static final boolean sound = true;
+	public static final boolean sound = false;
 	private boolean running;
 	private Canvas c;
 	private JFrame frame;

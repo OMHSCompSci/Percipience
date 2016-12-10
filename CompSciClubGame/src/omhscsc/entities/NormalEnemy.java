@@ -3,7 +3,7 @@ package omhscsc.entities;
 import java.awt.Graphics;
 //Generic enemy; has mostly default methods from Enemy
 import omhscsc.state.GameStateState;
-import omhscsc.util.Hitbox;
+import omhscsc.util.geometry.Hitbox;
 
 public class NormalEnemy extends Enemy {
 	//Tbh we need a name for this

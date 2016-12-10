@@ -12,8 +12,8 @@ import omhscsc.graphic.Renderable;
 import omhscsc.items.Upgrade;
 import omhscsc.items.Useable;
 import omhscsc.state.GameStateState;
-import omhscsc.util.Hitbox;
 import omhscsc.util.ImageLoader;
+import omhscsc.util.geometry.Hitbox;
 
 public abstract class Enemy extends LivingEntity {
 	

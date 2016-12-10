@@ -2,7 +2,7 @@ package omhscsc.graphic;
 
 import java.awt.Graphics;
 
-import omhscsc.util.Hitbox;
+import omhscsc.util.geometry.Hitbox;
 
 public interface Renderable {
 

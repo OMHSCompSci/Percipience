@@ -9,9 +9,9 @@ import omhscsc.Game;
 import omhscsc.RenderableGameObject;
 import omhscsc.graphic.Renderable;
 import omhscsc.state.GameStateState;
-import omhscsc.util.Hitbox;
 import omhscsc.util.Location;
 import omhscsc.util.Velocity;
+import omhscsc.util.geometry.Hitbox;
 import omhscsc.world.World;
 import omhscsc.world.WorldObject;
 

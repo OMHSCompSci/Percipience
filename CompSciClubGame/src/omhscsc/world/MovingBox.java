@@ -4,8 +4,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 import omhscsc.state.GameStateState;
-import omhscsc.util.Hitbox;
 import omhscsc.util.Velocity;
+import omhscsc.util.geometry.Hitbox;
 
 public class MovingBox extends WorldObject { //Moving block
 	protected Velocity v; //velocities in x and y direction
