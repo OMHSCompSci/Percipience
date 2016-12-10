@@ -7,6 +7,7 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 
+import omhscsc.Game;
 import omhscsc.util.Debug;
 
 /**
@@ -47,6 +48,8 @@ public class SoundMaster {
 	 * all space used by SoundMaster, call {@link SoundMaster#unload()};
 	 */
 	public static void init() {
+		if(!Game.sound)
+			return;
 		// Load default sounds
 		// Set up extra sounds
 		default_sounds = new HashMap<Sound, Clip>();
@@ -78,6 +81,8 @@ public class SoundMaster {
 	
 	public static boolean isSoundPlaying(Sound s)
 	{
+		if(!Game.sound)
+			return false;
 		Clip c = default_sounds.get(s);
 		if(c == null)
 			return true;
@@ -89,6 +94,8 @@ public class SoundMaster {
 	 */
 	public static void unload()
 	{
+		if(!Game.sound)
+			return;
 		for (Sound s : Sound.values())
 		{
 			Clip c = default_sounds.get(s);
@@ -113,6 +120,8 @@ public class SoundMaster {
 	 */
 	public static void playSound(Sound s)
 	{
+		if(!Game.sound)
+			return;
 		if(!init)
 			init();
 		Clip c = default_sounds.get(s);
@@ -132,6 +141,8 @@ public class SoundMaster {
 	 */
 	public static void stopSound(Sound s)
 	{
+		if(!Game.sound)
+			return;
 		Clip c = default_sounds.get(s);
 		if (c == null)
 		{
