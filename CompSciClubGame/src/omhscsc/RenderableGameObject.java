@@ -47,7 +47,7 @@ public abstract class RenderableGameObject extends GameObject implements Rendera
 	}
 	
 	public Rectangle getBottomBound() {
-		return new Rectangle((int)hitbox.getLocation().getX()+5, (int)hitbox.getLocation().getY()+(int)(hitbox.getBounds().getHeight()-10), (int)(this.hitbox.getBounds().getWidth()-10), 10);
+		return new Rectangle((int)hitbox.getLocation().getX()+10, (int)hitbox.getLocation().getY()+(int)(hitbox.getBounds().getHeight()-10), (int)(this.hitbox.getBounds().getWidth()-20), 10);
 	}
 	
 	
