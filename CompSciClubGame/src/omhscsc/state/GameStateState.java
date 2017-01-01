@@ -75,6 +75,7 @@ public class GameStateState extends GameState {
 	@Override
 	public void render(Graphics g) {
 		try {
+			currentWorld.renderBackground(g, camera.getHitbox());
 			for (RenderableGameObject wo : currentWorld.getGameObjects())
 			{
 				if(camera.intersects(wo.getHitbox()))
