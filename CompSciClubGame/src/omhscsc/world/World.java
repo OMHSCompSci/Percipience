@@ -27,6 +27,7 @@ public class World extends GameObject implements Serializable {
 	private transient BufferedImage[] backgroundLayers;
 	private float[] parallaxScrollRates;
 	private Location[] possibleSpawnPoints;
+	private WorldRegion[] regions;
 	
 	
 	/*
