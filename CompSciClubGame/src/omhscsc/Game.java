@@ -32,7 +32,7 @@ public class Game {
 	private Canvas c;
 	private JFrame frame;
 	private List<GameState>states;
-	private static float timeRate = .1f;
+	private static float timeRate = 1f;
 	/*
 	 * 0 Should always be the main menu and 1 should always be the game.
 	 */
