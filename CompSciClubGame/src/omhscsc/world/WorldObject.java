@@ -13,9 +13,9 @@ public abstract class WorldObject extends RenderableGameObject {
 
 	private Color c;
 	
-	public WorldObject(World world, int x, int y, int w, int h, Color c)
+	public WorldObject(int x, int y, int w, int h, Color c)
 	{
-		super(new Hitbox(w, h, new Location(x,y, world)));
+		super(new Hitbox(w, h, new Location(x,y)));
 		this.c = c;
 	}
 	

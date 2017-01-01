@@ -10,8 +10,8 @@ import omhscsc.util.Velocity;
 public class MovingBox extends WorldObject { //Moving block
 	protected Velocity v; //velocities in x and y direction
 	
-	public MovingBox(World world, int x, int y, int w, int h, Color c, double vx, double vy) {
-		super(world,x,y,w,h,c);
+	public MovingBox(int x, int y, int w, int h, Color c, double vx, double vy) {
+		super(x,y,w,h,c);
 		this.v = new Velocity(vx,vy);
 	}
 	@Override

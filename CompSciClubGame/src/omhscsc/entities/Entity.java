@@ -22,9 +22,9 @@ public abstract class Entity extends RenderableGameObject {
 		super(h);
 	}
 	
-	public Entity(World wr, int x, int y, int w, int h)
+	public Entity(int x, int y, int w, int h)
 	{
-		super(new Hitbox(w,h,new Location(x,y,wr)));
+		super(new Hitbox(w,h,new Location(x,y)));
 	}
 	
 	@Override
@@ -38,6 +38,11 @@ public abstract class Entity extends RenderableGameObject {
 	{
 		//Default tick
 		//May be used later, so leave empty
+	}
+	
+	public void setLocation(Location l) {
+		getHitbox().setX(l.getX());
+		getHitbox().setY(l.getY());
 	}
 	
 	

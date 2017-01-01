@@ -9,10 +9,10 @@ public class Hitbox {
 	private Location l;
 	private int w, h;
 	
-	public Hitbox(int w, int h, int x, int y, World world) {
+	public Hitbox(int w, int h, int x, int y) {
 		this.w = w;
 		this.h = h;
-		l = new Location(x, y, world);
+		l = new Location(x, y);
 	}
 	
 	public Hitbox(int w, int h, Location l)

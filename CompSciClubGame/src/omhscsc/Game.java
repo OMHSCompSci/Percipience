@@ -80,6 +80,8 @@ public class Game {
 		running=true;
 		//Loop
 		init();
+		//This is to remove the lag between states. (Ex, main menu takes a while, and if you jump right in game it tries to speed the game up)
+		int lastKnownState = this.currentState;
 		final int nsPerTick = (int)1e9/Game.TPS;
 		double timePassed = 0;
 		double currentTime = System.nanoTime();
@@ -113,6 +115,12 @@ public class Game {
 			}
 			
 			lastTime = currentTime;
+			if(lastKnownState != this.currentState) {
+				lastKnownState = this.currentState;
+				timePassed = 0;
+				//Resetting to remove lag
+			}
+				
 		}
 	}
 	

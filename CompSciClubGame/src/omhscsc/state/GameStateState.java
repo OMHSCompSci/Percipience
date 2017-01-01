@@ -41,10 +41,20 @@ public class GameStateState extends GameState {
 		go = new HashSet<GameObject>();
 		re = new HashSet<Renderable>();
 		currentWorld = World.getWorld(0);
-		camera = new Camera(new Location(0,0,currentWorld), Game.WIDTH, Game.HEIGHT);
-		player = new Player("Freddy",new Hitbox(70, 70,new Location(0,-50,currentWorld)));
+		camera = new Camera(new Location(0,0), Game.WIDTH, Game.HEIGHT);
+		player = new Player("Freddy",new Hitbox(70, 70,new Location(0,0)));
 		addObject(player);
 		camera.setAnchor((Anchor)player);
+		placePlayerInWorld(currentWorld);
+	}
+	
+	
+	public void placePlayerInWorld(World w) {
+		player.setLocation(w.getSpawnPoints()[0]);
+	}
+	
+	public void placePlayerInWorldWithSpawnPoint(World w, int spawnIndex) {
+		
 	}
 	
 	public void addObject(GameObject o)

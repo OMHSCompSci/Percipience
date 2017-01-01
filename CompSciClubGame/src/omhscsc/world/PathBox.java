@@ -22,8 +22,8 @@ public class PathBox extends WorldObject {
 	 * @param travelPath The list of coordinates to travel on
 	 * @param speed The speed of in pixels per second of the box
 	 */
-	public PathBox(World world, int x, int y, int w, int h, Color c, List<Location> travelPath, double speed) {
-		super(world, x, y, w, h, c);
+	public PathBox(int x, int y, int w, int h, Color c, List<Location> travelPath, double speed) {
+		super(x, y, w, h, c);
 		path = travelPath;
 		current = 0;
 		next = 1;

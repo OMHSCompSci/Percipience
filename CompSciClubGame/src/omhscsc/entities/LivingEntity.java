@@ -31,9 +31,9 @@ public abstract class LivingEntity extends Entity {
 		canJump = true;
 	}
 	
-	public LivingEntity(World wr, int x, int y, int w, int h)
+	public LivingEntity(int x, int y, int w, int h)
 	{
-		super(wr,x,y,w,h);
+		super(x,y,w,h);
 		canJump = true;
 	}
 	
@@ -148,7 +148,7 @@ public abstract class LivingEntity extends Entity {
 		if(Math.abs(h) < 1 || h == 0)
 			h=1 * (h < 0 ? -1:1);
 		int y = (int)((h < 0) ? lastLoc.getY():newLoc.getY());
-		Hitbox changeBox = new Hitbox((int)w,(int)h,x,y,newLoc.getWorld());
+		Hitbox changeBox = new Hitbox((int)w,(int)h,x,y);
 		//System.out.println(x + " " + y + " " + w + " " + h);
 		for (GameObject rgo : gs.getCurrentWorld().getGameObjects()) {
 			try {
