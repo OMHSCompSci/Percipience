@@ -37,6 +37,7 @@ public class Game {
 	 */
 	private int currentState;
 	public static final int GRAVITY = 1460;
+	private static float TIME = 1f;
 	public static final int WIDTH = 16*80, HEIGHT = 9*80;
 	
 	public Game()
@@ -130,6 +131,16 @@ public class Game {
 	{
 		states.get(currentState).tick();
 	}
+	
+	public static void setTimeRate(float f) { 
+		Game.TIME = Math.abs(f);
+	}
+	
+	public static float getTimeRate() {
+		return Game.TIME;
+	}
+	
+	
 	
 	private void init()
 	{

@@ -7,7 +7,7 @@ import java.awt.Rectangle;
 
 import omhscsc.Game;
 import omhscsc.RenderableGameObject;
-import omhscsc.graphic.Renderable;
+//import omhscsc.graphic.Renderable;
 import omhscsc.state.GameStateState;
 import omhscsc.util.Location;
 import omhscsc.util.Velocity;
@@ -20,6 +20,7 @@ public abstract class LivingEntity extends Entity {
 	protected double health,maxHealth,jumpHeight,speed,damage;
 	protected boolean canJump;
 	protected Velocity velocity;
+	protected float selfTimeRate;
 	
 	/*
 	 * Haven't finished, feel free to work on it
@@ -28,12 +29,14 @@ public abstract class LivingEntity extends Entity {
 	public LivingEntity(Hitbox h) {
 		super(h);
 		canJump = true;
+		selfTimeRate = 1f;
 	}
 	
 	public LivingEntity(World wr, int x, int y, int w, int h)
 	{
 		super(wr,x,y,w,h);
 		canJump = true;
+		selfTimeRate = 1f;
 	}
 	
 	public boolean canJump()
@@ -91,12 +94,20 @@ public abstract class LivingEntity extends Entity {
 		}
 	}
 	
+	public float getTimeRate() {
+		return this.selfTimeRate;
+	}
+	
+	public void setTimeRate(float f) {
+		this.selfTimeRate = Math.abs(f);
+	}
+	
 	protected void defaultMovement()
 	{
-		velocity.addY((double)Game.GRAVITY/(double)Game.TPS);
-		hitbox.addY(velocity.getY()/(double)Game.TPS);
-		hitbox.addX(velocity.getX()/(double)Game.TPS);
-		velocity.addX((velocity.getX()*-.9)/(double)Game.TPS);
+		velocity.addY(((double)Game.GRAVITY/(double)Game.TPS) * Game.getTimeRate() * this.getTimeRate());
+		hitbox.addY((velocity.getY()/(double)Game.TPS) * Game.getTimeRate() * this.getTimeRate());
+		hitbox.addX((velocity.getX()/(double)Game.TPS) * Game.getTimeRate() * this.getTimeRate());
+		velocity.addX(((velocity.getX()*-.9)/(double)Game.TPS) * Game.getTimeRate() * this.getTimeRate());
 		if(velocity.getX() < 50)
 			velocity.setX(0);
 	}
