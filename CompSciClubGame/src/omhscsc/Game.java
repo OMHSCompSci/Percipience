@@ -32,6 +32,7 @@ public class Game {
 	private Canvas c;
 	private JFrame frame;
 	private List<GameState>states;
+	private static float timeRate = .1f;
 	/*
 	 * 0 Should always be the main menu and 1 should always be the game.
 	 */
@@ -222,6 +223,14 @@ public class Game {
 	}
 	
 	public static final int TPS = 60;
+	
+	public static float getTimeRate() {
+		return Game.timeRate;
+	}
+	
+	public static void setTimeRate(float f) {
+		Game.timeRate = Math.abs(f);
+	}
 	
 	public static void main(String[] args)
 	{
