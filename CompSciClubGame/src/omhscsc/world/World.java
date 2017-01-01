@@ -3,20 +3,24 @@ package omhscsc.world;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import omhscsc.Game;
 import omhscsc.GameObject;
 import omhscsc.RenderableGameObject;
-import omhscsc.entities.NormalEnemy;
 import omhscsc.state.GameStateState;
 import omhscsc.util.Hitbox;
 import omhscsc.util.ImageLoader;
 import omhscsc.util.Location;
 
-public class World extends GameObject {
+public class World extends GameObject implements Serializable {
 
+	/*
+	 * The world / world objects implement serializable because we want to be able to save and load worlds. Images are not included in the world file, and are packaged in the source foulder instead. 
+	 */
+	private static final long serialVersionUID = 2397350907912764787L;
 	private final int id;
 	private String worldName;
 	private List<RenderableGameObject> wo;
