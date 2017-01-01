@@ -21,7 +21,7 @@ public abstract class LivingEntity extends Entity {
 	protected double health,maxHealth,jumpHeight,speed,damage;
 	protected boolean canJump;
 	protected Velocity velocity;
-	protected boolean bot=false;
+	protected float relativeExistanceRate;
 	/*
 	 * Haven't finished, feel free to work on it. --Test comment--
 	 */
@@ -29,12 +29,14 @@ public abstract class LivingEntity extends Entity {
 	public LivingEntity(Hitbox h) {
 		super(h);
 		canJump = true;
+		relativeExistanceRate = 1f;
 	}
 	
 	public LivingEntity(int x, int y, int w, int h)
 	{
 		super(x,y,w,h);
 		canJump = true;
+		relativeExistanceRate = 1f;
 	}
 	
 	public boolean canJump()
@@ -62,6 +64,15 @@ public abstract class LivingEntity extends Entity {
 		super.render(g,x,y);
 		//place holder
 	}
+	
+	
+	public float getTimeRate() {
+		return this.relativeExistanceRate;
+	}
+	
+	public void setTimeRate(float f) {
+		this.relativeExistanceRate = Math.abs(f);
+	}
 
 	protected void fixCollisions(GameStateState gs)
 	{
@@ -71,10 +82,6 @@ public abstract class LivingEntity extends Entity {
 			try {
 				WorldObject wo = (WorldObject)w;
 				if(wo.getTopBound().intersects(getBottomBound())){
-					if(!bot) {
-					//	System.out.println("Colliding bottom");
-						bot=!bot;
-					}
 					
 					velocity.setY(0);
 					hitbox.setY(wo.getHitbox().getLocation().getY()-hitbox.getBounds().getHeight());
@@ -82,19 +89,16 @@ public abstract class LivingEntity extends Entity {
 				}
 				if(wo.getHitbox().getBounds().intersects(getLeftBound())){
 					//System.out.println("Colliding left");
-					bot=false;
 					velocity.setX(0);
 					hitbox.setX(wo.getHitbox().getLocation().getX()+wo.getHitbox().getBounds().getWidth());
 				}
 				if(wo.getHitbox().getBounds().intersects(getRightBound())){
 				//	System.out.println("Colliding right");
-					bot=false;
 					velocity.setX(0);
 					hitbox.setX(wo.getHitbox().getLocation().getX()-hitbox.getBounds().getWidth());
 				}
 				if(wo.getHitbox().getBounds().intersects(getTopBound())){
 				//	System.out.println("Colliding top");
-					bot=false;
 					velocity.setY(0);
 					hitbox.setY(wo.getHitbox().getLocation().getY()+wo.getHitbox().getBounds().getHeight());
 				}
@@ -108,10 +112,10 @@ public abstract class LivingEntity extends Entity {
 	{
 		Location last = this.getLocation().clone();
 		//double change = velocity.getX();
-		velocity.addY((double)Game.GRAVITY/(double)Game.TPS);
-		hitbox.addY(velocity.getY()/(double)Game.TPS);
-		hitbox.addX(velocity.getX()/(double)Game.TPS);
-		velocity.addX((velocity.getX()*-.9)/(double)Game.TPS);
+		velocity.addY(((double)Game.GRAVITY/(double)Game.TPS) * Game.getTimeRate() * this.getTimeRate());
+		hitbox.addY((velocity.getY()/(double)Game.TPS)* Game.getTimeRate() * this.getTimeRate());
+		hitbox.addX((velocity.getX()/(double)Game.TPS)* Game.getTimeRate() * this.getTimeRate());
+		velocity.addX(((velocity.getX()*-.9)/(double)Game.TPS)* Game.getTimeRate() * this.getTimeRate());
 
 		Location now = this.getLocation().clone();
 		//System.out.println(change + "...but then - now is " + (now.getX() - last.getX()));
