@@ -72,7 +72,7 @@ public abstract class LivingEntity extends Entity {
 				WorldObject wo = (WorldObject)w;
 				if(wo.getTopBound().intersects(getBottomBound())){
 					if(!bot) {
-						System.out.println("Colliding bottom");
+					//	System.out.println("Colliding bottom");
 						bot=!bot;
 					}
 					
@@ -81,19 +81,19 @@ public abstract class LivingEntity extends Entity {
 					setCanJump(true);
 				}
 				if(wo.getHitbox().getBounds().intersects(getLeftBound())){
-					System.out.println("Colliding left");
+					//System.out.println("Colliding left");
 					bot=false;
 					velocity.setX(0);
 					hitbox.setX(wo.getHitbox().getLocation().getX()+wo.getHitbox().getBounds().getWidth());
 				}
 				if(wo.getHitbox().getBounds().intersects(getRightBound())){
-					System.out.println("Colliding right");
+				//	System.out.println("Colliding right");
 					bot=false;
 					velocity.setX(0);
 					hitbox.setX(wo.getHitbox().getLocation().getX()-hitbox.getBounds().getWidth());
 				}
 				if(wo.getHitbox().getBounds().intersects(getTopBound())){
-					System.out.println("Colliding top");
+				//	System.out.println("Colliding top");
 					bot=false;
 					velocity.setY(0);
 					hitbox.setY(wo.getHitbox().getLocation().getY()+wo.getHitbox().getBounds().getHeight());
@@ -176,7 +176,7 @@ public abstract class LivingEntity extends Entity {
 		//Using xv and yv because of player (literally). The players input is a seperate thing, and because of that this is required
 		//double currentX = 0;
 		//double currentY = 0;
-		System.out.print("USING PRECISE ");
+		//System.out.print("USING PRECISE ");
 		int t = 0;
 		do {
 			double xChange = xv/500.0;
@@ -187,7 +187,7 @@ public abstract class LivingEntity extends Entity {
 			//currentX+=xChange;
 			//currentY+=yChange;
 		} while (!isColliding(wo));
-		System.out.print(t + " times\n");
+	//	System.out.print(t + " times\n");
 	}
 	
 	@Override
