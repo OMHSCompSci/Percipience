@@ -1,10 +1,13 @@
 package omhscsc;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
+import java.util.HashMap;
 
-import omhscsc.GameObject;
 import omhscsc.graphic.Renderable;
+import omhscsc.graphic.animation.Animation;
 import omhscsc.util.Hitbox;
 import omhscsc.util.Location;
 /**
@@ -12,7 +15,19 @@ import omhscsc.util.Location;
  * @author Morgan
  */
 public abstract class RenderableGameObject extends GameObject implements Renderable {
+	
 	protected Hitbox hitbox;
+	/*
+	 * objectImage is the image used for this object. (Not needed)
+	 * objectAnimation is the animation used for this object. (Not needed)
+	 * objectAnimationMap is used to hold other animations used by the object with a key to locate specific animations (Not needed)
+	 * objectColor is used to draw the object if nothing else exists. (Needed) 
+	 */
+	protected transient BufferedImage objectImage;
+	protected transient Animation objectAnimation;
+	protected transient HashMap<String,Animation> objectAnimationMap;
+	protected Color objectColor;
+	
 	public RenderableGameObject(Hitbox h) {
 		this.hitbox = h;
 	}	
