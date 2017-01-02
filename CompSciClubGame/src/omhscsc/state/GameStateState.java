@@ -108,7 +108,7 @@ public class GameStateState extends GameState {
 			}
 			int xoff = (int)((camera.getHitbox().getBounds().getX() - camera.getHitbox().getBounds().getX()) * scale);
 			int yoff = (int)((camera.getHitbox().getBounds().getY() - camera.getHitbox().getBounds().getY()) * scale);
-			g.drawRect(xoff, yoff, (int)(camera.getWidth() * scale), (int)(camera.getHeight() * scale));
+			g.drawRect(xoff, yoff, (int)(camera.getWidth() * scale),(int)(camera.getHeight() * scale));
 			System.out.println(camera.getHeight() + "   "+ camera.getScale());
 		} catch (ConcurrentModificationException e)
 		{
@@ -192,6 +192,21 @@ public class GameStateState extends GameState {
 		}
 		if(e.getKeyCode() == KeyEvent.VK_SPACE){
 			player.attack();
+		}
+		if(e.getKeyCode() == KeyEvent.VK_F) {
+			camera.setScale(1.0f);
+		}
+		if(e.getKeyCode() == KeyEvent.VK_G) { 
+			camera.setScale(0.5f);
+		}
+		if(e.getKeyCode() == KeyEvent.VK_H) {
+			camera.setScale(2.0f);
+		}
+		if(e.getKeyCode() == KeyEvent.VK_E) {
+			camera.setScale((float)(camera.getScale()-0.1));
+		}
+		if(e.getKeyCode() == KeyEvent.VK_R) {
+			camera.setScale((float)(camera.getScale()+0.1));
 		}
 	}
 

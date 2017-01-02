@@ -42,7 +42,7 @@ public class Camera extends GameObject {
 	
 	//wtf am i doing why wont this work aahhhhhhh
 	public float getScale() {
-		return (float)((Game.WIDTH - this.getWidth()) / Game.WIDTH) + 1f;
+		return (float)(Game.WIDTH/getWidth());
 	}
 	
 	public void removeAnchor()
@@ -62,6 +62,10 @@ public class Camera extends GameObject {
 	}
 
 	public void setScale(float d) {
+		int width = (int)(Game.WIDTH / d);
+		int height = (int)(Game.HEIGHT / d);
+		box.setWidth(width);
+		box.setHeight(height);
 	}
 	
 }
