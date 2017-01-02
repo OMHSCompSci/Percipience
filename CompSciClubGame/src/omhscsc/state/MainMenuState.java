@@ -89,11 +89,11 @@ public class MainMenuState extends GameState {
 			return;
 		buttonLocs = new ButtonConfig[buttons.length];
 		//Should do this every time new button is added / removed
-		int ydiv = (int)((Game.HEIGHT - Game.HEIGHT*.6 - (5*buttons.length))/buttons.length);
-		int xdiv = (int)(Game.WIDTH*0.5);
+		int ydiv = (int)((Game.getHeight() - Game.getHeight()*.6 - (5*buttons.length))/buttons.length);
+		int xdiv = (int)(Game.getWidth()*0.5);
 		int xoff = 0;
 		int yoff = 0;
-		int ybase = (int)(Game.HEIGHT*0.3);
+		int ybase = (int)(Game.getHeight()*0.3);
 		//Draw bg
 		for(int i = 0; i<buttons.length;i++)
 		{
@@ -123,11 +123,11 @@ public class MainMenuState extends GameState {
 	/*
 	@Override
 	public void render(Graphics g) {
-		int ydiv = (int)((Game.HEIGHT - Game.HEIGHT*.6 - (5*buttons.length))/buttons.length);
-		int xdiv = (int)(Game.WIDTH*0.5);
+		int ydiv = (int)((Game.getHeight() - Game.getHeight()*.6 - (5*buttons.length))/buttons.length);
+		int xdiv = (int)(Game.getWidth()*0.5);
 		int xoff = 0;
 		int yoff = 0;
-		int ybase = (int)(Game.HEIGHT*0.3);
+		int ybase = (int)(Game.getHeight()*0.3);
 		Color last = g.getColor();
 		//Draw bg
 		g.drawImage(bg, 0, 0, bg.getWidth(), bg.getHeight(), null);
@@ -184,11 +184,11 @@ public class MainMenuState extends GameState {
 	
 	public Rectangle getButtonBox(int index)
 	{
-		int ydiv = (int)((Game.HEIGHT - Game.HEIGHT*.6 - (5*buttons.length))/buttons.length);
-		int xdiv = (int)(Game.WIDTH*0.5);
+		int ydiv = (int)((Game.getHeight() - Game.getHeight()*.6 - (5*buttons.length))/buttons.length);
+		int xdiv = (int)(Game.getWidth()*0.5);
 		int xoff = 0;
 		int yoff = 0;
-		int ybase = (int)(Game.HEIGHT*0.3);
+		int ybase = (int)(Game.getHeight()*0.3);
 		yoff = ybase + (index * ydiv) + (10 * index);
 		return new Rectangle(xoff,yoff,xdiv,ydiv);
 	}

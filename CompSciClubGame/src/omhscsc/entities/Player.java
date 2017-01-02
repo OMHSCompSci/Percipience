@@ -21,7 +21,7 @@ import omhscsc.world.WorldObject;
 public class Player extends LivingEntity implements Anchor {
 
 	private String name;
-	private boolean rightHeld, leftHeld, attacking;
+	private boolean rightHeld, leftHeld;
 	private int healthUpgrades, speedUpgrades, jumpUpgrades;
 	private Useable use;
 
@@ -42,12 +42,6 @@ public class Player extends LivingEntity implements Anchor {
 		leftHeld = false;
 		velocity = new Velocity(0,0);
 		use = null;
-		attacking = false;
-	}
-	
-	
-	public void attack(){
-		attacking = true;
 	}
 	
 	public void setRightHeld(boolean r)
@@ -70,17 +64,6 @@ public class Player extends LivingEntity implements Anchor {
 		return this.leftHeld;
 	}
 	
-	public void takeDmg(double dmg) {
-		health -= dmg;
-	}
-
-	public double getCurrentHp() {
-		return health;
-	}
-
-	public double getMaxHp() {
-		return maxHealth;
-	}
 	
 	
 	
@@ -114,6 +97,10 @@ public class Player extends LivingEntity implements Anchor {
 			maxHealth = maxHealth * 1.25;
 			health = health + (maxHealth - temp);
 		}
+	}
+	
+	public void attack() {
+		
 	}
 
 	public void getSpUp() {
@@ -159,10 +146,7 @@ public class Player extends LivingEntity implements Anchor {
 		Color last = g.getColor();
 		g.setColor(Color.WHITE);
 		g.drawImage(ImageLoader.getImage("char.png"), xoff, yoff, (int)(hitbox.getBounds().getWidth() * scale),(int) (hitbox.getBounds().getHeight() * scale), null);
-		g.setColor(new Color(125, 38, 142));
-		g.drawRect(xoff, yoff-15, 100, 10);
-		g.setColor(Color.ORANGE);
-		g.fillRect(xoff+1, yoff-14, (int)((100 * (this.getCurrentHp() / this.getMaxHp())) * scale), (int)(9 * scale));
+		drawHealthBar(g,xoff,yoff,scale);
 		
 		//	g.fillRect(xoff, yoff, (int)hitbox.getBounds().getWidth(),(int) hitbox.getBounds().getHeight());
 		

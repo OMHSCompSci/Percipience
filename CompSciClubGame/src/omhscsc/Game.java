@@ -32,13 +32,32 @@ public class Game {
 	private Canvas c;
 	private JFrame frame;
 	private List<GameState>states;
-	private static float timeRate = .5f;
+	private static float timeRate = 1f;
 	/*
 	 * 0 Should always be the main menu and 1 should always be the game.
 	 */
 	private int currentState;
 	public static final int GRAVITY = 1460;
-	public static final int WIDTH = 16*80, HEIGHT = 9*80;
+	//Default sizes
+	private static int WIDTH = 16*80, HEIGHT = 9*80;
+	
+	//Get width and get height represent the size of the current window.
+	public static int getWidth() {
+		return Game.WIDTH;
+	}
+	
+	public static int getHeight() {
+		return Game.HEIGHT;
+	}
+	/**
+	 * 
+	 * @param f A number above 0 that represents the windpw size (resolution).
+	 */
+	public static void SET_RESOLUTION(float f) {
+		Game.WIDTH = (int)(1600f * f);
+		Game.HEIGHT = (int)(900f * f);
+	}
+	
 	
 	public Game()
 	{
@@ -53,6 +72,7 @@ public class Game {
 		frame.add(c);
 	}
 	
+
 	public void addState(GameState gs)
 	{
 		states.add(gs);

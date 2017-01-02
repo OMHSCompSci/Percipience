@@ -95,13 +95,11 @@ public class World extends GameObject implements Serializable {
 			if(bi == null)
 				continue;
 			float scrollRate = parallaxScrollRates[i];
-			int imgX = (int)(hitbox.getBounds().getCenterX() * scrollRate - ((Game.WIDTH/scale)/2));
-			int imgY = (int)(hitbox.getBounds().getCenterY() * scrollRate - ((Game.HEIGHT/scale)/2));
-			int imgX2 = (int)(imgX + (Game.WIDTH/scale));
-			int imgY2 = (int)(imgY + (Game.HEIGHT/scale));
-			if(i==1)
-			System.out.println(imgX + "  " + imgY + "  " + imgX2 + "  " + imgY2 + "  ");
-			g.drawImage(bi, 0, 0, Game.WIDTH, Game.HEIGHT, imgX, imgY, imgX2, imgY2, null);
+			int imgX = (int)(hitbox.getBounds().getCenterX() * scrollRate - ((Game.getWidth()/scale)/2));
+			int imgY = (int)(hitbox.getBounds().getCenterY() * scrollRate - ((Game.getHeight()/scale)/2));
+			int imgX2 = (int)(imgX + (Game.getWidth()/scale));
+			int imgY2 = (int)(imgY + (Game.getHeight()/scale));			
+			g.drawImage(bi, 0, 0, Game.getWidth(), Game.getHeight(), imgX, imgY, imgX2, imgY2, null);
 			//bi = image drawn
 			//first two parameters are where to start drawing the rectangle in the GAME WINDOW
 			//the second two parameters are where it ends. This is just saying draw to the game window.
@@ -128,8 +126,8 @@ public class World extends GameObject implements Serializable {
 		if(initialized)
 			return;
 		worlds = new ArrayList<World>();
-		World testWorld = new World(0, 1, new float[] {0.1f, 0.3f, .6f}, new Location[] {new Location(100,-100)}, "starting_world");
-		testWorld.addGameObject(new Box(-1000, 0, 2000, 10, Color.RED));
+		World testWorld = new World(0, 1, new float[] {0.4f, 0.6f, .75f}, new Location[] {new Location(400,0)}, "starting_world");
+		testWorld.addGameObject(new Box(300, 600, 2000, 10, Color.RED));
 		worlds.add(testWorld);
 		initialized = true;
 	}

@@ -15,4 +15,6 @@ public class NormalEnemy extends Enemy {
 	public void render(Graphics g, int x, int y, float scale) {
 		super.render(g, x, y,scale);
 	}
+	public void attack() {
+	}
 }

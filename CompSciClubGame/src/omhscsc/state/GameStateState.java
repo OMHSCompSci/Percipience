@@ -41,7 +41,8 @@ public class GameStateState extends GameState {
 		go = new HashSet<GameObject>();
 		re = new HashSet<Renderable>();
 		currentWorld = World.getWorld(0);
-		camera = new Camera(new Location(0,0), Game.WIDTH/2, Game.HEIGHT/2);
+		camera = new Camera(new Location(0,0), Game.getWidth(), Game.getHeight());
+		camera.setScale(2f);
 		player = new Player("Freddy",new Hitbox(70, 70,new Location(0,-10)));
 		addObject(player);
 		camera.setAnchor((Anchor)player);
@@ -190,9 +191,6 @@ public class GameStateState extends GameState {
 		{
 			player.jump();
 
-		}
-		if(e.getKeyCode() == KeyEvent.VK_SPACE){
-			player.attack();
 		}
 		if(e.getKeyCode() == KeyEvent.VK_F) {
 			camera.setScale(1.0f);
