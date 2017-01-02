@@ -4,7 +4,7 @@ import java.awt.Rectangle;
 
 import omhscsc.world.World;
 
-public class Hitbox {
+public class Hitbox implements Anchor {
 
 	private Location l;
 	private int w, h;
@@ -47,8 +47,21 @@ public class Hitbox {
 		this.l.setY(y);
 	}
 	
+	public void setWidth(int w) {
+		this.w = w;
+	}
+	
+	public void setHeight(int h) {
+		this.h = h;
+	}
+	
 	public Location getLocation()
 	{
 		return this.l;
+	}
+
+	@Override
+	public Location getCenterLocation() {
+		return new Location(getBounds().getCenterX(),getBounds().getCenterY());
 	}
 }

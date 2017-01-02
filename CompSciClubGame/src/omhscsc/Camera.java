@@ -32,18 +32,36 @@ public class Camera extends GameObject {
 		this.a = a;
 	}
 	
+	public double getWidth() {
+		return this.getHitbox().getBounds().getWidth();
+	}
+	
+	public double getHeight() {
+		return this.getHitbox().getBounds().getHeight();
+	}
+	
+	//wtf am i doing why wont this work aahhhhhhh
+	public float getScale() {
+		return (float)((Game.WIDTH - this.getWidth()) / Game.WIDTH) + 1f;
+	}
+	
 	public void removeAnchor()
 	{
 		a = null;
 	}
 
+	// default = size * scale
+	
 	//Sets anchor to center of screen
 	@Override
 	public void tick(GameStateState s) {
 		if(a==null)
 			return;
-		box.setX(a.getLocation().getX() - (int)((double)Game.WIDTH/2.0));
-		box.setY(a.getLocation().getY() - (int)((double)Game.HEIGHT/2.0));
+		box.setX(a.getCenterLocation().getX() - (int)((double)this.getHitbox().getBounds().getWidth()/2.0));
+		box.setY(a.getCenterLocation().getY() - (int)((double)this.getHitbox().getBounds().getHeight()/2.0));
+	}
+
+	public void setScale(float d) {
 	}
 	
 }

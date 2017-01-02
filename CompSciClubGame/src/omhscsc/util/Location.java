@@ -2,7 +2,7 @@ package omhscsc.util;
 
 import omhscsc.world.World;
 
-public class Location implements Anchor {
+public class Location {
 
 	private double x, y;
 	

@@ -86,7 +86,7 @@ public class World extends GameObject implements Serializable {
 	 * @param g The Graphics being used
 	 * @param hitbox The location of the player
 	 */
-	public void renderBackground(Graphics g, Hitbox hitbox) {
+	public void renderBackground(Graphics g, Hitbox hitbox, float scale) {
 		//Based on where the player is, the background should be drawn using the scroll rates (somehow)
 		for (int i = 0; i < backgroundLayers.length; i++) {
 			if(backgroundLayers == null)

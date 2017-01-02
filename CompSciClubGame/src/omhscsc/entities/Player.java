@@ -153,19 +153,25 @@ public class Player extends LivingEntity implements Anchor {
 	}
 
 	@Override
-	public void render(Graphics g, int xoff, int yoff) {
-		super.render(g, xoff, yoff);
+	public void render(Graphics g, int xoff, int yoff, float scale) {
+		super.render(g, xoff, yoff, scale);
 		Color last = g.getColor();
 		g.setColor(Color.WHITE);
-		g.drawImage(ImageLoader.getImage("char.png"), xoff, yoff, (int)hitbox.getBounds().getWidth(),(int) hitbox.getBounds().getHeight(), null);
+		g.drawImage(ImageLoader.getImage("char.png"), xoff, yoff, (int)(hitbox.getBounds().getWidth() * scale),(int) (hitbox.getBounds().getHeight() * scale), null);
 		g.setColor(new Color(125, 38, 142));
 		g.drawRect(xoff, yoff-15, 100, 10);
 		g.setColor(Color.ORANGE);
-		g.fillRect(xoff+1, yoff-14, (int)(100 * (this.getCurrentHp() / this.getMaxHp())), 9);
+		g.fillRect(xoff+1, yoff-14, (int)((100 * (this.getCurrentHp() / this.getMaxHp())) * scale), (int)(9 * scale));
 		
 		//	g.fillRect(xoff, yoff, (int)hitbox.getBounds().getWidth(),(int) hitbox.getBounds().getHeight());
 		
-		drawHitBoxes(g,xoff,yoff);
+		drawHitBoxes(g,xoff,yoff, scale);
+	}
+
+
+	@Override
+	public Location getCenterLocation() {
+		return getHitbox().getCenterLocation();
 	}
 
 
