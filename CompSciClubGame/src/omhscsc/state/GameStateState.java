@@ -42,7 +42,7 @@ public class GameStateState extends GameState {
 		re = new HashSet<Renderable>();
 		currentWorld = World.getWorld(0);
 		camera = new Camera(new Location(0,0), Game.WIDTH/2, Game.HEIGHT/2);
-		player = new Player("Freddy",new Hitbox(70, 70,new Location(0,0)));
+		player = new Player("Freddy",new Hitbox(70, 70,new Location(0,-10)));
 		addObject(player);
 		camera.setAnchor((Anchor)player);
 		placePlayerInWorld(currentWorld);
@@ -109,7 +109,8 @@ public class GameStateState extends GameState {
 			int xoff = (int)((camera.getHitbox().getBounds().getX() - camera.getHitbox().getBounds().getX()) * scale);
 			int yoff = (int)((camera.getHitbox().getBounds().getY() - camera.getHitbox().getBounds().getY()) * scale);
 			g.drawRect(xoff, yoff, (int)(camera.getWidth() * scale),(int)(camera.getHeight() * scale));
-			System.out.println(camera.getHeight() + "   "+ camera.getScale());
+			//The camera^
+			//System.out.println(camera.getHeight() + "   "+ camera.getScale());
 		} catch (ConcurrentModificationException e)
 		{
 			e.printStackTrace();

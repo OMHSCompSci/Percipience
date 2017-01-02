@@ -27,6 +27,8 @@ public class Player extends LivingEntity implements Anchor {
 
 	public Player(String n, Hitbox h) {
 		super(h);
+		h.setHeight(100);
+		h.setWidth(50);
 		name = n;
 		healthUpgrades = 0;
 		speedUpgrades = 0;
@@ -100,8 +102,7 @@ public class Player extends LivingEntity implements Anchor {
 		//Fix again because player movement
 		fixCollisions(gs);
 		//Might remove this later
-		if(hitbox.getLocation().getY() > 5000)
-			this.takeDmg(this.maxHealth);
+		
 		//Changing attack style later
 		//Test
 	}

@@ -221,7 +221,7 @@ public abstract class LivingEntity extends Entity {
 	{
 		if(!canJump)
 			return;
-		velocity.setY(-jumpHeight*700);
+		velocity.setY(-jumpHeight*400);
 		hitbox.addY(-5);
 		canJump = false;
 	}
