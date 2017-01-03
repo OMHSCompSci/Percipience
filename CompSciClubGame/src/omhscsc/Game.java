@@ -22,6 +22,10 @@ import omhscsc.ui.UIAction;
 import omhscsc.ui.UIButton;
 import omhscsc.world.World;
 
+/**
+ * The Game class contains the Game itself, and the static main method. The entire game is regulated by this class.
+ *
+ */
 public class Game {
 
 
