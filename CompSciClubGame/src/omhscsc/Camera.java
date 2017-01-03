@@ -105,7 +105,7 @@ public class Camera extends GameObject {
 	 * @param d The new scale
 	 */
 	public void setScale(float d) {
-		System.out.println("Scale: " + d);
+		//System.out.println("Scale: " + d);
 		if (d > Constants.MAXCAMSCALE || d < Constants.MINCAMSCALE) return; //Keeps camera scale at reasonable levels
 		int width = (int)(Game.getWidth() / d);
 		int height = (int)(Game.getHeight() / d);
