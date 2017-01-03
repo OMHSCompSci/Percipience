@@ -314,6 +314,9 @@ public class Game {
 		@Override
 		public void keyPressed(KeyEvent e)
 		{
+			//This quit is unsafe and shouldn't be done unless you don't want to save.
+			if(e.getKeyCode() == KeyEvent.VK_W && e.isControlDown())
+					System.exit(0);
 			g.keyPressed(e);
 		}
 		
