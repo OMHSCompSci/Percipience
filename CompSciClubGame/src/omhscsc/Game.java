@@ -20,6 +20,7 @@ import omhscsc.state.GameStateState;
 import omhscsc.state.MainMenuState;
 import omhscsc.ui.UIAction;
 import omhscsc.ui.UIButton;
+import omhscsc.util.Constants;
 import omhscsc.world.World;
 
 /**
@@ -44,7 +45,7 @@ public class Game {
 	private static float timeRate = 1f;
 	/*
 	 * 0 Should always be the main menu and 1 should always be the game.
-	 * The current state is the index of the state being used frmo the states List. (see above)
+	 * The current state is the index of the state being used from the states List. (see above)
 	 */
 	private int currentState;
 	/*
@@ -52,7 +53,7 @@ public class Game {
 	 */
 	public static final int GRAVITY = 1460;
 	//Default sizes of width and height for the window
-	private static int WIDTH = 16*80, HEIGHT = 9*80;
+	private static int WIDTH = Constants.WORLDX, HEIGHT = Constants.WORLDY;
 	
 	//Get width and get height represent the size of the current window.
 	public static int getWidth() {
