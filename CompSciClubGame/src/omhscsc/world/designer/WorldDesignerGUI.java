@@ -21,6 +21,7 @@ public class WorldDesignerGUI  {
 	 * RenderableGameObject.java
 	 * GameObject.java
 	 * Game.java (look at the window creation and stuff)
+	 * GameStateState.java (render methods)
 	 * 
 	 * Also look up:
 	 * JFrame documentation (google)
