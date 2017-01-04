@@ -66,6 +66,7 @@ public abstract class LivingEntity extends Entity {
 			if(wo.getHitbox().getBounds().intersects(getLeftBound())){
 				velocity.setX(0);
 				hitbox.setX(wo.getHitbox().getLocation().getX()+wo.getHitbox().getBounds().getWidth());
+				System.out.println("")
 			}
 			if(wo.getHitbox().getBounds().intersects(getRightBound())){
 				velocity.setX(0);
