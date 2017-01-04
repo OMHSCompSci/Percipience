@@ -17,6 +17,7 @@ import javax.swing.JOptionPane;
 import omhscsc.Camera;
 import omhscsc.Game;
 import omhscsc.GameObject;
+import omhscsc.RenderableGameObject;
 import omhscsc.entities.Player;
 import omhscsc.graphic.Renderable;
 import omhscsc.util.Anchor;
@@ -74,7 +75,7 @@ public class GameStateState extends GameState {
 	@Override
 	public void render(Graphics g) {
 		try {
-			for (WorldObject wo : currentWorld.getWorldObjects())
+			for (RenderableGameObject wo : currentWorld.getGameObjects())
 			{
 				if(camera.intersects(wo.getHitbox()))
 				{

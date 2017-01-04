@@ -1,27 +1,30 @@
 package omhscsc.entities;
 
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 import omhscsc.GameObject;
+import omhscsc.RenderableGameObject;
 import omhscsc.graphic.Renderable;
 import omhscsc.state.GameStateState;
 import omhscsc.util.Hitbox;
 import omhscsc.util.Location;
 import omhscsc.world.World;
 
-public abstract class Entity extends GameObject implements Renderable {
-
-	protected Hitbox hitbox;
+public abstract class Entity extends RenderableGameObject {
 	
 	public Entity(Hitbox h)
 	{
-		this.hitbox = h;
+		super(h);
 	}
 	
 	public Entity(World wr, int x, int y, int w, int h)
 	{
-		Location l = new Location(x,y,wr);
-		hitbox = new Hitbox(w,h,l);
+		super(new Hitbox(w,h,new Location(x,y,wr)));
 	}
 	
 	@Override
@@ -37,14 +40,5 @@ public abstract class Entity extends GameObject implements Renderable {
 		//May be used later, so leave empty
 	}
 	
-	public Hitbox getHitbox()
-	{
-		return this.hitbox;
-	}
-	
-	public Location getLocation()
-	{
-		return this.hitbox.getLocation();
-	}
 	
 }

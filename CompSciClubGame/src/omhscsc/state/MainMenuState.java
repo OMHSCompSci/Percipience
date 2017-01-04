@@ -222,6 +222,8 @@ public class MainMenuState extends GameState {
 		{
 			if(getButtonBox(i).contains(e.getPoint()))
 			{
+				if(hovered != i)
+					SoundMaster.playSound(Sound.BEEP);
 				hovered=i;
 				return;
 			}

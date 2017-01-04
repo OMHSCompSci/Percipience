@@ -8,7 +8,7 @@ import omhscsc.util.Hitbox;
 import omhscsc.util.Velocity;
 
 public class MovingBox extends WorldObject { //Moving block
-	private Velocity v; //velocities in x and y direction
+	protected Velocity v; //velocities in x and y direction
 	
 	public MovingBox(World world, int x, int y, int w, int h, Color c, double vx, double vy) {
 		super(world,x,y,w,h,c);
@@ -28,12 +28,4 @@ public class MovingBox extends WorldObject { //Moving block
 		}
 	}
 	
-	@Override
-	public void render(Graphics g, int xo, int yo)
-	{
-		Color last = g.getColor();
-		g.setColor(getColor());
-		g.fillRect(xo, yo, (int)getHitbox().getBounds().getWidth(), (int)getHitbox().getBounds().getHeight());
-		g.setColor(last);
-	}
 }
