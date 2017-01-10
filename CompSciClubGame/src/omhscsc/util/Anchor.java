@@ -6,4 +6,5 @@ public interface Anchor {
 	 */
 	
 	Location getLocation();
+	Location getCenterLocation();
 }

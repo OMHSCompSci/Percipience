@@ -13,11 +13,11 @@ public class Box extends WorldObject {
 	}
 	
 	@Override
-	public void render(Graphics g, int xoff, int yoff)
+	public void render(Graphics g, int xoff, int yoff, float scale)
 	{
 		Color last = g.getColor();
 		g.setColor(getColor());
-		g.fillRect(xoff, yoff, (int)getHitbox().getBounds().getWidth(), (int)getHitbox().getBounds().getHeight());
+		g.fillRect(xoff, yoff, (int)(getHitbox().getBounds().getWidth() * scale), (int)(getHitbox().getBounds().getHeight() * scale));
 		g.setColor(last);
 	}
 

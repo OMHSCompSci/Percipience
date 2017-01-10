@@ -39,7 +39,7 @@ public abstract class Enemy extends LivingEntity {
 	}
 	
 	@Override
-	public void render(Graphics g, int xoff, int yoff)
+	public void render(Graphics g, int xoff, int yoff, float scale)
 	{
 		//Placeholder rendering
 		try {

@@ -12,7 +12,7 @@ public class DrawnAnimation extends Animation {
 	}
 
 	@Override
-	public void render(Graphics g, int xoff, int yoff) {
+	public void render(Graphics g, int xoff, int yoff, float scale) {
 		// TODO Auto-generated method stub
 		
 	}

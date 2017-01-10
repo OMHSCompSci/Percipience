@@ -21,8 +21,8 @@ public abstract class Animation implements Renderable {
 		currentFrame = 0f;
 	}
 	
-	public void renderAndIncrement(Graphics g, int xo, int yo) {
-		render(g,xo,yo);
+	public void renderAndIncrement(Graphics g, int xo, int yo, float scale) {
+		render(g,xo,yo,scale);
 		increment();
 	}
 	

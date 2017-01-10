@@ -6,6 +6,6 @@ import omhscsc.util.Hitbox;
 
 public interface Renderable {
 
-	public void render(Graphics g, int xoff, int yoff);
+	public void render(Graphics g, int xoff, int yoff, float scale);
 	public Hitbox getHitbox();
 }

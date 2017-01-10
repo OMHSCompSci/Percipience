@@ -28,7 +28,7 @@ public abstract class Entity extends RenderableGameObject {
 	}
 	
 	@Override
-	public void render(Graphics g, int x, int y)
+	public void render(Graphics g, int x, int y, float scale)
 	{
 		//Place holder
 	}

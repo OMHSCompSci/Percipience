@@ -29,7 +29,7 @@ public class WorldRegion extends WorldObject {
 	}
 	
 	@Override
-	public void render(Graphics g, int xo, int yo) {
+	public void render(Graphics g, int xo, int yo, float scale) {
 		//This is needed because most regions will most likely be invisible.
 	}
 

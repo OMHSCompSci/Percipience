@@ -32,7 +32,6 @@ public abstract class RenderableGameObject extends GameObject implements Rendera
 		this.hitbox = h;
 	}	
 	
-	public abstract void render(Graphics g, int xoff, int yoff);
 
 	public Hitbox getHitbox() {
 		return hitbox;

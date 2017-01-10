@@ -86,7 +86,7 @@ public class World extends GameObject implements Serializable {
 	 * @param g The Graphics being used
 	 * @param hitbox The location of the player
 	 */
-	public void renderBackground(Graphics g, Hitbox hitbox) {
+	public void renderBackground(Graphics g, Hitbox hitbox, float scale) {
 		//Based on where the player is, the background should be drawn using the scroll rates (somehow)
 		for (int i = 0; i < backgroundLayers.length; i++) {
 			if(backgroundLayers == null)
@@ -95,10 +95,11 @@ public class World extends GameObject implements Serializable {
 			if(bi == null)
 				continue;
 			float scrollRate = parallaxScrollRates[i];
-			int imgX = (int)(hitbox.getBounds().getCenterX() * scrollRate) + (int)(bi.getWidth()/2) - (int)(hitbox.getWidth()/2);
-			int imgY = (int)(hitbox.getBounds().getCenterY() * scrollRate) + (int)(bi.getHeight()/2) - (int)(hitbox.getHeight()/2);
-			//System.out.println(imgX + " " + bi.getWidth());
-			g.drawImage(bi, 0, 0, Game.WIDTH, Game.HEIGHT, imgX, imgY, imgX + Game.WIDTH, imgY + Game.HEIGHT, null);
+			int imgX = (int)(hitbox.getBounds().getCenterX() * scrollRate - ((Game.getWidth()/scale)/2)) + (int)(bi.getWidth()/2) - (int)(hitbox.getWidth()/2 * scale);
+			int imgY = (int)(hitbox.getBounds().getCenterY() * scrollRate - ((Game.getHeight()/scale)/2)) + (int)(bi.getHeight()/2) - (int)(hitbox.getHeight()/2 * scale);
+			int imgX2 = (int)(imgX + (Game.getWidth()/scale)) + (int)(bi.getWidth()/2) + (int)(hitbox.getWidth()/2 * scale);
+			int imgY2 = (int)(imgY + (Game.getHeight()/scale)) + (int)(bi.getHeight()/2) + (int)(hitbox.getHeight()/2 * scale);	
+			g.drawImage(bi, 0, 0, Game.getWidth(), Game.getHeight(), imgX, imgY, imgX2, imgY2, null);
 			//bi = image drawn
 			//first two parameters are where to start drawing the rectangle in the GAME WINDOW
 			//the second two parameters are where it ends. This is just saying draw to the game window.
@@ -125,8 +126,8 @@ public class World extends GameObject implements Serializable {
 		if(initialized)
 			return;
 		worlds = new ArrayList<World>();
-		World testWorld = new World(0, 1, new float[] {0.1f, 0.3f, .6f}, new Location[] {new Location(100,-100)}, "starting_world");
-		testWorld.addGameObject(new Box(-1000, 0, 2000, 10, Color.RED));
+		World testWorld = new World(0, 1, new float[] {0.4f, 0.6f, .75f}, new Location[] {new Location(0,-100)}, "starting_world");
+		testWorld.addGameObject(new Box(-500, 0, 1000, 10, Color.RED));
 		worlds.add(testWorld);
 		initialized = true;
 	}

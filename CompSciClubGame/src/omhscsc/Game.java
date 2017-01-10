@@ -22,27 +22,60 @@ import omhscsc.state.GameStateState;
 import omhscsc.state.MainMenuState;
 import omhscsc.ui.UIAction;
 import omhscsc.ui.UIButton;
+import omhscsc.util.Constants;
 import omhscsc.world.World;
 
+/**
+ * The Game class contains the Game itself, and the static main method. The entire game is regulated by this class.
+ *
+ */
 public class Game {
 
 
 	//Test
 	//This is for faster loading...set to true if you want sound. I don't think it makes much of a difference however
 	public static final boolean sound = true;
+	//Is the game running
 	private boolean running, displaySmallInfo;
 	//Display small info refers to FPS, player pos, and TPS. It can be more later
+	//The canvas in which the game is rendered to;
 	private Canvas c;
+	//The Jframe which holds the canvas
 	private JFrame frame;
+	//The list of GameStates (see GameState.java and omhscsc.state)
 	private List<GameState>states;
+	//The rate at which things are affected in the game (independent of tick speed, but affects velocity...etc)
 	private static float timeRate = 1f;
 	/*
 	 * 0 Should always be the main menu and 1 should always be the game.
+	 * The current state is the index of the state being used from the states List. (see above)
 	 */
 	private int currentState,currentFPS,currentTPS;
+	/*
+	 * The rate at which player gains downward velocity (I don't understand it's value either)
+	 */
 	public static final int GRAVITY = 1460;
-	public static final int WIDTH = 16*80, HEIGHT = 9*80;
+	//Default sizes of width and height for the window
+	private static int WIDTH = Constants.WORLDX, HEIGHT = Constants.WORLDY;
 	
+	//Get width and get height represent the size of the current window.
+	public static int getWidth() {
+		return Game.WIDTH;
+	}
+	
+	public static int getHeight() {
+		return Game.HEIGHT;
+	}
+	/**
+	 * 
+	 * @param f A number above 0 that represents the windpw size (resolution).
+	 */
+	public static void SET_RESOLUTION(float f) {
+		Game.WIDTH = (int)(1600f * f);
+		Game.HEIGHT = (int)(900f * f);
+	}
+	
+	//Creates the game window
 	public Game()
 	{
 		running = false;
@@ -58,21 +91,39 @@ public class Game {
 		currentTPS = 0;
 	}
 	
+
+	/**
+	 * Add a new GameState to the gamestate list.
+	 * @param gs The game state added
+	 */
 	public void addState(GameState gs)
 	{
 		states.add(gs);
 	}
 	
+	/**
+	 * Get the GameState from the selected index.
+	 * @param index The location of the state in the states List.
+	 * @return The state at that index
+	 */
 	public GameState getGameState(int index)
 	{
 		return this.states.get(index);
 	}
 	
+	/**
+	 * Set the current game state. This uses the states list.
+	 * @param index
+	 */
 	public void setGameState(int index)
 	{
 		this.currentState = index;
 	}
 	
+	/**
+	 * Set the current game state by actual GameState. If it doesn't exist in the states list, it will be added.
+	 * @param s
+	 */
 	public void setGameState(GameState s)
 	{
 		if(!states.contains(s))
@@ -80,6 +131,9 @@ public class Game {
 		currentState = states.indexOf(s);
 	}
 	
+	/**
+	 * Start the game. This method does not end until the game is quit.
+	 */
 	public void start()
 	{
 		if(running)
@@ -133,6 +187,9 @@ public class Game {
 		}
 	}
 	
+	/**
+	 * Render the game to the canvas by passing the Graphics from the Canvas BufferStrategy
+	 */
 	private void render()
 	{
 		BufferStrategy bs = c.getBufferStrategy();
@@ -154,11 +211,17 @@ public class Game {
 		bs.show();
 	}
 	
+	/**
+	 * Tick the current state.
+	 */
 	private void tick()
 	{
 		states.get(currentState).tick();
 	}
 	
+	/**
+	 * Initialize the game. (Create some components, load some resources...etc)
+	 */
 	private void init()
 	{
 		if(sound)
@@ -221,22 +284,37 @@ public class Game {
 		}
 	}
 	
-	
+	/**
+	 * Pass mouse moved to the current GameState
+	 * @param e The MouseEvent
+	 */
 	public void mouseMoved(MouseEvent e)
 	{
 		states.get(currentState).mouseMoved(e);
 	}
 	
+	/**
+	 * Pass mouse clicked to the current GameState
+	 * @param e The MouseEvent
+	 */
 	public void mouseClicked(MouseEvent e)
 	{
 		states.get(currentState).mouseClicked(e);
 	}
 	
+	/**
+	 * Pass mouse dragged to the current GameState
+	 * @param e The MouseEvent
+	 */
 	public void mouseDragged(MouseEvent e)
 	{
 		states.get(currentState).mouseDragged(e);
 	}
 	
+	/**
+	 * Pass key pressed to the current GameState
+	 * @param e The KeyEvent
+	 */
 	public void keyPressed(KeyEvent e) {
 		if(e.getKeyCode() == KeyEvent.VK_F1 && e.isControlDown()) {
 			this.displaySmallInfo=!this.displaySmallInfo;
@@ -245,24 +323,45 @@ public class Game {
 		states.get(currentState).keyPressed(e);
 	}
 
+	/**
+	 * Pass key released to the current GameState
+	 * @param e The KeyEvent
+	 */
 	public void keyReleased(KeyEvent e) {
 		states.get(currentState).keyReleased(e);
 	}
 
+	/**
+	 * Pass the mouse released to the current GameState
+	 * @param e The MouseEvent
+	 */
 	public void mouseReleased(MouseEvent e) {
 		states.get(currentState).mouseReleased(e);
 	}
 	
+	//TICKS PER SECOND
 	public static final int TPS = 60;
 	
+	/**
+	 * Get the rate at which things should be moving. 1.0f is the default value.
+	 * @return The rate of change.
+	 */
 	public static float getTimeRate() {
 		return Game.timeRate;
 	}
 	
+	/**
+	 * Set the rate at which things should be moving. 1.0f is the default value
+	 * @param f The rate of change
+	 */
 	public static void setTimeRate(float f) {
 		Game.timeRate = Math.abs(f);
 	}
 	
+	/**
+	 * The main method. Launches the game.
+	 * @param args Don't use this
+	 */
 	public static void main(String[] args)
 	{
 		Game game = new Game();
@@ -270,7 +369,11 @@ public class Game {
 		game.start();
 	}
 	
-	
+	/**
+	 * A class specifically built to watch for different events and pass them to the game
+	 * @author xDest
+	 *
+	 */
 	class MouseWatcher extends MouseAdapter {
 		
 		private Game g;
@@ -304,6 +407,11 @@ public class Game {
 			g.mouseReleased(e);
 		}
 	}
+	/**
+	 * A class specifically built to watch for different events and pass them to the game
+	 * @author xDest
+	 *
+	 */
 	class KeyWatcher extends KeyAdapter {
 		
 		private Game g;
@@ -316,6 +424,9 @@ public class Game {
 		@Override
 		public void keyPressed(KeyEvent e)
 		{
+			//This quit is unsafe and shouldn't be done unless you don't want to save.
+			if(e.getKeyCode() == KeyEvent.VK_W && e.isControlDown())
+					System.exit(0);
 			g.keyPressed(e);
 		}
 		

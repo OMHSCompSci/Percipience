@@ -21,12 +21,14 @@ import omhscsc.world.WorldObject;
 public class Player extends LivingEntity implements Anchor {
 
 	private String name;
-	private boolean rightHeld, leftHeld, attacking;
+	private boolean rightHeld, leftHeld;
 	private int healthUpgrades, speedUpgrades, jumpUpgrades;
 	private Useable use;
 
 	public Player(String n, Hitbox h) {
 		super(h);
+		h.setHeight(100);
+		h.setWidth(50);
 		name = n;
 		healthUpgrades = 0;
 		speedUpgrades = 0;
@@ -40,12 +42,6 @@ public class Player extends LivingEntity implements Anchor {
 		leftHeld = false;
 		velocity = new Velocity(0,0);
 		use = null;
-		attacking = false;
-	}
-	
-	
-	public void attack(){
-		attacking = true;
 	}
 	
 	public void setRightHeld(boolean r)
@@ -68,17 +64,6 @@ public class Player extends LivingEntity implements Anchor {
 		return this.leftHeld;
 	}
 	
-	public void takeDmg(double dmg) {
-		health -= dmg;
-	}
-
-	public double getCurrentHp() {
-		return health;
-	}
-
-	public double getMaxHp() {
-		return maxHealth;
-	}
 	
 	
 	
@@ -100,8 +85,7 @@ public class Player extends LivingEntity implements Anchor {
 		//Fix again because player movement
 		fixCollisions(gs);
 		//Might remove this later
-		if(hitbox.getLocation().getY() > 5000)
-			this.takeDmg(this.maxHealth);
+		
 		//Changing attack style later
 		//Test
 	}
@@ -113,6 +97,10 @@ public class Player extends LivingEntity implements Anchor {
 			maxHealth = maxHealth * 1.25;
 			health = health + (maxHealth - temp);
 		}
+	}
+	
+	public void attack() {
+		
 	}
 
 	public void getSpUp() {
@@ -153,19 +141,22 @@ public class Player extends LivingEntity implements Anchor {
 	}
 
 	@Override
-	public void render(Graphics g, int xoff, int yoff) {
-		super.render(g, xoff, yoff);
+	public void render(Graphics g, int xoff, int yoff, float scale) {
+		super.render(g, xoff, yoff, scale);
 		Color last = g.getColor();
 		g.setColor(Color.WHITE);
-		g.drawImage(ImageLoader.getImage("char.png"), xoff, yoff, (int)hitbox.getBounds().getWidth(),(int) hitbox.getBounds().getHeight(), null);
-		g.setColor(new Color(125, 38, 142));
-		g.drawRect(xoff, yoff-15, 100, 10);
-		g.setColor(Color.ORANGE);
-		g.fillRect(xoff+1, yoff-14, (int)(100 * (this.getCurrentHp() / this.getMaxHp())), 9);
+		g.drawImage(ImageLoader.getImage("char.png"), xoff, yoff, (int)(hitbox.getBounds().getWidth() * scale),(int) (hitbox.getBounds().getHeight() * scale), null);
+		drawHealthBar(g,xoff,yoff,scale);
 		
 		//	g.fillRect(xoff, yoff, (int)hitbox.getBounds().getWidth(),(int) hitbox.getBounds().getHeight());
 		
-		drawHitBoxes(g,xoff,yoff);
+		drawHitBoxes(g,xoff,yoff, scale);
+	}
+
+
+	@Override
+	public Location getCenterLocation() {
+		return getHitbox().getCenterLocation();
 	}
 
 
