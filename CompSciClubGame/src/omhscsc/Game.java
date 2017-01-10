@@ -80,7 +80,7 @@ public class Game {
 	{
 		running = false;
 		states = new ArrayList<GameState>();
-		frame = new JFrame();
+		frame = new JFrame("Khanological Order");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(Game.WIDTH, Game.HEIGHT);
 		frame.setResizable(false);
@@ -117,7 +117,10 @@ public class Game {
 	 */
 	public void setGameState(int index)
 	{
+		int lastState = this.currentState;
 		this.currentState = index;
+		this.states.get(lastState).lostFocus();
+		this.states.get(currentState).gainedFocus();
 	}
 	
 	/**
@@ -126,9 +129,12 @@ public class Game {
 	 */
 	public void setGameState(GameState s)
 	{
+		int lastState = this.currentState;
 		if(!states.contains(s))
 			addState(s);
 		currentState = states.indexOf(s);
+		this.states.get(lastState).lostFocus();
+		this.states.get(currentState).gainedFocus();
 	}
 	
 	/**
