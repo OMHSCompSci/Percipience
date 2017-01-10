@@ -46,7 +46,7 @@ public class Game {
 	{
 		running = false;
 		states = new ArrayList<GameState>();
-		frame = new JFrame();
+		frame = new JFrame("Khanological Order");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(Game.WIDTH, Game.HEIGHT);
 		frame.setResizable(false);
