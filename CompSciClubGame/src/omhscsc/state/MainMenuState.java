@@ -277,13 +277,11 @@ public class MainMenuState extends GameState {
 
 	@Override
 	public void lostFocus() {
-		// TODO Auto-generated method stub
-		
+		SoundMaster.stopSound(Sound.TITLE);
 	}
 
 	@Override
 	public void gainedFocus() {
-		// TODO Auto-generated method stub
 		
 	}
 

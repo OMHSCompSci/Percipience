@@ -69,14 +69,20 @@ public class Game {
 	
 	public void setGameState(int index)
 	{
+		int lastState = this.currentState;
 		this.currentState = index;
+		this.states.get(lastState).lostFocus();
+		this.states.get(currentState).gainedFocus();
 	}
 	
 	public void setGameState(GameState s)
 	{
+		int lastState = this.currentState;
 		if(!states.contains(s))
 			addState(s);
 		currentState = states.indexOf(s);
+		this.states.get(lastState).lostFocus();
+		this.states.get(currentState).gainedFocus();
 	}
 	
 	public void start()
