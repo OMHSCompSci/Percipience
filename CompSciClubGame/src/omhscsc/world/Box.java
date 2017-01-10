@@ -7,19 +7,30 @@ import omhscsc.state.GameStateState;
 
 public class Box extends WorldObject {
 
+	/**
+	 * Create a box with the specified hitbox and color
+	 * @param x x pos
+	 * @param y y pos
+	 * @param w width
+	 * @param h height
+	 * @param c color
+	 */
 	public Box(int x, int y, int w, int h, Color c) {
-		super(x, y, w, h, c);
-		
+		super(x, y, w, h, c);	
 	}
 	
-	@Override
-	public void render(Graphics g, int xoff, int yoff, float scale)
-	{
-		Color last = g.getColor();
-		g.setColor(getColor());
-		g.fillRect(xoff, yoff, (int)(getHitbox().getBounds().getWidth() * scale), (int)(getHitbox().getBounds().getHeight() * scale));
-		g.setColor(last);
+	/**
+	 * Create a Box with the specified hitbox and image
+	 * @param x x pos
+	 * @param y y pos
+	 * @param w width
+	 * @param h height
+	 * @param c Image path for {@link omhscsc.util.ImageLoader#getImage(String)}
+	 */
+	public Box(int x, int y, int w, int h, String c) {
+		super(x, y, w, h, c);	
 	}
+
 
 	@Override
 	public void tick(GameStateState s) {

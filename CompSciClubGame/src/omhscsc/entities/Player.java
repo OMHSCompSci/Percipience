@@ -145,7 +145,7 @@ public class Player extends LivingEntity implements Anchor {
 		super.render(g, xoff, yoff, scale);
 		Color last = g.getColor();
 		g.setColor(Color.WHITE);
-		g.drawImage(ImageLoader.getImage("char.png"), xoff, yoff, (int)(hitbox.getBounds().getWidth() * scale),(int) (hitbox.getBounds().getHeight() * scale), null);
+		g.drawImage(ImageLoader.getImage("char"), xoff, yoff, (int)(hitbox.getBounds().getWidth() * scale),(int) (hitbox.getBounds().getHeight() * scale), null);
 		drawHealthBar(g,xoff,yoff,scale);
 		
 		//	g.fillRect(xoff, yoff, (int)hitbox.getBounds().getWidth(),(int) hitbox.getBounds().getHeight());

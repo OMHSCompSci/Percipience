@@ -12,6 +12,11 @@ public class ImageLoader {
 
 	private static HashMap<String,BufferedImage> images = new HashMap<String,BufferedImage>();
 	
+	/**
+	 * Get an image from the /source/image folder.
+	 * @param name The name of the image
+	 * @return The image, if it exists.
+	 */
 	public static BufferedImage getImage(String name)
 	{
 		if(!images.containsKey(name))
@@ -22,7 +27,7 @@ public class ImageLoader {
 	public static BufferedImage loadImage(String name)
 	{
 		try {
-			return ImageIO.read(ImageLoader.class.getResourceAsStream("/image/"+name));
+			return ImageIO.read(ImageLoader.class.getResourceAsStream("/image/"+name+".png"));
 		} catch (Exception e)
 		{
 			e.printStackTrace();

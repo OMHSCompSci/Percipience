@@ -76,9 +76,9 @@ public class MainMenuState extends GameState {
 		super(g);
 		this.buttons = buttons;
 		hovered = -1;
-		bg = ImageLoader.loadImage("gamebg.png");
-		button = ImageLoader.loadImage("button.png");
-		button_invert = ImageLoader.loadImage("button_invert.png");
+		bg = ImageLoader.loadImage("gamebg");
+		button = ImageLoader.loadImage("button");
+		button_invert = ImageLoader.loadImage("button_invert");
 	}
 	
 	public void calculateButtonLocations(Graphics g)

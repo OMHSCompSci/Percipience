@@ -127,7 +127,7 @@ public class World extends GameObject implements Serializable {
 			return;
 		worlds = new ArrayList<World>();
 		World testWorld = new World(0, 1, new float[] {0.4f, 0.6f, .75f}, new Location[] {new Location(0,-100)}, "starting_world");
-		testWorld.addGameObject(new Box(-500, 0, 1000, 10, Color.RED));
+		testWorld.addGameObject(new Box(-500, 0, 1000, 10, "button"));
 		worlds.add(testWorld);
 		initialized = true;
 	}
