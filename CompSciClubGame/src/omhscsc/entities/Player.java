@@ -21,7 +21,7 @@ import omhscsc.world.WorldObject;
 public class Player extends LivingEntity implements Anchor {
 
 	private String name;
-	private boolean rightHeld, leftHeld;
+	private boolean rightHeld, leftHeld, drawDebug;
 	private int healthUpgrades, speedUpgrades, jumpUpgrades;
 	private Useable use;
 
@@ -30,6 +30,7 @@ public class Player extends LivingEntity implements Anchor {
 		h.setHeight(100);
 		h.setWidth(50);
 		name = n;
+		drawDebug = false;
 		healthUpgrades = 0;
 		speedUpgrades = 0;
 		jumpUpgrades = 0;
@@ -66,6 +67,9 @@ public class Player extends LivingEntity implements Anchor {
 	
 	
 	
+	public void setDrawHitboxes(boolean b) {
+		this.drawDebug = b;
+	}
 	
 	@Override
 	public void tick(GameStateState gs) {
@@ -140,6 +144,10 @@ public class Player extends LivingEntity implements Anchor {
 		use = u;
 	}
 
+	public boolean drawHitboxEnabled() {
+		return this.drawDebug;
+	}
+	
 	@Override
 	public void render(Graphics g, int xoff, int yoff, float scale) {
 		super.render(g, xoff, yoff, scale);
@@ -150,7 +158,8 @@ public class Player extends LivingEntity implements Anchor {
 		
 		//	g.fillRect(xoff, yoff, (int)hitbox.getBounds().getWidth(),(int) hitbox.getBounds().getHeight());
 		
-		drawHitBoxes(g,xoff,yoff, scale);
+		if(this.drawDebug)
+			drawHitBoxes(g,xoff,yoff, scale);
 	}
 
 

@@ -324,7 +324,10 @@ public class Game {
 	public void keyPressed(KeyEvent e) {
 		if(e.getKeyCode() == KeyEvent.VK_F1 && e.isControlDown()) {
 			this.displaySmallInfo=!this.displaySmallInfo;
-		
+			if(states.get(currentState).getClass() == GameStateState.class) {
+				((GameStateState)states.get(currentState)).getPlayer().setDrawHitboxes(displaySmallInfo);
+			}
+				
 		}
 		states.get(currentState).keyPressed(e);
 	}
