@@ -107,7 +107,7 @@ public class World extends GameObject {
 		world1.addGameObject(new Box(world1, wobjectx.get(7),wobjecty.get(7),wobjectw.get(7),wobjecth.get(7), new Color(78,225,180)));
 		world1.addGameObject(new Box(world1, wobjectx.get(8),wobjecty.get(8),wobjectw.get(8),wobjecth.get(8), new Color(99,187,111)));
 		world1.addGameObject(new Box(world1, wobjectx.get(9),wobjecty.get(9),wobjectw.get(9),wobjecth.get(9), new Color(69,69,69)));
-		world1.addGameObject(new MovingBox(world1, 400, -10, 100,30, Color.RED, -1, 0));
+		world1.addGameObject(new MovingBox(world1, 400, -10, 100,30, Color.RED, -100, 0));
 		world1.addGameObject(new NormalEnemy(50,new Hitbox(30, 30, new Location(400,-100,world1))));
 		
 		World world2 = new World(1);

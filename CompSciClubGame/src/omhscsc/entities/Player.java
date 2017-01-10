@@ -94,7 +94,7 @@ public class Player extends LivingEntity implements Anchor {
 			xchange=-speed;
 		if(getRightHeld())
 			xchange=speed;
-		hitbox.addX(xchange/(double)Game.TPS);
+		hitbox.addX((xchange/(double)Game.TPS)* Game.getTimeRate() * this.getTimeRate());
 		Location newLoc = this.getLocation().clone();
 		checkChange(lastLoc, newLoc, xchange, 0, gs);
 		//Fix again because player movement
