@@ -2,7 +2,6 @@ package omhscsc.util;
 
 import java.awt.Rectangle;
 
-import omhscsc.world.World;
 
 public class Hitbox {
 

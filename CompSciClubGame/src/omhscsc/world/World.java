@@ -95,8 +95,9 @@ public class World extends GameObject implements Serializable {
 			if(bi == null)
 				continue;
 			float scrollRate = parallaxScrollRates[i];
-			int imgX = (int)(hitbox.getBounds().getCenterX() * scrollRate) + (int)(bi.getWidth()/2);
-			int imgY = (int)(hitbox.getBounds().getCenterY() * scrollRate) + (int)(bi.getHeight()/2);
+			int imgX = (int)(hitbox.getBounds().getCenterX() * scrollRate) + (int)(bi.getWidth()/2) - (int)(hitbox.getWidth()/2);
+			int imgY = (int)(hitbox.getBounds().getCenterY() * scrollRate) + (int)(bi.getHeight()/2) - (int)(hitbox.getHeight()/2);
+			//System.out.println(imgX + " " + bi.getWidth());
 			g.drawImage(bi, 0, 0, Game.WIDTH, Game.HEIGHT, imgX, imgY, imgX + Game.WIDTH, imgY + Game.HEIGHT, null);
 			//bi = image drawn
 			//first two parameters are where to start drawing the rectangle in the GAME WINDOW

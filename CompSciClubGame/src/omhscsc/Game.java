@@ -115,7 +115,7 @@ public class Game {
 			
 			if(nsPassed > 1e9)
 			{
-				System.out.println("Ticks: " + ticks + " Frames: " + frames);
+				//System.out.println("Ticks: " + ticks + " Frames: " + frames);
 				currentFPS = frames;
 				currentTPS = ticks;
 				ticks=0;
@@ -240,7 +240,7 @@ public class Game {
 	public void keyPressed(KeyEvent e) {
 		if(e.getKeyCode() == KeyEvent.VK_F1 && e.isControlDown()) {
 			this.displaySmallInfo=!this.displaySmallInfo;
-			System.out.println("TOGGLED INFO");
+		
 		}
 		states.get(currentState).keyPressed(e);
 	}
