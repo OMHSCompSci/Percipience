@@ -58,6 +58,7 @@ public class PathBox extends WorldObject {
 		if(path.get(current).getX() - path.get(next).getX() <= error && path.get(current).getY() - path.get(next).getY() <= error){
 			toNext();
 		}
+		System.out.println("AHHHHHHHHHH " + currentVelocity.toString() + "  " +  this.getLocation().toString());
 	}
 	
 	private void findVelocity() {
@@ -69,6 +70,7 @@ public class PathBox extends WorldObject {
 		double angle = Math.atan(ydist/xdist);
 		xv = this.speed * Math.cos(angle);
 		yv = this.speed * Math.sin(angle);
+		currentVelocity = new Velocity(xv,yv);
 		//This might not work for everything
 		//Not finished
 	}

@@ -146,7 +146,7 @@ public class GameStateState extends GameState {
 		{
 			//When you don't want to deal
 			//Hopefully Tasks should make this unneeded. Input should ==NEVER== directly add a game object 
-			//e.printStackTrace();
+			e.printStackTrace();
 			
 			//Continue
 		}

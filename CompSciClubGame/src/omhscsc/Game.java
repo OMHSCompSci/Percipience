@@ -34,7 +34,7 @@ public class Game {
 
 	//Test
 	//This is for faster loading...set to true if you want sound. I don't think it makes much of a difference however
-	public static final boolean sound = true;
+	public static final boolean sound = false;
 	//Is the game running
 	private boolean running, displaySmallInfo;
 	//Display small info refers to FPS, player pos, and TPS. It can be more later
@@ -182,11 +182,12 @@ public class Game {
 				frames=0;
 				nsPassed=0;
 			}
-			
+			System.out.println("wtf is happening " + timePassed);
 			lastTime = currentTime;
 			if(lastKnownState != this.currentState) {
 				lastKnownState = this.currentState;
 				timePassed = 0;
+				System.out.println("reset");
 				//Resetting to remove lag
 			}
 				
@@ -207,7 +208,7 @@ public class Game {
 			if(states.get(currentState).getClass() == GameStateState.class) {
 				infoString+= ((GameStateState)states.get(currentState)).getPlayer().getHitbox().getLocation().toString();
 			}
-			infoString+= " | FPS: " + currentFPS + " | TPS: " + currentTPS;
+			infoString+= " | FPS: " + currentFPS + " | TPS: " + currentTPS + "  ??? " + this.running;
 			g.setFont(new Font("Arial",Font.BOLD,18));
 			g.setColor(Color.white);
 			g.drawString(infoString, 10,50);
@@ -222,7 +223,9 @@ public class Game {
 	 */
 	private void tick()
 	{
+		System.out.println("ddddd");
 		states.get(currentState).tick();
+		System.out.println("aaaaaaaaaaaaaaa");
 	}
 	
 	/**
