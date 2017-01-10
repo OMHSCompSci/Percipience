@@ -54,6 +54,10 @@ public class PathBox extends WorldObject {
 			s.getPlayer().getHitbox().addX((currentVelocity.getX()/Game.TPS) * Game.getTimeRate());
 			s.getPlayer().getHitbox().addY((currentVelocity.getY()/Game.TPS) * Game.getTimeRate());
 		}
+		
+		if(path.get(current).getX() - path.get(next).getX() <= error && path.get(current).getY() - path.get(next).getY() <= error){
+			toNext();
+		}
 	}
 	
 	private void findVelocity() {
@@ -63,6 +67,8 @@ public class PathBox extends WorldObject {
 		double xdist = (path.get(current).getX() - this.getHitbox().getLocation().getX());
 		double ydist = (path.get(current).getY() - this.getHitbox().getLocation().getY());
 		double angle = Math.atan(ydist/xdist);
+		xv = this.speed * Math.cos(angle);
+		yv = this.speed * Math.sin(angle);
 		//This might not work for everything
 		//Not finished
 	}
