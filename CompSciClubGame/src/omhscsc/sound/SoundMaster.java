@@ -130,6 +130,8 @@ public class SoundMaster {
 			Debug.warn("Could not find sound (while attempting to play) " + s.toString());
 			return;
 		}
+		if(c.isActive())
+			c.stop();
 		c.setFramePosition(0);
 		c.start();
 	}

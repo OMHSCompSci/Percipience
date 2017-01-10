@@ -49,6 +49,9 @@ public class Location implements Anchor {
 	}
 
 
+	public String toString() {
+		return "X: " + Utils.roundTo(3,this.getX()) + " Y: " + Utils.roundTo(3, this.getY());
+	}
 	
 	
 	

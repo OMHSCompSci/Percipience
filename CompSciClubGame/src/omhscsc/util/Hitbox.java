@@ -51,4 +51,16 @@ public class Hitbox {
 	{
 		return this.l;
 	}
+	
+	public int getWidth() {
+		return w;
+	}
+	
+	public int getHeight() {
+		return h;
+	}
+	
+	public String toString() {
+		return "WIDTH: " + getWidth() + " HEIGHT: " + getHeight() + " " + l.toString();
+	}
 }
