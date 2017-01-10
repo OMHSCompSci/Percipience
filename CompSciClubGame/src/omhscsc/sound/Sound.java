@@ -11,7 +11,8 @@ public enum Sound {
 	/*
 	 * All default sounds will be an enum here
 	 */
-	TITLE("TITLE_MUSIC","/sound/main_title.wav");
+	TITLE("TITLE_MUSIC","/sound/main_title.wav"),
+	BEEP("BEEP","/sound/beep.wav");
 	
 	private final String name, path;
 	Sound(String name, String path)
