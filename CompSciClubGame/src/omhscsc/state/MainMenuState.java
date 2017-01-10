@@ -22,7 +22,7 @@ public class MainMenuState extends GameState {
 	private UIButton[] buttons;
 	private ButtonConfig[] buttonLocs;
 	private BufferedImage bg,button,button_invert;
-	private int hovered;
+	private int selected;
 
 	class ButtonConfig {
 		
@@ -75,10 +75,10 @@ public class MainMenuState extends GameState {
 	{
 		super(g);
 		this.buttons = buttons;
-		hovered = -1;
-		bg = ImageLoader.loadImage("gamebg.png");
-		button = ImageLoader.loadImage("button.png");
-		button_invert = ImageLoader.loadImage("button_invert.png");
+		selected = -1;
+		bg = ImageLoader.loadImage("gamebg");
+		button = ImageLoader.loadImage("button");
+		button_invert = ImageLoader.loadImage("button_invert");
 	}
 	
 	public void calculateButtonLocations(Graphics g)
@@ -98,7 +98,7 @@ public class MainMenuState extends GameState {
 		for(int i = 0; i<buttons.length;i++)
 		{
 			yoff = ybase + (i * ydiv) + (10*i);
-			if(hovered != i)
+			if(selected != i)
 				g.drawImage(button, xoff, yoff, xdiv, ydiv, null);
 			else
 				g.drawImage(button_invert, xoff, yoff, xdiv, ydiv, null);
@@ -170,10 +170,12 @@ public class MainMenuState extends GameState {
 			int ydiv = bc.getH();
 			int textX = bc.getTextX();
 			int textY = bc.getTextY();
-			if(hovered != i)
+			int expandX = 10;
+			int expandY = 20;
+			if(selected != i)
 				g.drawImage(button, xoff, yoff, xdiv, ydiv, null);
 			else
-				g.drawImage(button_invert, xoff, yoff, xdiv, ydiv, null);
+				g.drawImage(button, xoff, yoff-(expandY/2), xdiv+expandX, ydiv+expandY, null);
 
 			g.setColor(Color.gray);
 			TextLayout tl = new TextLayout(buttons[i].getTitle(), new Font("Monaco", Font.PLAIN, (int)(64 * (ydiv/283.0))), ((Graphics2D)g).getFontRenderContext());
@@ -222,13 +224,13 @@ public class MainMenuState extends GameState {
 		{
 			if(getButtonBox(i).contains(e.getPoint()))
 			{
-				if(hovered != i)
+				if(selected != i)
 					SoundMaster.playSound(Sound.BEEP);
-				hovered=i;
+				selected=i;
 				return;
 			}
 		}
-		hovered = -1;
+		selected = -1;
 	}
 
 	@Override
@@ -239,8 +241,26 @@ public class MainMenuState extends GameState {
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
+		if(e.getKeyCode() == KeyEvent.VK_W || e.getKeyCode() == KeyEvent.VK_UP) {
+			if(selected <= 0)
+				selected = this.buttons.length-1;
+			else
+				selected--;
+			SoundMaster.playSound(Sound.BEEP);
+			return;
+		}
+		if(e.getKeyCode() == KeyEvent.VK_S || e.getKeyCode() == KeyEvent.VK_DOWN) {
+			if(selected >= this.buttons.length-1)
+				selected = 0;
+			else
+				selected++;
+			SoundMaster.playSound(Sound.BEEP);
+			return;
+		}
+		if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+			if(selected >= 0)
+				buttons[selected].clicked(this);
+		}
 	}
 
 	@Override

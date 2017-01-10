@@ -19,7 +19,7 @@ public class ImageLoader {
 	public static BufferedImage loadImage(String name)
 	{
 		try {
-			return ImageIO.read(ImageLoader.class.getResourceAsStream("/image/"+name));
+			return ImageIO.read(ImageLoader.class.getResourceAsStream("/image/"+name+".png"));
 		} catch (Exception e)
 		{
 			e.printStackTrace();
