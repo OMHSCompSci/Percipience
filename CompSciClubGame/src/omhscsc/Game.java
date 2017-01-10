@@ -1,6 +1,8 @@
 package omhscsc;
 
 import java.awt.Canvas;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -34,7 +36,8 @@ public class Game {
 	//This is for faster loading...set to true if you want sound. I don't think it makes much of a difference however
 	public static final boolean sound = true;
 	//Is the game running
-	private boolean running;
+	private boolean running, displaySmallInfo;
+	//Display small info refers to FPS, player pos, and TPS. It can be more later
 	//The canvas in which the game is rendered to;
 	private Canvas c;
 	//The Jframe which holds the canvas
@@ -47,7 +50,7 @@ public class Game {
 	 * 0 Should always be the main menu and 1 should always be the game.
 	 * The current state is the index of the state being used from the states List. (see above)
 	 */
-	private int currentState;
+	private int currentState,currentFPS,currentTPS;
 	/*
 	 * The rate at which player gains downward velocity (I don't understand it's value either)
 	 */
@@ -84,6 +87,9 @@ public class Game {
 		frame.setResizable(false);
 		c = new Canvas();
 		frame.add(c);
+		displaySmallInfo = false;
+		currentFPS = 0;
+		currentTPS = 0;
 	}
 	
 
@@ -165,6 +171,8 @@ public class Game {
 			if(nsPassed > 1e9)
 			{
 				System.out.println("Ticks: " + ticks + " Frames: " + frames);
+				currentFPS = frames;
+				currentTPS = ticks;
 				ticks=0;
 				frames=0;
 				nsPassed=0;
@@ -189,6 +197,17 @@ public class Game {
 		Graphics g = bs.getDrawGraphics();
 		g.fillRect(0, 0, Game.WIDTH, Game.HEIGHT);
 		states.get(currentState).render(g);
+		if(displaySmallInfo) {
+			String infoString = "";
+			if(states.get(currentState).getClass() == GameStateState.class) {
+				infoString+= ((GameStateState)states.get(currentState)).getPlayer().getHitbox().getLocation().toString();
+			}
+			infoString+= " | FPS: " + currentFPS + " | TPS: " + currentTPS;
+			g.setFont(new Font("Arial",Font.BOLD,18));
+			g.setColor(Color.white);
+			g.drawString(infoString, 10,50);
+		}
+			
 		g.dispose();
 		bs.show();
 	}
@@ -298,6 +317,10 @@ public class Game {
 	 * @param e The KeyEvent
 	 */
 	public void keyPressed(KeyEvent e) {
+		if(e.getKeyCode() == KeyEvent.VK_F1 && e.isControlDown()) {
+			this.displaySmallInfo=!this.displaySmallInfo;
+			System.out.println("TOGGLED INFO");
+		}
 		states.get(currentState).keyPressed(e);
 	}
 

@@ -64,4 +64,16 @@ public class Hitbox implements Anchor {
 	public Location getCenterLocation() {
 		return new Location(getBounds().getCenterX(),getBounds().getCenterY());
 	}
+	
+	public int getWidth() {
+		return w;
+	}
+	
+	public int getHeight() {
+		return h;
+	}
+	
+	public String toString() {
+		return "WIDTH: " + getWidth() + " HEIGHT: " + getHeight() + " " + l.toString();
+	}
 }
