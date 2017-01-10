@@ -38,17 +38,6 @@ public abstract class Enemy extends LivingEntity {
 		return maxHealth;
 	}
 	
-	@Override
-	public void render(Graphics g, int xoff, int yoff)
-	{
-		//Placeholder rendering
-		try {
-			g.drawImage(ImageIO.read(new File("source/image/ghost.png")), xoff, yoff, 50, 50, null);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		//super.render(g, xoff, yoff);
-	}
+	
 
 }

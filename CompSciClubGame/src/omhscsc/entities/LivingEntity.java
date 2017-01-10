@@ -32,9 +32,9 @@ public abstract class LivingEntity extends Entity {
 		relativeExistanceRate = 1f;
 	}
 	
-	public LivingEntity(World wr, int x, int y, int w, int h)
+	public LivingEntity(int x, int y, int w, int h)
 	{
-		super(wr,x,y,w,h);
+		super(x,y,w,h);
 		canJump = true;
 		relativeExistanceRate = 1f;
 	}
@@ -59,9 +59,9 @@ public abstract class LivingEntity extends Entity {
 		//Removing fix collisions, add it wherever needed in subclasses
 	}
 	
-	public void render(Graphics g, int x, int y)
+	public void render(Graphics g, int x, int y, float scale)
 	{
-		super.render(g,x,y);
+		super.render(g,x,y,scale);
 		//place holder
 	}
 	
@@ -152,7 +152,7 @@ public abstract class LivingEntity extends Entity {
 		if(Math.abs(h) < 1 || h == 0)
 			h=1 * (h < 0 ? -1:1);
 		int y = (int)((h < 0) ? lastLoc.getY():newLoc.getY());
-		Hitbox changeBox = new Hitbox((int)w,(int)h,x,y,newLoc.getWorld());
+		Hitbox changeBox = new Hitbox((int)w,(int)h,x,y);
 		//System.out.println(x + " " + y + " " + w + " " + h);
 		for (GameObject rgo : gs.getCurrentWorld().getGameObjects()) {
 			try {
@@ -200,21 +200,48 @@ public abstract class LivingEntity extends Entity {
 	}
 	
 	
-	public void drawHitBoxes(Graphics g, int x, int y)
+	public void drawHitBoxes(Graphics g, int x, int y, float scale)
 	{
 		g.setColor(Color.ORANGE);
 		Graphics2D g2 = (Graphics2D)g;
-		g2.draw(new Rectangle((int)x, (int)y+5, 10, (int)this.hitbox.getBounds().getHeight()-10));
+		g2.draw(new Rectangle((int)x, (int)y+(int)(5*scale), (int)(10 * scale), (int)((this.hitbox.getBounds().getHeight()-10) * scale)));
 		g2.setColor(Color.RED);
-		g2.draw(new Rectangle((int)x + (int)(hitbox.getBounds().getWidth()-10), (int)y+5, 10, (int)this.hitbox.getBounds().getHeight()-10));
+		g2.draw(new Rectangle((int)x + (int)((hitbox.getBounds().getWidth()-10)*scale), (int)(y+(5*scale)), (int)(10 * scale), (int)((this.hitbox.getBounds().getHeight()-10) * scale)));
 		g2.setColor(Color.PINK);
-		g2.draw(new Rectangle((int)x+5, (int)y, (int)(this.hitbox.getBounds().getWidth()-10), 10));
+		g2.draw(new Rectangle((int)(x+(scale*5)), (int)y, (int)((this.hitbox.getBounds().getWidth()-10) * scale), (int)(10 * scale)));
 		g2.setColor(Color.BLUE);
-		g2.draw(new Rectangle((int)x+5, (int)y+(int)(hitbox.getBounds().getHeight()-10), (int)(this.hitbox.getBounds().getWidth()-10), 10));
+		g2.draw(new Rectangle((int)(x+(scale*5)), (int)(y+((hitbox.getBounds().getHeight()-10)*scale)), (int)((this.hitbox.getBounds().getWidth()-10)*scale), (int)(10 * scale)));
 		g2.setColor(Color.GREEN);
-		g2.draw(new Rectangle((int)x,(int)y,(int)getHitbox().getBounds().getWidth(), (int)getHitbox().getBounds().getHeight()));
+		g2.draw(new Rectangle((int)x,(int)y,(int)(getHitbox().getBounds().getWidth() * scale), (int)(getHitbox().getBounds().getHeight() * scale)));
 		
 	}
+	
+	public void drawHealthBar(Graphics g, int x, int y, float scale) {
+		
+		g.setColor(Color.black);
+		g.drawRect(x, y-(int)(15 * scale), (int)(100*scale), (int)(10*scale));
+		g.setColor(Color.ORANGE);
+		g.fillRect(x+(int)(1*scale), y-(int)(14*scale), (int)((100 * (this.getCurrentHp() / this.getMaxHp())) * scale), (int)(9 * scale));
+		
+	}
+	
+
+	public abstract void attack();
+	
+	
+	public double getCurrentHp() {
+		return health;
+	}
+
+	public double getMaxHp() {
+		return maxHealth;
+	}
+	
+
+	public void takeDmg(double dmg) {
+		health -= dmg;
+	}
+
 	
 
 	public void jump()

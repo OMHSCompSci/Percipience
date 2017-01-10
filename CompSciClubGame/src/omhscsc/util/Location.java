@@ -2,16 +2,14 @@ package omhscsc.util;
 
 import omhscsc.world.World;
 
-public class Location implements Anchor {
+public class Location {
 
 	private double x, y;
-	private World w;
 	
-	public Location(double x, double y, World w)
+	public Location(double x, double y)
 	{
 		this.x = x;
 		this.y = y;
-		this.w = w;
 	}
 
 	public double getX() {
@@ -42,7 +40,7 @@ public class Location implements Anchor {
 	
 	public Location clone()
 	{
-		return new Location(x,y,w);
+		return new Location(x,y);
 	}
 	
 	public Location getLocation()
@@ -50,9 +48,6 @@ public class Location implements Anchor {
 		return this;
 	}
 
-	public World getWorld() {
-		return w;
-	}
 
 	public String toString() {
 		return "X: " + Utils.roundTo(3,this.getX()) + " Y: " + Utils.roundTo(3, this.getY());

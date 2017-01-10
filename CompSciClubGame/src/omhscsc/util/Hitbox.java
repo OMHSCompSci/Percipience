@@ -2,17 +2,16 @@ package omhscsc.util;
 
 import java.awt.Rectangle;
 
-import omhscsc.world.World;
 
-public class Hitbox {
+public class Hitbox implements Anchor {
 
 	private Location l;
 	private int w, h;
 	
-	public Hitbox(int w, int h, int x, int y, World world) {
+	public Hitbox(int w, int h, int x, int y) {
 		this.w = w;
 		this.h = h;
-		l = new Location(x, y, world);
+		l = new Location(x, y);
 	}
 	
 	public Hitbox(int w, int h, Location l)
@@ -47,6 +46,14 @@ public class Hitbox {
 		this.l.setY(y);
 	}
 	
+	public void setWidth(int w) {
+		this.w = w;
+	}
+	
+	public void setHeight(int h) {
+		this.h = h;
+	}
+	
 	public Location getLocation()
 	{
 		return this.l;
@@ -62,5 +69,10 @@ public class Hitbox {
 	
 	public String toString() {
 		return "WIDTH: " + getWidth() + " HEIGHT: " + getHeight() + " " + l.toString();
+	}
+
+	@Override
+	public Location getCenterLocation() {
+		return new Location(getBounds().getCenterX(),getBounds().getCenterY());
 	}
 }

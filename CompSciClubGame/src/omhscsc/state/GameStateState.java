@@ -41,10 +41,21 @@ public class GameStateState extends GameState {
 		go = new HashSet<GameObject>();
 		re = new HashSet<Renderable>();
 		currentWorld = World.getWorld(0);
-		camera = new Camera(new Location(0,0,currentWorld), Game.WIDTH, Game.HEIGHT);
-		player = new Player("Freddy",new Hitbox(70, 70,new Location(0,-50,currentWorld)));
+		camera = new Camera(new Location(0,0), Game.getWidth(), Game.getHeight());
+		camera.setScale(2f);
+		player = new Player("Freddy",new Hitbox(70, 70,new Location(-200,-100)));
 		addObject(player);
 		camera.setAnchor((Anchor)player);
+		placePlayerInWorld(currentWorld);
+	}
+	
+	
+	public void placePlayerInWorld(World w) {
+		player.setLocation(w.getSpawnPoints()[0]);
+	}
+	
+	public void placePlayerInWorldWithSpawnPoint(World w, int spawnIndex) {
+		
 	}
 	
 	public void addObject(GameObject o)
@@ -75,13 +86,15 @@ public class GameStateState extends GameState {
 	@Override
 	public void render(Graphics g) {
 		try {
+			float scale = camera.getScale();
+			currentWorld.renderBackground(g, camera.getHitbox(), scale);
 			for (RenderableGameObject wo : currentWorld.getGameObjects())
 			{
 				if(camera.intersects(wo.getHitbox()))
 				{
-					int xoff = (int)(wo.getHitbox().getBounds().getX() - camera.getHitbox().getBounds().getX());
-					int yoff = (int)(wo.getHitbox().getBounds().getY() - camera.getHitbox().getBounds().getY());
-					wo.render(g, xoff, yoff);
+					int xoff = (int)((wo.getHitbox().getBounds().getX() - camera.getHitbox().getBounds().getX()) * scale);
+					int yoff = (int)((wo.getHitbox().getBounds().getY() - camera.getHitbox().getBounds().getY()) * scale);
+					wo.render(g, xoff, yoff, scale);
 				}
 			}
 			
@@ -89,11 +102,16 @@ public class GameStateState extends GameState {
 			{
 				if(camera.intersects(r.getHitbox()))
 				{
-					int xoff = (int)(r.getHitbox().getBounds().getX() - camera.getHitbox().getBounds().getX());
-					int yoff = (int)(r.getHitbox().getBounds().getY() - camera.getHitbox().getBounds().getY());
-					r.render(g, xoff, yoff);
+					int xoff = (int)((r.getHitbox().getBounds().getX() - camera.getHitbox().getBounds().getX()) * scale);
+					int yoff = (int)((r.getHitbox().getBounds().getY() - camera.getHitbox().getBounds().getY()) * scale);
+					r.render(g, xoff, yoff, scale);
 				}
 			}
+			int xoff = (int)((camera.getHitbox().getBounds().getX() - camera.getHitbox().getBounds().getX()) * scale);
+			int yoff = (int)((camera.getHitbox().getBounds().getY() - camera.getHitbox().getBounds().getY()) * scale);
+			g.drawRect(xoff, yoff, (int)(camera.getWidth() * scale),(int)(camera.getHeight() * scale));
+			//The camera^
+			//System.out.println(camera.getHeight() + "   "+ camera.getScale());
 		} catch (ConcurrentModificationException e)
 		{
 			e.printStackTrace();
@@ -174,8 +192,20 @@ public class GameStateState extends GameState {
 			player.jump();
 
 		}
-		if(e.getKeyCode() == KeyEvent.VK_SPACE){
-			player.attack();
+		if(e.getKeyCode() == KeyEvent.VK_F) {
+			camera.setScale(1.0f);
+		}
+		if(e.getKeyCode() == KeyEvent.VK_G) { 
+			camera.setScale(0.5f);
+		}
+		if(e.getKeyCode() == KeyEvent.VK_H) {
+			camera.setScale(2.0f);
+		}
+		if(e.getKeyCode() == KeyEvent.VK_E) {
+			camera.setScale((float)(camera.getScale()-0.1));
+		}
+		if(e.getKeyCode() == KeyEvent.VK_R) {
+			camera.setScale((float)(camera.getScale()+0.1));
 		}
 	}
 
