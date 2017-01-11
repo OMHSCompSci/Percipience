@@ -110,7 +110,6 @@ public class World extends GameObject implements Serializable {
 	@Override
 	public void tick(GameStateState s) {
 
-		System.out.println(wo.size());
 		for (RenderableGameObject w : wo)
 		{
 			w.tick(s);
@@ -132,9 +131,11 @@ public class World extends GameObject implements Serializable {
 		World testWorld = new World(0, 1, new float[] {0.4f, 0.6f, .75f}, new Location[] {new Location(0,-100)}, "starting_world");
 		testWorld.addGameObject(new Box(-500, 0, 1000, 10, "button"));
 		List<Location> locs = new ArrayList<Location>();
-		locs.add(new Location(600, 50));
-		locs.add(new Location(-700, 50));
-		testWorld.addGameObject(new PathBox(-700, 50, 100, 10, Color.RED, locs, 5));
+		locs.add(new Location(0, 600));
+		locs.add(new Location(700, 0));
+		locs.add(new Location(0,-700));
+		locs.add(new Location(-700, 0));
+		testWorld.addGameObject(new PathBox(-700, 50, 100, 10, Color.RED, locs, 200));
 		worlds.add(testWorld);
 		initialized = true;
 	}

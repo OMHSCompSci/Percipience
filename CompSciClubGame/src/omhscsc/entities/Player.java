@@ -88,10 +88,6 @@ public class Player extends LivingEntity implements Anchor {
 		checkChange(lastLoc, newLoc, xchange, 0, gs);
 		//Fix again because player movement
 		fixCollisions(gs);
-		//Might remove this later
-		
-		//Changing attack style later
-		//Test
 	}
 
 	public void getHpUp() {

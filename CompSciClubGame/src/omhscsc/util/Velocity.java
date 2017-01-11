@@ -46,6 +46,12 @@ public class Velocity {
 	{
 		return this;
 	}
+	
+	public void add(Velocity v)
+	{
+		this.x+=v.getX();
+		this.y+=v.getY();
+	}
 
 	public String toString() {
 		return "X: " + Utils.roundTo(3,this.getX()) + " Y: " + Utils.roundTo(3, this.getY());

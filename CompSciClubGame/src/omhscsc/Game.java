@@ -45,7 +45,7 @@ public class Game {
 	//The list of GameStates (see GameState.java and omhscsc.state)
 	private List<GameState>states;
 	//The rate at which things are affected in the game (independent of tick speed, but affects velocity...etc)
-	private static float timeRate = 1f;
+	private static float timeRate = .25f;
 	/*
 	 * 0 Should always be the main menu and 1 should always be the game.
 	 * The current state is the index of the state being used from the states List. (see above)
@@ -182,12 +182,10 @@ public class Game {
 				frames=0;
 				nsPassed=0;
 			}
-			System.out.println("wtf is happening " + timePassed);
 			lastTime = currentTime;
 			if(lastKnownState != this.currentState) {
 				lastKnownState = this.currentState;
 				timePassed = 0;
-				System.out.println("reset");
 				//Resetting to remove lag
 			}
 				
@@ -208,7 +206,7 @@ public class Game {
 			if(states.get(currentState).getClass() == GameStateState.class) {
 				infoString+= ((GameStateState)states.get(currentState)).getPlayer().getHitbox().getLocation().toString();
 			}
-			infoString+= " | FPS: " + currentFPS + " | TPS: " + currentTPS + "  ??? " + this.running;
+			infoString+= " | FPS: " + currentFPS + " | TPS: " + currentTPS;
 			g.setFont(new Font("Arial",Font.BOLD,18));
 			g.setColor(Color.white);
 			g.drawString(infoString, 10,50);
@@ -223,9 +221,9 @@ public class Game {
 	 */
 	private void tick()
 	{
-		System.out.println("ddddd");
+		
 		states.get(currentState).tick();
-		System.out.println("aaaaaaaaaaaaaaa");
+		
 	}
 	
 	/**
