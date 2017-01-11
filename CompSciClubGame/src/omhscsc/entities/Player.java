@@ -74,9 +74,6 @@ public class Player extends LivingEntity implements Anchor {
 	@Override
 	public void tick(GameStateState gs) {
 		super.tick(gs);
-		if (health <= 0.0) {
-			gs.gameOver();
-		}
 		double xchange = 0;
 		Location lastLoc = this.getLocation().clone();
 		if(getLeftHeld())

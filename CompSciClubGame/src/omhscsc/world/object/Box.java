@@ -1,9 +1,10 @@
-package omhscsc.world;
+package omhscsc.world.object;
 
 import java.awt.Color;
 import java.awt.Graphics;
 
 import omhscsc.state.GameStateState;
+import omhscsc.world.WorldObject;
 
 public class Box extends WorldObject {
 

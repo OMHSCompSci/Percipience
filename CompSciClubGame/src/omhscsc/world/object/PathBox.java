@@ -1,4 +1,4 @@
-package omhscsc.world;
+package omhscsc.world.object;
 
 import java.awt.Color;
 import java.util.List;
@@ -9,6 +9,7 @@ import omhscsc.util.Hitbox;
 import omhscsc.util.Location;
 import omhscsc.util.Utils;
 import omhscsc.util.Velocity;
+import omhscsc.world.WorldObject;
 
 public class PathBox extends WorldObject {
 

@@ -5,127 +5,275 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import omhscsc.Camera;
 import omhscsc.Game;
 import omhscsc.GameObject;
 import omhscsc.RenderableGameObject;
+import omhscsc.entities.Entity;
 import omhscsc.state.GameStateState;
 import omhscsc.util.Hitbox;
 import omhscsc.util.ImageLoader;
 import omhscsc.util.Location;
+import omhscsc.world.object.Box;
+import omhscsc.world.object.PathBox;
+import omhscsc.world.region.EmptyRegion;
+import omhscsc.world.region.WorldRegion;
 
 public class World extends GameObject implements Serializable {
 
 	/*
-	 * The world / world objects implement serializable because we want to be able to save and load worlds. Images are not included in the world file, and are packaged in the source foulder instead. 
+	 * The world / world objects implement serializable because we want to be
+	 * able to save and load worlds. Images are not included in the world file,
+	 * and are packaged in the source foulder instead.
 	 */
 	private static final long serialVersionUID = 2397350907912764787L;
 	private final int id;
 	private String worldName;
-	private List<RenderableGameObject> wo;
+	private Set<RenderableGameObject> wo;
+	// These are the objects in the world, not the entities
+
+	// Sets do not preserve order
+	private Set<Entity> entitiesInWorld;
 	private transient BufferedImage[] backgroundLayers;
 	private float[] parallaxScrollRates;
 	private Location[] possibleSpawnPoints;
-	private WorldRegion[] regions;
-	
-	
+	private Set<WorldRegion> regions;
+
 	/*
-	 * For the parallax effect, 0 is the farthest back and the highest number is closest to the player.
+	 * For the parallax effect, 0 is the farthest back and the highest number is
+	 * closest to the player.
 	 */
-	
-	
+
 	/**
+	 * Create an empty world with the specified parameters.
 	 * 
-	 * @param id The World id (used to get from world to world / world identification)
-	 * @param bgLayers The amount of background layers (parallax)
-	 * @param worldName The World name
-	 * @param parallaxScrollRates The scroll rates used for the parallax effect. 1.0f means the background moves in a 1:1 ratio with the player. A 0.5f rate means it moves in a 1:2 (background:player) ratio.
+	 * @param id
+	 *            The World id (used to get from world to world / world
+	 *            identification)
+	 * @param bgLayers
+	 *            The amount of background layers (parallax)
+	 * @param worldName
+	 *            The World name
+	 * @param parallaxScrollRates
+	 *            The scroll rates used for the parallax effect. 1.0f means the
+	 *            background moves in a 1:1 ratio with the player. A 0.5f rate
+	 *            means it moves in a 1:2 (background:player) ratio.
 	 */
-	public World(int id, int bgLayers, float[] parallaxScrollRates, Location[] spawnPoints, String worldName)
-	{
+	public World(int id, int bgLayers, float[] parallaxScrollRates, Location[] spawnPoints, String worldName) {
 		this.id = id;
-		wo = new ArrayList<RenderableGameObject>();
+		wo = new HashSet<RenderableGameObject>();
+		entitiesInWorld = new HashSet<Entity>();
 		backgroundLayers = new BufferedImage[bgLayers];
+		regions = new HashSet<WorldRegion>();
 		this.worldName = worldName;
 		retrieveBackgroundImages();
 		this.parallaxScrollRates = parallaxScrollRates;
 		this.possibleSpawnPoints = spawnPoints;
-		
 	}
-	
+
 	public String getWorldName() {
 		return this.worldName;
 	}
-	
+
+	/**
+	 * Get a set of all the regions in this world
+	 * 
+	 * @return
+	 */
+	public Set<WorldRegion> getWorldRegions() {
+		return this.regions;
+	}
+
+	/**
+	 * Removes a World region from the world
+	 * 
+	 * @param wr
+	 *            Region removed
+	 */
+	public void removeWorldRegion(WorldRegion wr) {
+		this.regions.remove(wr);
+	}
+
+	/**
+	 * Adds a World region to the world
+	 * 
+	 * @param wr
+	 *            Region added
+	 */
+	public void addWorldRegion(WorldRegion wr) {
+		this.regions.add(wr);
+	}
+
+	/**
+	 * Retrieves background images for the world
+	 */
 	private void retrieveBackgroundImages() {
 		backgroundLayers = ImageLoader.loadWorldBackground(this.worldName);
 	}
-	
+
+	/**
+	 * Get the spawn points for this world
+	 * 
+	 * @return
+	 */
 	public Location[] getSpawnPoints() {
 		return this.possibleSpawnPoints;
 	}
-	
-	public List<RenderableGameObject> getGameObjects()
-	{
+
+	/**
+	 * Get the game objects in the world.
+	 * 
+	 * @return A Set of game objects
+	 */
+	public Set<RenderableGameObject> getGameObjects() {
 		return wo;
 	}
-	
-	public void addGameObject(RenderableGameObject w)
-	{
+
+	/**
+	 * Add a game object to the world
+	 * 
+	 * @param w
+	 */
+	public void addGameObject(RenderableGameObject w) {
 		this.wo.add(w);
 	}
-	
-	public int getId()
-	{
+
+	public int getId() {
 		return this.id;
 	}
-	
+
 	/**
-	 * Render the parallax background of the world. (This is done first b/c it is in the background.) (0,0) is the center of the images.
-	 * @param g The Graphics being used
-	 * @param hitbox The location of the player
+	 * Render the parallax background of the world. (This is done first b/c it
+	 * is in the background.) (0,0) is the center of the images.
+	 * 
+	 * @param g
+	 *            The Graphics being used
+	 * @param hitbox
+	 *            The location of the player
 	 */
 	public void renderBackground(Graphics g, Hitbox hitbox, float scale) {
-		//Based on where the player is, the background should be drawn using the scroll rates (somehow)
+		// Based on where the player is, the background should be drawn using
+		// the scroll rates (somehow)
 		for (int i = 0; i < backgroundLayers.length; i++) {
-			if(backgroundLayers == null)
+			if (backgroundLayers == null)
 				return;
 			BufferedImage bi = backgroundLayers[i];
-			if(bi == null)
+			if (bi == null)
 				continue;
 			float scrollRate = parallaxScrollRates[i];
-			int imgX = (int)(hitbox.getBounds().getCenterX() * scrollRate - ((Game.getWidth()/scale)/2)) + (int)(bi.getWidth()/2) - (int)(hitbox.getWidth()/2 * scale);
-			int imgY = (int)(hitbox.getBounds().getCenterY() * scrollRate - ((Game.getHeight()/scale)/2)) + (int)(bi.getHeight()/2) - (int)(hitbox.getHeight()/2 * scale);
-			int imgX2 = (int)(imgX + (Game.getWidth()/scale)) + (int)(bi.getWidth()/2) + (int)(hitbox.getWidth()/2 * scale);
-			int imgY2 = (int)(imgY + (Game.getHeight()/scale)) + (int)(bi.getHeight()/2) + (int)(hitbox.getHeight()/2 * scale);	
+			int imgX = (int) (hitbox.getBounds().getCenterX() * scrollRate - ((Game.getWidth() / scale) / 2))
+					+ (int) (bi.getWidth() / 2) - (int) (hitbox.getWidth() / 2 * scale);
+			int imgY = (int) (hitbox.getBounds().getCenterY() * scrollRate - ((Game.getHeight() / scale) / 2))
+					+ (int) (bi.getHeight() / 2) - (int) (hitbox.getHeight() / 2 * scale);
+			int imgX2 = (int) (imgX + (Game.getWidth() / scale)) + (int) (bi.getWidth() / 2)
+					+ (int) (hitbox.getWidth() / 2 * scale);
+			int imgY2 = (int) (imgY + (Game.getHeight() / scale)) + (int) (bi.getHeight() / 2)
+					+ (int) (hitbox.getHeight() / 2 * scale);
 			g.drawImage(bi, 0, 0, Game.getWidth(), Game.getHeight(), imgX, imgY, imgX2, imgY2, null);
-			//bi = image drawn
-			//first two parameters are where to start drawing the rectangle in the GAME WINDOW
-			//the second two parameters are where it ends. This is just saying draw to the game window.
-			//The third two parameters are where in the image the player is, and the final two finish the rectangle.
+			// bi = image drawn
+			// first two parameters are where to start drawing the rectangle in
+			// the GAME WINDOW
+			// the second two parameters are where it ends. This is just saying
+			// draw to the game window.
+			// The third two parameters are where in the image the player is,
+			// and the final two finish the rectangle.
 		}
 	}
-	
+
+	/**
+	 * Adds an Entity to this world. If it exists in the world already, there
+	 * will be no change.
+	 * 
+	 * @param e
+	 *            The entity
+	 */
+	public void addEntity(Entity e) {
+		entitiesInWorld.add(e);
+	}
+
+	/**
+	 * Removes an Entity from the world.
+	 * 
+	 * @param e
+	 *            Entity removed
+	 */
+	public void removeEntity(Entity e) {
+		entitiesInWorld.remove(e);
+	}
+
 	@Override
 	public void tick(GameStateState s) {
 
-		for (RenderableGameObject w : wo)
-		{
+		for (RenderableGameObject w : wo) {
 			w.tick(s);
-		
 		}
-		//This will be useful for when the worlds have projectiles and become more complex in general. 
+		// This will be useful for when the worlds have projectile's and become
+		// more complex in general.
+		for (Entity e : entitiesInWorld) {
+			e.tick(s);
+			for(WorldRegion wr : regions) {
+				if(wr.containsEntity(e)) {
+					if(!wr.getHitbox().getBounds().intersects(e.getHitbox().getBounds())) {
+						wr.entityLeft(e);
+						continue;
+					}
+				} else {
+					if(wr.getHitbox().getBounds().intersects(e.getHitbox().getBounds())) {
+						wr.entityEntered(e);
+					}
+				}
+			}
+		}
+		for(WorldRegion wr : regions) {
+			wr.tick(s);
+		}
+	}
+
+	public Set<Entity> getEntitiesInWorld() {
+		return this.entitiesInWorld;
 	}
 	
+
+	/**
+	 * Render the world, including its entities and world objects.
+	 */
+	public void render(Graphics g, Camera camera, float scale) {
+		renderBackground(g, camera.getHitbox(), scale);
+		for (RenderableGameObject wo : this.getGameObjects()) {
+			if (camera.intersects(wo.getHitbox())) {
+				int xoff = (int) ((wo.getHitbox().getBounds().getX() - camera.getHitbox().getBounds().getX()) * scale);
+				int yoff = (int) ((wo.getHitbox().getBounds().getY() - camera.getHitbox().getBounds().getY()) * scale);
+				wo.render(g, xoff, yoff, scale);
+			}
+		}
+		for (Entity wo : this.getEntitiesInWorld()) {
+			if (camera.intersects(wo.getHitbox())) {
+				int xoff = (int) ((wo.getHitbox().getBounds().getX() - camera.getHitbox().getBounds().getX()) * scale);
+				int yoff = (int) ((wo.getHitbox().getBounds().getY() - camera.getHitbox().getBounds().getY()) * scale);
+				wo.render(g, xoff, yoff, scale);
+			}
+		}
+		for(WorldRegion wo : regions) {
+			if (camera.intersects(wo.getHitbox())) {
+				int xoff = (int) ((wo.getHitbox().getBounds().getX() - camera.getHitbox().getBounds().getX()) * scale);
+				int yoff = (int) ((wo.getHitbox().getBounds().getY() - camera.getHitbox().getBounds().getY()) * scale);
+				wo.render(g, xoff, yoff, scale);
+			}
+		}
+		
+	}
+
 	//////////////////////
-	
+
 	private static List<World> worlds;
 	private static boolean initialized = false;
-	
-	public static void init()
-	{
-		if(initialized)
+
+	public static void init() {
+		if (initialized)
 			return;
 		worlds = new ArrayList<World>();
 		World testWorld = new World(0, 1, new float[] {0.4f, 0.6f, .75f}, new Location[] {new Location(0,-100)}, "starting_world");
@@ -136,19 +284,20 @@ public class World extends GameObject implements Serializable {
 		locs.add(new Location(0,-700));
 		locs.add(new Location(-700, 0));
 		testWorld.addGameObject(new PathBox(-700, 50, 100, 10, Color.RED, locs, 200));
+		WorldRegion testWr = new EmptyRegion(100, -200, 200, 200);
+		testWr.setDrawBorder(true);
+		testWorld.addWorldRegion(testWr);
 		worlds.add(testWorld);
+		// World startWorld = new World(id, id, parallaxScrollRates,
+		// possibleSpawnPoints, worldName);
 		initialized = true;
 	}
-	
-	public static World getWorld(int index)
-	{
-		if(!initialized)
+
+	public static World getWorld(int index) {
+		if (!initialized)
 			return null;
 		return worlds.get(index);
 	}
 
 
 }
-	
-	
-

@@ -45,7 +45,7 @@ public class Game {
 	//The list of GameStates (see GameState.java and omhscsc.state)
 	private List<GameState>states;
 	//The rate at which things are affected in the game (independent of tick speed, but affects velocity...etc)
-	private static float timeRate = .25f;
+	private static float timeRate = 1f;
 	/*
 	 * 0 Should always be the main menu and 1 should always be the game.
 	 * The current state is the index of the state being used from the states List. (see above)

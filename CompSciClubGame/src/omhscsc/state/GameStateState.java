@@ -11,7 +11,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
-import omhscsc.world.Box;
 import javax.swing.JOptionPane;
 
 import omhscsc.Camera;
@@ -26,10 +25,11 @@ import omhscsc.util.Location;
 import omhscsc.util.Task;
 import omhscsc.world.World;
 import omhscsc.world.WorldObject;
+import omhscsc.world.object.Box;
 
 public class GameStateState extends GameState {
 
-	private Set<GameObject>go;
+	private Set<Task>go;
 	private Set<Renderable>re;
 	private Camera camera;
 	private static World currentWorld;
@@ -38,32 +38,51 @@ public class GameStateState extends GameState {
 	public GameStateState(Game g)
 	{
 		super(g);
-		go = new HashSet<GameObject>();
+		go = new HashSet<Task>();
 		re = new HashSet<Renderable>();
 		currentWorld = World.getWorld(0);
 		camera = new Camera(new Location(0,0), Game.getWidth(), Game.getHeight());
 		camera.setScale(2f);
 		player = new Player("Freddy",new Hitbox(70, 70,new Location(-200,-100)));
-		addObject(player);
 		camera.setAnchor((Anchor)player);
 		placePlayerInWorld(currentWorld);
 	}
 	
+	/*
+	 * ---------- IMPORTANT ------------
+	 * Players now have to exist in a world to be rendered / ticked.
+	 */
 	
+	
+	/**
+	 * Place the player into the world. If the world is not the current world, that world will become the new current world.
+	 * @param w
+	 */
 	public void placePlayerInWorld(World w) {
-		player.setLocation(w.getSpawnPoints()[0]);
-	}
-	
-	public void placePlayerInWorldWithSpawnPoint(World w, int spawnIndex) {
-		
-	}
-	
-	public void addObject(GameObject o)
-	{
-		if(o instanceof Renderable)
-		{
-			re.add((Renderable)o);
+		if(w!=currentWorld) {
+			currentWorld.removeEntity(player);
+			currentWorld = w;
 		}
+		player.setLocation(w.getSpawnPoints()[0]);
+		w.addEntity(player);
+	}
+	
+	/**
+	 * Place the player into the world at the specified spawn index. If the world is not the current world, that world will become the new current world.
+	 * @param w
+	 * @param spawnIndex
+	 */
+	public void placePlayerInWorldWithSpawnPoint(World w, int spawnIndex) {
+		if(w!=currentWorld) {
+			currentWorld.removeEntity(player);
+			currentWorld = w;
+		}
+		player.setLocation(w.getSpawnPoints()[spawnIndex]);
+		w.addEntity(player);
+	}
+	
+	public void addTask(Task o)
+	{
 		go.add(o);
 	}
 	
@@ -77,7 +96,7 @@ public class GameStateState extends GameState {
 		re.remove(r);
 	}
 	
-	public void removeGameObject(GameObject g)
+	public void removeTask(Task g)
 	{
 		go.remove(g);
 	}
@@ -87,7 +106,8 @@ public class GameStateState extends GameState {
 	public void render(Graphics g) {
 		try {
 			float scale = camera.getScale();
-			currentWorld.renderBackground(g, camera.getHitbox(), scale);
+			//currentWorld.renderBackground(g, camera.getHitbox(), scale);
+			currentWorld.render(g, camera, scale);
 			for (RenderableGameObject wo : currentWorld.getGameObjects())
 			{
 				if(camera.intersects(wo.getHitbox()))
@@ -123,16 +143,14 @@ public class GameStateState extends GameState {
 	public void tick() {
 		try {
 			HashSet<Task> completedTasks = new HashSet<Task>();
-			for (GameObject g : go)
+			for (Task g : go)
 			{
 				g.tick(this);
-				if(g instanceof Task)
+				if(g.isTaskComplete())
 				{
-					if(((Task) g).isTaskComplete())
-					{
-						completedTasks.add((Task)g);
-					}
+					completedTasks.add(g);
 				}
+			
 			}
 			for(Task t : completedTasks)
 				go.remove(t);
@@ -140,8 +158,8 @@ public class GameStateState extends GameState {
 			completedTasks.clear();
 			completedTasks = null;
 			//This shouldn't be needed because every time this method ends all local variables are garbage collected I think?
-			camera.tick(this);
 			currentWorld.tick(this);
+			camera.tick(this);
 		} catch (ConcurrentModificationException e)
 		{
 			//When you don't want to deal
@@ -228,10 +246,6 @@ public class GameStateState extends GameState {
 		
 	}
 	
-	public void gameOver() {
-		//JOptionPane.showMessageDialog(null, "Sorry, you have died");
-		this.getGame().setGameState(0);
-	}
 	public World getCurrentWorld() {
 		return currentWorld;
 	}
@@ -240,12 +254,8 @@ public class GameStateState extends GameState {
 		return player;
 	}
 
-	public Set<GameObject> getGameObjects() {
+	public Set<Task> getTasks() {
 		return go;
-	}
-	public void win(){
-		JOptionPane.showMessageDialog(null, "You Win!");
-		this.getGame().setGameState(0);
 	}
 
 	@Override
