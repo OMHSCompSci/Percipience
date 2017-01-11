@@ -97,7 +97,7 @@ public class Camera extends GameObject {
 		 * Set's the anchor to the center of the camera.
 		 */
 		box.setX(a.getCenterLocation().getX() - (int)((double)this.getHitbox().getBounds().getWidth()/2.0));
-		box.setY(a.getCenterLocation().getY() - (int)((double)this.getHitbox().getBounds().getHeight()/2.0));
+		box.setY(a.getCenterLocation().getY() - (int)((double)this.getHitbox().getBounds().getHeight()*2/3.0));
 	}
 
 	/**

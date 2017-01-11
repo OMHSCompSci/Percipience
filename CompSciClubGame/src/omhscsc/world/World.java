@@ -165,14 +165,11 @@ public class World extends GameObject implements Serializable {
 			if (bi == null)
 				continue;
 			float scrollRate = parallaxScrollRates[i];
-			int imgX = (int) (hitbox.getBounds().getCenterX() * scrollRate - ((Game.getWidth() / scale) / 2))
-					+ (int) (bi.getWidth() / 2) - (int) (hitbox.getWidth() / 2 * scale);
-			int imgY = (int) (hitbox.getBounds().getCenterY() * scrollRate - ((Game.getHeight() / scale) / 2))
-					+ (int) (bi.getHeight() / 2) - (int) (hitbox.getHeight() / 2 * scale);
-			int imgX2 = (int) (imgX + (Game.getWidth() / scale)) + (int) (bi.getWidth() / 2)
-					+ (int) (hitbox.getWidth() / 2 * scale);
-			int imgY2 = (int) (imgY + (Game.getHeight() / scale)) + (int) (bi.getHeight() / 2)
-					+ (int) (hitbox.getHeight() / 2 * scale);
+			//Attempt to set the width easier
+			int imgX = (int) (hitbox.getBounds().getCenterX() * scrollRate - ((Game.getWidth() / scale) / 2)) + (int) (bi.getWidth() / 2) - (int) (hitbox.getWidth() / 2 * scale);
+			int imgY = (int) (hitbox.getBounds().getCenterY() * scrollRate - ((Game.getHeight() / scale) / 2)) + (int) (bi.getHeight() / 2) - (int) (hitbox.getHeight() / 2 * scale);
+			int imgX2 = (int) (imgX + (Game.getWidth() /scale)) + (int) (bi.getWidth() / 2) + (int) (hitbox.getWidth() / 2 * scale);
+			int imgY2 = (int) (imgY + (Game.getHeight() /scale)) + (int) (bi.getHeight() / 2) + (int) (hitbox.getHeight() / 2 * scale);
 			g.drawImage(bi, 0, 0, Game.getWidth(), Game.getHeight(), imgX, imgY, imgX2, imgY2, null);
 			// bi = image drawn
 			// first two parameters are where to start drawing the rectangle in
@@ -276,18 +273,11 @@ public class World extends GameObject implements Serializable {
 		if (initialized)
 			return;
 		worlds = new ArrayList<World>();
-		World testWorld = new World(0, 1, new float[] {0.4f, 0.6f, .75f}, new Location[] {new Location(0,-100)}, "starting_world");
-		testWorld.addGameObject(new Box(-500, 0, 1000, 10, "button"));
-		List<Location> locs = new ArrayList<Location>();
-		locs.add(new Location(0, 600));
-		locs.add(new Location(700, 0));
-		locs.add(new Location(0,-700));
-		locs.add(new Location(-700, 0));
-		testWorld.addGameObject(new PathBox(-700, 50, 100, 10, Color.RED, locs, 200));
-		WorldRegion testWr = new EmptyRegion(100, -200, 200, 200);
-		testWr.setDrawBorder(true);
-		testWorld.addWorldRegion(testWr);
-		worlds.add(testWorld);
+		World startingWorld = new World(0, 2, new float[] {0.2f,0.3f}, new Location[] {new Location(0,-110)}, "starting_world");
+		startingWorld.addGameObject(new Box(-1000,10,2000,800, "dark_grass"));
+		
+		
+		worlds.add(startingWorld);
 		// World startWorld = new World(id, id, parallaxScrollRates,
 		// possibleSpawnPoints, worldName);
 		initialized = true;
