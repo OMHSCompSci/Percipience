@@ -112,6 +112,20 @@ public class Game {
 	}
 	
 	/**
+	 * Searches through the games current available state by class. Returns the first found instance of the specified class. If not found, returns null.
+	 * @param Class<?> The class being searched for
+	 * @return The class instance, or null if unavailable
+	 */
+	public GameState getGameState(Class<?> c) {
+		for(GameState s : this.states)
+		{
+			if(s.getClass() == c)
+				return s;
+		}
+		return null;
+	}
+	
+	/**
 	 * Set the current game state. This uses the states list.
 	 * @param index
 	 */

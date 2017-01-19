@@ -226,6 +226,10 @@ public class GameStateState extends GameState {
 		if(e.getKeyCode() == KeyEvent.VK_R) {
 			camera.setScale((float)(camera.getScale()+0.1));
 		}
+		if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+			//Usually switch to pause state, but not complete;
+			this.getGame().setGameState(this.getGame().getGameState(MainMenuState.class));
+		}
 	}
 
 	@Override
