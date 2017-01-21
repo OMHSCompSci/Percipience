@@ -4,6 +4,8 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
@@ -36,7 +38,7 @@ public class Game {
 	//This is for faster loading...set to true if you want sound. I don't think it makes much of a difference however
 	public static final boolean sound = true;
 	//Is the game running
-	private boolean running, displaySmallInfo;
+	private boolean running, displaySmallInfo,fullscreen;
 	//Display small info refers to FPS, player pos, and TPS. It can be more later
 	//The canvas in which the game is rendered to;
 	private Canvas c;
@@ -57,6 +59,7 @@ public class Game {
 	public static final int GRAVITY = 1460;
 	//Default sizes of width and height for the window
 	private static int WIDTH = Constants.WORLDX, HEIGHT = Constants.WORLDY;
+	public static final int DEFAULT_WIDTH = Constants.WORLDX, DEFAULT_HEIGHT = Constants.WORLDY;
 	
 	//Get width and get height represent the size of the current window.
 	public static int getWidth() {
@@ -89,6 +92,7 @@ public class Game {
 		displaySmallInfo = false;
 		currentFPS = 0;
 		currentTPS = 0;
+		fullscreen = false;
 	}
 	
 
@@ -250,7 +254,7 @@ public class Game {
 		World.init();
 		UIButton b = new UIButton("START",new UIAction() {
 			@Override
-			public void act(GameState a)
+			public void act(final GameState a)
 			{
 				SwingUtilities.invokeLater(new Runnable() { 
 					@Override
@@ -306,6 +310,43 @@ public class Game {
 	}
 	
 	/**
+	 * This method will toggle the games full screen display.
+	 */
+	public void toggleFullScreen() {
+		if(fullscreen) {
+			GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().setFullScreenWindow(null);
+			frame.setVisible(false);
+			frame.dispose();
+			frame.setUndecorated(false);
+			frame.pack();
+			frame.setSize(Game.DEFAULT_WIDTH, Game.DEFAULT_HEIGHT);
+			frame.setVisible(true);
+			fullscreen = false;
+		} else {
+			GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+			if(gd.isFullScreenSupported()) {
+				frame.setVisible(false);
+				frame.dispose();
+				frame.setUndecorated(true);
+				frame.pack();
+				Game.WIDTH = frame.getWidth();
+				Game.HEIGHT = frame.getHeight();
+				frame.setVisible(true);
+				gd.setFullScreenWindow(frame);
+				fullscreen = true;
+			} else {
+				//Don't do anything
+			}
+		}
+		for(GameState s : states) {
+			//Fix this later
+			if(s.getClass() == MainMenuState.class) {
+				((MainMenuState)s).calculateButtonLocations(c.getGraphics());
+			}
+		}
+	}
+	
+	/**
 	 * Pass mouse moved to the current GameState
 	 * @param e The MouseEvent
 	 */
@@ -343,6 +384,9 @@ public class Game {
 				((GameStateState)states.get(currentState)).getPlayer().setDrawHitboxes(displaySmallInfo);
 			}
 				
+		}
+		if(e.getKeyCode() == KeyEvent.VK_EQUALS && e.isControlDown()) {
+			toggleFullScreen();
 		}
 		states.get(currentState).keyPressed(e);
 	}

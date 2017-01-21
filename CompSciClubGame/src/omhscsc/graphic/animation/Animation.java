@@ -11,6 +11,7 @@ public abstract class Animation implements Renderable {
 	protected int maxFrames;
 	protected float animationSpeed;
 	protected float currentFrame;
+	protected final boolean continuous;
 	
 	//Why is currentFrame a float? Because if we want to play this at different speeds, there will need to be an in between
 	
@@ -19,6 +20,10 @@ public abstract class Animation implements Renderable {
 		maxFrames = frames;
 		animationSpeed = 1f;
 		currentFrame = 0f;
+		if(maxFrames == -1)
+			continuous = true;
+		else
+			continuous = false;
 	}
 	
 	public void renderAndIncrement(Graphics g, int xo, int yo, float scale) {
@@ -28,6 +33,9 @@ public abstract class Animation implements Renderable {
 	
 	public void increment() {
 		currentFrame+= (1f * animationSpeed * Game.getTimeRate());
+		if(currentFrame > maxFrames && !continuous) {
+			currentFrame=0;
+		}
 	}
 	
 	/**
