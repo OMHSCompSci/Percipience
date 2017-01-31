@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.util.ArrayList;
 
 import omhscsc.Game;
 import omhscsc.GameObject;
@@ -24,6 +25,7 @@ public class Player extends LivingEntity implements Anchor {
 	private boolean rightHeld, leftHeld, drawDebug;
 	private int healthUpgrades, speedUpgrades, jumpUpgrades;
 	private Useable use;
+	private ArrayList<Integer> storyLocations; //Where in the story the player is and has been, each StoryElement has a serial that is added to the arraylist
 
 	public Player(String n, Hitbox h) {
 		super(h);
@@ -161,7 +163,12 @@ public class Player extends LivingEntity implements Anchor {
 		return getHitbox().getCenterLocation();
 	}
 
-
+	public int getStoryPoint() {
+		return storyLocations.get(storyLocations.size()-1);
+	}
+	public ArrayList<Integer> getStoryLocations() {
+		return storyLocations;
+	}
 	
 
 }
