@@ -19,8 +19,6 @@ import omhscsc.util.Hitbox;
 import omhscsc.util.ImageLoader;
 import omhscsc.util.Location;
 import omhscsc.world.object.Box;
-import omhscsc.world.object.PathBox;
-import omhscsc.world.region.EmptyRegion;
 import omhscsc.world.region.WorldRegion;
 
 public class World extends GameObject implements Serializable {
@@ -30,6 +28,11 @@ public class World extends GameObject implements Serializable {
 	 * able to save and load worlds. Images are not included in the world file,
 	 * and are packaged in the source foulder instead.
 	 */
+	
+	
+	//TODO: PARALLAX REPEAT
+	
+	
 	private static final long serialVersionUID = 2397350907912764787L;
 	private final int id;
 	private String worldName;
@@ -40,6 +43,8 @@ public class World extends GameObject implements Serializable {
 	private Set<Entity> entitiesInWorld;
 	private transient BufferedImage[] backgroundLayers;
 	private float[] parallaxScrollRates;
+	private Color bgColor;
+	private BufferedImage backgroundImage;
 	private Location[] possibleSpawnPoints;
 	private Set<WorldRegion> regions;
 
@@ -63,7 +68,7 @@ public class World extends GameObject implements Serializable {
 	 *            background moves in a 1:1 ratio with the player. A 0.5f rate
 	 *            means it moves in a 1:2 (background:player) ratio.
 	 */
-	public World(int id, int bgLayers, float[] parallaxScrollRates, Location[] spawnPoints, String worldName) {
+	public World(int id, int bgLayers, float[] parallaxScrollRates, boolean[] parallaxRepeat, Location[] spawnPoints, Color bgColor, BufferedImage backgroundImage, String worldName) {
 		this.id = id;
 		wo = new HashSet<RenderableGameObject>();
 		entitiesInWorld = new HashSet<Entity>();
@@ -73,6 +78,8 @@ public class World extends GameObject implements Serializable {
 		retrieveBackgroundImages();
 		this.parallaxScrollRates = parallaxScrollRates;
 		this.possibleSpawnPoints = spawnPoints;
+		this.bgColor = bgColor;
+		this.backgroundImage = backgroundImage;
 	}
 
 	public String getWorldName() {
@@ -158,6 +165,15 @@ public class World extends GameObject implements Serializable {
 	public void renderBackground(Graphics g, Hitbox hitbox, float scale) {
 		// Based on where the player is, the background should be drawn using
 		// the scroll rates (somehow)
+		/*
+		 * NOTE:
+		 * Scaling background is important
+		 */
+		Color lastColor = g.getColor();
+		g.setColor(this.bgColor);
+		g.fillRect(0, 0, Game.getWidth(), Game.getHeight());
+		if(backgroundImage != null)
+			g.drawImage(backgroundImage, 0, 0, Game.getWidth(), Game.getHeight(), null);
 		for (int i = 0; i < backgroundLayers.length; i++) {
 			if (backgroundLayers == null)
 				return;
@@ -179,6 +195,7 @@ public class World extends GameObject implements Serializable {
 			// The third two parameters are where in the image the player is,
 			// and the final two finish the rectangle.
 		}
+		g.setColor(lastColor);
 	}
 
 	/**
@@ -273,7 +290,7 @@ public class World extends GameObject implements Serializable {
 		if (initialized)
 			return;
 		worlds = new ArrayList<World>();
-		World startingWorld = new World(0, 2, new float[] {0.2f,0.3f}, new Location[] {new Location(0,-110)}, "starting_world");
+		World startingWorld = new World(0, 2, new float[] {0.2f,0.3f}, new boolean[] {true,true}, new Location[] {new Location(0,-110)}, Color.black, ImageLoader.loadWorldBackground("starting_world")[0], "starting_world");
 		startingWorld.addGameObject(new Box(-1000,10,2000,800, "dark_grass"));
 		
 		

@@ -1,6 +1,17 @@
 package omhscsc.world.designer;
 
-public class WorldDesignerGUI  {
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+
+import javax.swing.JFrame;
+
+import omhscsc.Camera;
+import omhscsc.util.Location;
+import omhscsc.world.World;
+
+public class WorldDesignerGUI extends JFrame {
 	
 	/*
 	 * To do:
@@ -30,4 +41,66 @@ public class WorldDesignerGUI  {
 	 * 
 	 */
 
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1359513068562831490L;
+
+
+
+	public static void main(String[] args) {
+		
+	}
+	
+	
+	private World currentWorld;
+	private Camera camera;
+	
+	
+	
+	public WorldDesignerGUI() {
+		this.setSize(1600,900);
+		this.setResizable(false);
+		this.setTitle("Percipience World Designer");
+		this.setUndecorated(true);
+		this.addKeyListener(new GUIKeyAdapter(this));
+		camera = new Camera(new Location(0,-100), 1600,900);
+		currentWorld = null;
+	}
+	
+	
+	@Override
+	public void paint(Graphics g) {
+		//Draw world
+		//Draw hud stuff over world
+		if(currentWorld == null) {
+			g.setColor(Color.black);
+			g.fillRect(0, 0, getWidth(), getHeight());
+			g.setColor(Color.white);
+			g.drawString("Open or create a world", 200, 200);
+		} else {
+			currentWorld.render(g, camera, 1.0f);
+		}
+	}
+	
+	
+	
+	
+	class GUIKeyAdapter extends KeyAdapter {
+		
+		private WorldDesignerGUI g;
+		
+		public GUIKeyAdapter(WorldDesignerGUI g) {
+			this.g = g;
+		}
+		
+		@Override
+		public void keyReleased(KeyEvent e) {
+			if(e.getKeyCode() == KeyEvent.VK_N && e.isControlDown()) {
+				//Make new world
+				currentWorld = new World(defaultCloseOperation, defaultCloseOperation, null, null, null, preserveBackgroundColor, null, title);
+			}
+		}
+	}
 }
