@@ -34,19 +34,18 @@ public class World extends GameObject implements Serializable {
 	
 	
 	private static final long serialVersionUID = 2397350907912764787L;
-	private final int id;
-	private String worldName;
-	private Set<RenderableGameObject> wo;
+	protected final int id;
+	protected String worldName;
+	protected Set<RenderableGameObject> wo;
 	// These are the objects in the world, not the entities
 
 	// Sets do not preserve order
-	private Set<Entity> entitiesInWorld;
-	private transient BufferedImage[] backgroundLayers;
-	private float[] parallaxScrollRates;
-	private Color bgColor;
-	private BufferedImage backgroundImage;
-	private Location[] possibleSpawnPoints;
-	private Set<WorldRegion> regions;
+	protected Set<Entity> entitiesInWorld;
+	protected BackgroundLayer[] backgroundLayers;
+	protected Color bgColor;
+	protected BufferedImage backgroundImage;
+	protected Location[] possibleSpawnPoints;
+	protected Set<WorldRegion> regions;
 
 	/*
 	 * For the parallax effect, 0 is the farthest back and the highest number is
@@ -68,15 +67,14 @@ public class World extends GameObject implements Serializable {
 	 *            background moves in a 1:1 ratio with the player. A 0.5f rate
 	 *            means it moves in a 1:2 (background:player) ratio.
 	 */
-	public World(int id, int bgLayers, float[] parallaxScrollRates, boolean[] parallaxRepeat, Location[] spawnPoints, Color bgColor, BufferedImage backgroundImage, String worldName) {
+	public World(int id, BackgroundLayer[] bgLayers, Location[] spawnPoints, Color bgColor, BufferedImage backgroundImage, String worldName) {
 		this.id = id;
 		wo = new HashSet<RenderableGameObject>();
 		entitiesInWorld = new HashSet<Entity>();
-		backgroundLayers = new BufferedImage[bgLayers];
+		backgroundLayers = bgLayers;
 		regions = new HashSet<WorldRegion>();
 		this.worldName = worldName;
 		retrieveBackgroundImages();
-		this.parallaxScrollRates = parallaxScrollRates;
 		this.possibleSpawnPoints = spawnPoints;
 		this.bgColor = bgColor;
 		this.backgroundImage = backgroundImage;
@@ -119,7 +117,10 @@ public class World extends GameObject implements Serializable {
 	 * Retrieves background images for the world
 	 */
 	private void retrieveBackgroundImages() {
-		backgroundLayers = ImageLoader.loadWorldBackground(this.worldName);
+		BufferedImage[] backgroundImages = ImageLoader.loadWorldBackground(this.worldName);
+		for(BackgroundLayer bg : backgroundLayers) {
+			bg.setImage(backgroundImages[bg.getLayerNumber()]);
+		}
 	}
 
 	/**
@@ -177,10 +178,10 @@ public class World extends GameObject implements Serializable {
 		for (int i = 0; i < backgroundLayers.length; i++) {
 			if (backgroundLayers == null)
 				return;
-			BufferedImage bi = backgroundLayers[i];
+			BufferedImage bi = backgroundLayers[i].getImage();
 			if (bi == null)
 				continue;
-			float scrollRate = parallaxScrollRates[i];
+			float scrollRate = backgroundLayers[i].getScrollRate();
 			//Attempt to set the width easier
 			int imgX = (int) (hitbox.getBounds().getCenterX() * scrollRate - ((Game.getWidth() / scale) / 2)) + (int) (bi.getWidth() / 2) - (int) (hitbox.getWidth() / 2 * scale);
 			int imgY = (int) (hitbox.getBounds().getCenterY() * scrollRate - ((Game.getHeight() / scale) / 2)) + (int) (bi.getHeight() / 2) - (int) (hitbox.getHeight() / 2 * scale);
@@ -290,7 +291,10 @@ public class World extends GameObject implements Serializable {
 		if (initialized)
 			return;
 		worlds = new ArrayList<World>();
-		World startingWorld = new World(0, 2, new float[] {0.2f,0.3f}, new boolean[] {true,true}, new Location[] {new Location(0,-110)}, Color.black, ImageLoader.loadWorldBackground("starting_world")[0], "starting_world");
+		BackgroundLayer[] bgl = new BackgroundLayer[2];
+		bgl[0] = new BackgroundLayer(0, null, 0.2f, true);
+		bgl[1] = new BackgroundLayer(1, null, 0.3f, true);
+		World startingWorld = new World(0, bgl, new Location[] {new Location(0,-110)}, Color.black, ImageLoader.loadWorldBackground("starting_world")[0], "starting_world");
 		startingWorld.addGameObject(new Box(-1000,10,2000,800, "dark_grass"));
 		
 		
